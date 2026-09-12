@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Pipeline orchestration for the Canadian Economic Intelligence Platform, including Azure Data Factory ingestion, Bronze, Silver, Gold processing, monitoring, and reporting delivery."
+    >
+
+    <title>
+        Pipeline | Canadian Economic Intelligence
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/styles.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/responsive.css"
+    >
+</head>
+
+<body>
+
+    <!-- =========================================================
+         SHARED COMPONENT
+         SECTION: Site header
+         ========================================================= -->
+
+    <header class="site-header">
+
+        <div class="container header-container">
+
+            <a
+                href="../index.html"
+                class="site-brand"
+                aria-label="Canadian Economic Intelligence homepage"
+            >
+                Canadian Economic Intelligence
+            </a>
+
+            <button
+                class="mobile-menu-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-controls="main-navigation"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav
+                class="main-nav"
+                id="main-navigation"
+                aria-label="Main navigation"
+            >
+
+                <a href="../index.html">
+                    Home
+                </a>
+
+                <a href="architecture.html">
+                    Architecture
+                </a>
+
+                <a
+                    href="pipeline.html"
+                    class="active"
+                    aria-current="page"
+                >
+                    Pipeline
+                </a>
+
+                <a href="analytics.html">
+                    Analytics
+                </a>
+
+                <a href="powerbi.html">
+                    Power BI
+                </a>
+
+                <a href="live-demo.html">
+                    Live Demo
+                </a>
+
+                <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub ↗
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- =========================================================
+             PAGE: Pipeline
+             SECTION: Page hero
+             ========================================================= -->
+
+        <section class="inner-page-hero pipeline-page-hero">
+
+            <div class="container">
+
+                <div class="inner-page-hero-content">
+
+                    <p class="eyebrow">
+                        DATA PIPELINE
+                    </p>
+
+                    <h1>
+                        Automated ingestion, transformation, and analytical delivery.
+                    </h1>
+
+                    <p class="inner-page-description">
+                        Azure Data Factory coordinates the movement of official
+                        Canadian economic data through Bronze, Silver, and Gold
+                        processing before curated outputs are delivered to the
+                        reporting and forecasting layers.
+                    </p>
+
+                </div>
+
+
+                <div class="pipeline-summary-strip">
+
+                    <div class="pipeline-summary-item">
+                        <span>Source Datasets</span>
+                        <strong>10 Economic Datasets</strong>
+                    </div>
+
+                    <div class="pipeline-summary-item">
+                        <span>Processing Layers</span>
+                        <strong>Bronze · Silver · Gold</strong>
+                    </div>
+
+                    <div class="pipeline-summary-item">
+                        <span>Automation</span>
+                        <strong>Azure Data Factory</strong>
+                    </div>
+
+                    <div class="pipeline-summary-item">
+                        <span>Schedule</span>
+                        <strong>Monthly Orchestration</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Pipeline
+             SECTION: Interactive pipeline flow
+             ========================================================= -->
+
+        <section class="pipeline-flow-section">
+
+            <div class="container">
+
+                <div class="section-heading pipeline-flow-heading">
+
+                    <p class="eyebrow">
+                        INTERACTIVE PIPELINE
+                    </p>
+
+                    <h2>
+                        Follow the data from source ingestion to analytical delivery.
+                    </h2>
+
+                    <p class="section-description">
+                        Select a stage to see its role, technology, input, output,
+                        and validation responsibilities within the pipeline.
+                    </p>
+
+                </div>
+
+
+                <div class="pipeline-stage-flow">
+
+                    <button
+                        class="pipeline-stage active"
+                        type="button"
+                        data-pipeline-stage="source"
+                        aria-pressed="true"
+                    >
+                        <span class="pipeline-stage-number">
+                            01
+                        </span>
+
+                        <span class="pipeline-stage-label">
+                            Source
+                        </span>
+
+                        <strong>
+                            Official Data
+                        </strong>
+
+                        <small>
+                            APIs · CSV · public datasets
+                        </small>
+                    </button>
+
+
+                    <div
+                        class="pipeline-stage-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <button
+                        class="pipeline-stage"
+                        type="button"
+                        data-pipeline-stage="ingest"
+                        aria-pressed="false"
+                    >
+                        <span class="pipeline-stage-number">
+                            02
+                        </span>
+
+                        <span class="pipeline-stage-label">
+                            Ingest
+                        </span>
+
+                        <strong>
+                            Azure Data Factory
+                        </strong>
+
+                        <small>
+                            Copy activities · orchestration
+                        </small>
+                    </button>
+
+
+                    <div
+                        class="pipeline-stage-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <button
+                        class="pipeline-stage"
+                        type="button"
+                        data-pipeline-stage="bronze"
+                        aria-pressed="false"
+                    >
+                        <span class="pipeline-stage-number">
+                            03
+                        </span>
+
+                        <span class="pipeline-stage-label">
+                            Bronze
+                        </span>
+
+                        <strong>
+                            Raw Data Lake
+                        </strong>
+
+                        <small>
+                            Immutable source history
+                        </small>
+                    </button>
+
+
+                    <div
+                        class="pipeline-stage-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <button
+                        class="pipeline-stage"
+                        type="button"
+                        data-pipeline-stage="silver"
+                        aria-pressed="false"
+                    >
+                        <span class="pipeline-stage-number">
+                            04
+                        </span>
+
+                        <span class="pipeline-stage-label">
+                            Silver
+                        </span>
+
+                        <strong>
+                            Validated Data
+                        </strong>
+
+                        <small>
+                            Cleaning · quality · standardization
+                        </small>
+                    </button>
+
+
+                    <div
+                        class="pipeline-stage-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <button
+                        class="pipeline-stage"
+                        type="button"
+                        data-pipeline-stage="gold"
+                        aria-pressed="false"
+                    >
+                        <span class="pipeline-stage-number">
+                            05
+                        </span>
+
+                        <span class="pipeline-stage-label">
+                            Gold
+                        </span>
+
+                        <strong>
+                            Analytical Models
+                        </strong>
+
+                        <small>
+                            Integration · metrics · features
+                        </small>
+                    </button>
+
+
+                    <div
+                        class="pipeline-stage-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <button
+                        class="pipeline-stage"
+                        type="button"
+                        data-pipeline-stage="serve"
+                        aria-pressed="false"
+                    >
+                        <span class="pipeline-stage-number">
+                            06
+                        </span>
+
+                        <span class="pipeline-stage-label">
+                            Serve
+                        </span>
+
+                        <strong>
+                            SQL &amp; Analytics
+                        </strong>
+
+                        <small>
+                            Reporting · forecasting · dashboards
+                        </small>
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="pipeline-detail-panel"
+                    aria-live="polite"
+                >
+
+                    <div class="pipeline-detail-content">
+
+                        <p class="pipeline-detail-label">
+                            SELECTED STAGE
+                        </p>
+
+                        <h3 id="pipeline-detail-title">
+                            Official Data Sources
+                        </h3>
+
+                        <p id="pipeline-detail-description">
+                            The pipeline begins with official Canadian economic
+                            datasets published by Statistics Canada, the Bank of
+                            Canada, Finance Canada, and CMHC.
+                        </p>
+
+                    </div>
+
+
+                    <div class="pipeline-detail-grid">
+
+                        <div>
+                            <span>Technology</span>
+                            <strong id="pipeline-detail-technology">
+                                Public APIs and official datasets
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Input</span>
+                            <strong id="pipeline-detail-input">
+                                Published economic indicators
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Output</span>
+                            <strong id="pipeline-detail-output">
+                                Source-ready ingestion payloads
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Control</span>
+                            <strong id="pipeline-detail-control">
+                                Source availability and schema checks
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Pipeline
+             SECTION: Orchestration workflow
+             ========================================================= -->
+
+        <section class="pipeline-orchestration-section">
+
+            <div class="container">
+
+                <div class="pipeline-orchestration-layout">
+
+                    <div class="pipeline-orchestration-intro">
+
+                        <p class="eyebrow">
+                            ORCHESTRATION
+                        </p>
+
+                        <h2>
+                            Azure Data Factory coordinates dependencies across the platform.
+                        </h2>
+
+                        <p>
+                            The representative master pipeline executes ingestion
+                            first, then triggers Databricks transformations only
+                            after upstream dependencies succeed.
+                        </p>
+
+                        <p>
+                            Explicit failure branches are included so failed
+                            activities do not silently continue through the
+                            analytical workflow.
+                        </p>
+
+                    </div>
+
+
+                    <div class="pipeline-orchestration-flow">
+
+                        <div class="orchestration-step">
+                            <span>01</span>
+                            <strong>Retail Sales Ingestion</strong>
+                            <small>Statistics Canada → Bronze</small>
+                        </div>
+
+                        <div class="orchestration-step">
+                            <span>02</span>
+                            <strong>USD/CAD Ingestion</strong>
+                            <small>Bank of Canada → Bronze</small>
+                        </div>
+
+                        <div class="orchestration-step">
+                            <span>03</span>
+                            <strong>Silver Processing</strong>
+                            <small>Retail + FX validation</small>
+                        </div>
+
+                        <div class="orchestration-step">
+                            <span>04</span>
+                            <strong>Gold Economic Overview</strong>
+                            <small>Integrated monthly analytics</small>
+                        </div>
+
+                        <div class="orchestration-step">
+                            <span>05</span>
+                            <strong>Forecasting Features</strong>
+                            <small>Model-ready analytical features</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Pipeline
+             SECTION: Azure Data Factory evidence
+             ========================================================= -->
+
+        <section class="pipeline-evidence-section">
+
+            <div class="container">
+
+                <div class="section-heading pipeline-evidence-heading">
+
+                    <p class="eyebrow">
+                        IMPLEMENTATION EVIDENCE
+                    </p>
+
+                    <h2>
+                        Master pipeline orchestration in Azure Data Factory.
+                    </h2>
+
+                    <p class="section-description">
+                        The workflow below shows representative ingestion,
+                        Silver and Gold processing, dependency paths, and
+                        explicit failure handling.
+                    </p>
+
+                </div>
+
+
+                <figure class="pipeline-evidence-figure">
+
+                    <div class="pipeline-image-frame">
+
+                        <img
+                            src="../assets/images/adf-master-pipeline-placeholder.png"
+                            alt="Azure Data Factory master pipeline showing ingestion, Silver processing, Gold processing, and failure handling."
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <figcaption>
+                        Representative Azure Data Factory master pipeline.
+                        This image is retained as implementation evidence and
+                        can be replaced with the final successful-run capture.
+                    </figcaption>
+
+                </figure>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Pipeline
+             SECTION: Data quality and error handling
+             ========================================================= -->
+
+        <section class="pipeline-quality-section">
+
+            <div class="container">
+
+                <div class="section-heading pipeline-quality-heading">
+
+                    <p class="eyebrow">
+                        DATA QUALITY &amp; CONTROL
+                    </p>
+
+                    <h2>
+                        Validation is built into the processing path.
+                    </h2>
+
+                    <p class="section-description">
+                        The pipeline separates ingestion from validation so
+                        source data can be preserved while quality rules are
+                        applied before downstream analytical use.
+                    </p>
+
+                </div>
+
+
+                <div class="pipeline-quality-grid">
+
+                    <article class="pipeline-quality-item">
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            Preserve Raw Data
+                        </h3>
+
+                        <p>
+                            Bronze retains source-aligned data so upstream
+                            changes can be traced and data can be reprocessed.
+                        </p>
+
+                    </article>
+
+
+                    <article class="pipeline-quality-item">
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            Validate in Silver
+                        </h3>
+
+                        <p>
+                            Schema checks, filters, transformations, and
+                            canonical rules are applied before integration.
+                        </p>
+
+                    </article>
+
+
+                    <article class="pipeline-quality-item">
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            Quarantine Invalid Records
+                        </h3>
+
+                        <p>
+                            Invalid observations are isolated rather than
+                            silently removed from the processing workflow.
+                        </p>
+
+                    </article>
+
+
+                    <article class="pipeline-quality-item">
+
+                        <span>
+                            04
+                        </span>
+
+                        <h3>
+                            Stop Failed Dependencies
+                        </h3>
+
+                        <p>
+                            Explicit failure branches prevent downstream Gold
+                            processing from running on incomplete upstream data.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Pipeline
+             SECTION: Automation and monitoring
+             ========================================================= -->
+
+        <section class="pipeline-automation-section">
+
+            <div class="container">
+
+                <div class="pipeline-automation-layout">
+
+                    <div class="pipeline-automation-intro">
+
+                        <p class="eyebrow">
+                            OPERATIONS
+                        </p>
+
+                        <h2>
+                            Scheduling, dependency control, and monitoring support repeatable execution.
+                        </h2>
+
+                        <p>
+                            The platform uses scheduled orchestration and failure
+                            monitoring to move from manual execution toward a
+                            repeatable economic data workflow.
+                        </p>
+
+                    </div>
+
+
+                    <div class="pipeline-operations">
+
+                        <div class="pipeline-operation-row">
+
+                            <span>
+                                Schedule
+                            </span>
+
+                            <strong>
+                                Monthly pipeline execution
+                            </strong>
+
+                            <p>
+                                Designed around recurring economic data refreshes.
+                            </p>
+
+                        </div>
+
+
+                        <div class="pipeline-operation-row">
+
+                            <span>
+                                Dependencies
+                            </span>
+
+                            <strong>
+                                Success-based execution paths
+                            </strong>
+
+                            <p>
+                                Downstream transformations wait for required
+                                upstream activities.
+                            </p>
+
+                        </div>
+
+
+                        <div class="pipeline-operation-row">
+
+                            <span>
+                                Failure Handling
+                            </span>
+
+                            <strong>
+                                Explicit fail activities
+                            </strong>
+
+                            <p>
+                                Failures are surfaced rather than silently ignored.
+                            </p>
+
+                        </div>
+
+
+                        <div class="pipeline-operation-row">
+
+                            <span>
+                                Monitoring
+                            </span>
+
+                            <strong>
+                                Pipeline failure alerting
+                            </strong>
+
+                            <p>
+                                Operational alerts support faster investigation
+                                when orchestration fails.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Pipeline
+             SECTION: Pipeline design principles
+             ========================================================= -->
+
+        <section class="pipeline-principles-section">
+
+            <div class="container">
+
+                <div class="section-heading pipeline-principles-heading">
+
+                    <p class="eyebrow">
+                        PIPELINE PRINCIPLES
+                    </p>
+
+                    <h2>
+                        The workflow is designed for clear ownership and controlled dependencies.
+                    </h2>
+
+                </div>
+
+
+                <div class="pipeline-principles">
+
+                    <article class="pipeline-principle">
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            Separate Ingestion from Transformation
+                        </h3>
+
+                        <p>
+                            Source acquisition remains independent from
+                            downstream business and analytical logic.
+                        </p>
+
+                    </article>
+
+
+                    <article class="pipeline-principle">
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            Preserve Reprocessability
+                        </h3>
+
+                        <p>
+                            Raw source history allows transformations to be
+                            rerun without reacquiring historical data.
+                        </p>
+
+                    </article>
+
+
+                    <article class="pipeline-principle">
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            Make Failures Visible
+                        </h3>
+
+                        <p>
+                            Dependency failures are surfaced explicitly so
+                            incomplete data does not propagate unnoticed.
+                        </p>
+
+                    </article>
+
+
+                    <article class="pipeline-principle">
+
+                        <span>
+                            04
+                        </span>
+
+                        <h3>
+                            Support Incremental Evolution
+                        </h3>
+
+                        <p>
+                            The orchestration pattern can be extended as new
+                            datasets, validations, and analytical outputs are added.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Pipeline
+             SECTION: Next page navigation
+             ========================================================= -->
+
+        <section class="next-page-section">
+
+            <div class="container">
+
+                <div class="next-page-inner">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            NEXT
+                        </p>
+
+                        <h2>
+                            Explore the economic analytics built on top of the pipeline.
+                        </h2>
+
+                        <p>
+                            Continue to the Analytics page to review integrated
+                            indicators, economic themes, forecasting, and
+                            analytical outputs.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="analytics.html"
+                        class="button button-primary"
+                    >
+                        Explore Analytics →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         SHARED COMPONENT
+         SECTION: Site footer
+         ========================================================= -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+
+                    <a
+                        href="../index.html"
+                        class="footer-title"
+                    >
+                        Canadian Economic Intelligence
+                    </a>
+
+                    <p>
+                        An end-to-end Azure data and analytics platform for
+                        Canadian economic intelligence.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-navigation">
+
+                    <div class="footer-group">
+
+                        <span class="footer-heading">
+                            Platform
+                        </span>
+
+                        <a href="architecture.html">
+                            Architecture
+                        </a>
+
+                        <a href="pipeline.html">
+                            Pipeline
+                        </a>
+
+                        <a href="analytics.html">
+                            Analytics
+                        </a>
+
+                    </div>
+
+
+                    <div class="footer-group">
+
+                        <span class="footer-heading">
+                            Explore
+                        </span>
+
+                        <a href="powerbi.html">
+                            Power BI
+                        </a>
+
+                        <a href="live-demo.html">
+                            Live Demo
+                        </a>
+
+                        <a href="about.html">
+                            About
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    Data sources include Statistics Canada, Bank of Canada,
+                    Finance Canada, and CMHC.
+                </p>
+
+                <p>
+                    Canadian Economic Intelligence Platform
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/pipeline.js"></script>
+
+</body>
+</html>

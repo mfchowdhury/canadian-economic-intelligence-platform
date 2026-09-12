@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Architecture of the Canadian Economic Intelligence Platform, including official data sources, Azure ingestion, lakehouse processing, analytical models, Azure SQL, Power BI, and interactive applications."
+    >
+
+    <title>
+        Architecture | Canadian Economic Intelligence
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/styles.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/responsive.css"
+    >
+</head>
+
+<body>
+
+    <!-- ======================================================
+         Site header
+         ====================================================== -->
+
+    <header class="site-header">
+
+        <div class="container header-container">
+
+            <a
+                href="../index.html"
+                class="site-brand"
+                aria-label="Canadian Economic Intelligence homepage"
+            >
+                Canadian Economic Intelligence
+            </a>
+
+            <button
+                class="mobile-menu-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-controls="main-navigation"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav
+                class="main-nav"
+                id="main-navigation"
+                aria-label="Main navigation"
+            >
+
+                <a href="../index.html">
+                    Home
+                </a>
+
+                <a
+                    href="architecture.html"
+                    class="active"
+                    aria-current="page"
+                >
+                    Architecture
+                </a>
+
+                <a href="pipeline.html">
+                    Pipeline
+                </a>
+
+                <a href="analytics.html">
+                    Analytics
+                </a>
+
+                <a href="powerbi.html">
+                    Power BI
+                </a>
+
+                <a href="live-demo.html">
+                    Live Demo
+                </a>
+
+                <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub ↗
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- ======================================================
+             Architecture page hero
+             ====================================================== -->
+
+        <section class="inner-page-hero architecture-page-hero">
+
+            <div class="container">
+
+                <div class="inner-page-hero-content">
+
+                    <p class="eyebrow">
+                        PLATFORM ARCHITECTURE
+                    </p>
+
+                    <h1>
+                        From official Canadian data to decision-ready intelligence.
+                    </h1>
+
+                    <p class="inner-page-description">
+                        The platform integrates public economic data through
+                        automated ingestion, lakehouse processing, analytical
+                        modeling, relational serving, forecasting, and
+                        interactive reporting.
+                    </p>
+
+                </div>
+
+                <div class="architecture-summary-strip">
+
+                    <div class="architecture-summary-item">
+                        <span>Sources</span>
+                        <strong>4+ Official Providers</strong>
+                    </div>
+
+                    <div class="architecture-summary-item">
+                        <span>Datasets</span>
+                        <strong>10 Economic Series</strong>
+                    </div>
+
+                    <div class="architecture-summary-item">
+                        <span>Gold Models</span>
+                        <strong>5 Analytical Outputs</strong>
+                    </div>
+
+                    <div class="architecture-summary-item">
+                        <span>SQL Layer</span>
+                        <strong>12 Reporting Tables</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             End-to-end architecture
+             ====================================================== -->
+
+        <section class="architecture-system-section">
+
+            <div class="container">
+
+                <div class="section-heading architecture-system-heading">
+
+                    <p class="eyebrow">
+                        END-TO-END DESIGN
+                    </p>
+
+                    <h2>
+                        A layered architecture designed for reliability,
+                        traceability, and analytical reuse.
+                    </h2>
+
+                    <p class="section-description">
+                        Each layer has a defined responsibility, from preserving
+                        raw source history to delivering curated datasets for
+                        dashboards, forecasting, and interactive applications.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="architecture-system"
+                    data-architecture-system
+                >
+
+                    <button
+                        class="architecture-stage active"
+                        type="button"
+                        data-stage="sources"
+                        aria-pressed="true"
+                    >
+                        <span class="architecture-stage-number">
+                            01
+                        </span>
+
+                        <span class="architecture-stage-label">
+                            Sources
+                        </span>
+
+                        <strong>
+                            Official Data
+                        </strong>
+
+                        <small>
+                            StatCan · BoC · Finance Canada · CMHC
+                        </small>
+                    </button>
+
+
+                    <div
+                        class="architecture-system-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <button
+                        class="architecture-stage"
+                        type="button"
+                        data-stage="ingestion"
+                        aria-pressed="false"
+                    >
+                        <span class="architecture-stage-number">
+                            02
+                        </span>
+
+                        <span class="architecture-stage-label">
+                            Ingestion
+                        </span>
+
+                        <strong>
+                            Azure Data Factory
+                        </strong>
+
+                        <small>
+                            Pipelines · Scheduling · Monitoring
+                        </small>
+                    </button>
+
+
+                    <div
+                        class="architecture-system-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <button
+                        class="architecture-stage"
+                        type="button"
+                        data-stage="lakehouse"
+                        aria-pressed="false"
+                    >
+                        <span class="architecture-stage-number">
+                            03
+                        </span>
+
+                        <span class="architecture-stage-label">
+                            Lakehouse
+                        </span>
+
+                        <strong>
+                            Bronze · Silver · Gold
+                        </strong>
+
+                        <small>
+                            ADLS Gen2 · Azure Databricks
+                        </small>
+                    </button>
+
+
+                    <div
+                        class="architecture-system-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <button
+                        class="architecture-stage"
+                        type="button"
+                        data-stage="serving"
+                        aria-pressed="false"
+                    >
+                        <span class="architecture-stage-number">
+                            04
+                        </span>
+
+                        <span class="architecture-stage-label">
+                            Serving
+                        </span>
+
+                        <strong>
+                            Azure SQL
+                        </strong>
+
+                        <small>
+                            Reporting-ready analytical tables
+                        </small>
+                    </button>
+
+
+                    <div
+                        class="architecture-system-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <button
+                        class="architecture-stage"
+                        type="button"
+                        data-stage="delivery"
+                        aria-pressed="false"
+                    >
+                        <span class="architecture-stage-number">
+                            05
+                        </span>
+
+                        <span class="architecture-stage-label">
+                            Decision Layer
+                        </span>
+
+                        <strong>
+                            Power BI &amp; Streamlit
+                        </strong>
+
+                        <small>
+                            Analytics · Forecasting · Exploration
+                        </small>
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="architecture-detail-panel"
+                    aria-live="polite"
+                >
+
+                    <div class="architecture-detail-content">
+
+                        <p class="architecture-detail-label">
+                            SELECTED STAGE
+                        </p>
+
+                        <h3 id="architecture-detail-title">
+                            Official Data Sources
+                        </h3>
+
+                        <p id="architecture-detail-description">
+                            The platform begins with public Canadian economic
+                            data published by Statistics Canada, the Bank of
+                            Canada, Finance Canada, and CMHC.
+                        </p>
+
+                    </div>
+
+
+                    <div class="architecture-detail-grid">
+
+                        <div>
+                            <span>Technology</span>
+                            <strong id="architecture-detail-technology">
+                                Public APIs and official datasets
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Input</span>
+                            <strong id="architecture-detail-input">
+                                Published economic indicators
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Output</span>
+                            <strong id="architecture-detail-output">
+                                Source-aligned raw datasets
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Primary Role</span>
+                            <strong id="architecture-detail-role">
+                                Authoritative economic data
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             Medallion architecture
+             ====================================================== -->
+
+        <section class="medallion-section">
+
+            <div class="container">
+
+                <div class="section-heading medallion-heading">
+
+                    <p class="eyebrow">
+                        LAKEHOUSE DESIGN
+                    </p>
+
+                    <h2>
+                        Bronze, Silver, and Gold separate raw history
+                        from validated and analytical data.
+                    </h2>
+
+                    <p class="section-description">
+                        The medallion architecture provides clear data ownership,
+                        supports reproducibility, and prevents analytical logic
+                        from being mixed with raw ingestion.
+                    </p>
+
+                </div>
+
+
+                <div class="medallion-flow">
+
+                    <article class="medallion-layer bronze-layer">
+
+                        <span class="medallion-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Bronze
+                        </h3>
+
+                        <p>
+                            Immutable raw data is preserved in its original
+                            source-aligned structure for traceability and
+                            reprocessing.
+                        </p>
+
+                        <ul>
+                            <li>Raw source history</li>
+                            <li>Minimal transformation</li>
+                            <li>Original source structure</li>
+                            <li>Replay and audit support</li>
+                        </ul>
+
+                    </article>
+
+
+                    <div
+                        class="medallion-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <article class="medallion-layer silver-layer">
+
+                        <span class="medallion-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Silver
+                        </h3>
+
+                        <p>
+                            Source datasets are validated, standardized,
+                            cleaned, and prepared for consistent downstream
+                            integration.
+                        </p>
+
+                        <ul>
+                            <li>Schema validation</li>
+                            <li>Canonical transformations</li>
+                            <li>Business-rule checks</li>
+                            <li>Quarantine handling</li>
+                        </ul>
+
+                    </article>
+
+
+                    <div
+                        class="medallion-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <article class="medallion-layer gold-layer">
+
+                        <span class="medallion-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Gold
+                        </h3>
+
+                        <p>
+                            Validated indicators are aligned by analytical
+                            purpose and transformed into reusable economic
+                            intelligence datasets.
+                        </p>
+
+                        <ul>
+                            <li>Economic overview</li>
+                            <li>Regional analysis</li>
+                            <li>Industry analysis</li>
+                            <li>Fiscal and affordability analysis</li>
+                            <li>Forecasting features</li>
+                        </ul>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             Analytical architecture
+             ====================================================== -->
+
+        <section class="analytical-architecture-section">
+
+            <div class="container">
+
+                <div class="analytical-architecture-layout">
+
+                    <div class="analytical-architecture-intro">
+
+                        <p class="eyebrow">
+                            ANALYTICAL LAYER
+                        </p>
+
+                        <h2>
+                            Economic indicators are aligned by frequency,
+                            geography, and analytical purpose.
+                        </h2>
+
+                        <p>
+                            Economic data arrives at different frequencies and
+                            levels of detail. The Gold layer standardizes these
+                            differences so the datasets can support integrated
+                            analysis without changing the original source data.
+                        </p>
+
+                    </div>
+
+
+                    <div class="alignment-rules">
+
+                        <div class="alignment-rule">
+
+                            <span class="alignment-rule-label">
+                                Monthly Indicators
+                            </span>
+
+                            <strong>
+                                CPI, labour, retail sales, GDP
+                            </strong>
+
+                            <p>
+                                Preserved at monthly analytical grain where
+                                available.
+                            </p>
+
+                        </div>
+
+
+                        <div class="alignment-rule">
+
+                            <span class="alignment-rule-label">
+                                Daily Indicators
+                            </span>
+
+                            <strong>
+                                USD/CAD exchange rate
+                            </strong>
+
+                            <p>
+                                Aggregated to monthly measures for integrated
+                                economic analysis.
+                            </p>
+
+                        </div>
+
+
+                        <div class="alignment-rule">
+
+                            <span class="alignment-rule-label">
+                                Policy Indicators
+                            </span>
+
+                            <strong>
+                                Bank of Canada policy rate
+                            </strong>
+
+                            <p>
+                                Aligned using period-end values where appropriate.
+                            </p>
+
+                        </div>
+
+
+                        <div class="alignment-rule">
+
+                            <span class="alignment-rule-label">
+                                Lower-Frequency Data
+                            </span>
+
+                            <strong>
+                                Population and fiscal indicators
+                            </strong>
+
+                            <p>
+                                Integrated according to their published
+                                reporting frequency and analytical use.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             Serving and consumption layer
+             ====================================================== -->
+
+        <section class="serving-layer-section">
+
+            <div class="container">
+
+                <div class="section-heading serving-layer-heading">
+
+                    <p class="eyebrow">
+                        SERVING LAYER
+                    </p>
+
+                    <h2>
+                        Curated outputs are separated from analytical
+                        applications.
+                    </h2>
+
+                    <p class="section-description">
+                        Azure SQL provides a stable reporting interface between
+                        analytical processing and downstream visualization tools.
+                    </p>
+
+                </div>
+
+
+                <div class="serving-flow">
+
+                    <div class="serving-source">
+
+                        <span>
+                            Gold Data Models
+                        </span>
+
+                        <strong>
+                            Databricks
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="serving-connector"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <div class="serving-database">
+
+                        <span>
+                            Reporting Layer
+                        </span>
+
+                        <strong>
+                            Azure SQL
+                        </strong>
+
+                        <small>
+                            12 curated tables
+                        </small>
+
+                    </div>
+
+
+                    <div
+                        class="serving-connector"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <div class="serving-consumers">
+
+                        <div>
+                            <span>
+                                Business Intelligence
+                            </span>
+
+                            <strong>
+                                Power BI
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                Interactive Analysis
+                            </span>
+
+                            <strong>
+                                Streamlit
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                Forecasting
+                            </span>
+
+                            <strong>
+                                Python / ML
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             Architecture design principles
+             ====================================================== -->
+
+        <section class="architecture-principles-section">
+
+            <div class="container">
+
+                <div class="section-heading architecture-principles-heading">
+
+                    <p class="eyebrow">
+                        DESIGN PRINCIPLES
+                    </p>
+
+                    <h2>
+                        Architecture decisions prioritize maintainability,
+                        validation, and analytical clarity.
+                    </h2>
+
+                </div>
+
+
+                <div class="architecture-principles">
+
+                    <article class="architecture-principle">
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            Preserve Raw History
+                        </h3>
+
+                        <p>
+                            Bronze datasets remain source-aligned so upstream
+                            changes can be investigated and transformations
+                            can be reproduced.
+                        </p>
+
+                    </article>
+
+
+                    <article class="architecture-principle">
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            Validate Before Integration
+                        </h3>
+
+                        <p>
+                            Silver processing applies validation and quality
+                            rules before data enters analytical models.
+                        </p>
+
+                    </article>
+
+
+                    <article class="architecture-principle">
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            Separate Processing from Serving
+                        </h3>
+
+                        <p>
+                            Databricks performs analytical transformation while
+                            Azure SQL provides a stable interface for reporting.
+                        </p>
+
+                    </article>
+
+
+                    <article class="architecture-principle">
+
+                        <span>
+                            04
+                        </span>
+
+                        <h3>
+                            Build Reusable Analytical Models
+                        </h3>
+
+                        <p>
+                            Gold datasets are organized by economic question
+                            rather than by source system alone.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             Next page
+             ====================================================== -->
+
+        <section class="next-page-section">
+
+            <div class="container">
+
+                <div class="next-page-inner">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            NEXT
+                        </p>
+
+                        <h2>
+                            See how the platform is orchestrated.
+                        </h2>
+
+                        <p>
+                            Continue to the Pipeline page to explore ingestion,
+                            transformation, dependency handling, monitoring,
+                            and the automated Azure Data Factory workflow.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="pipeline.html"
+                        class="button button-primary"
+                    >
+                        Explore the Pipeline →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ======================================================
+         Site footer
+         ====================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+
+                    <a
+                        href="../index.html"
+                        class="footer-title"
+                    >
+                        Canadian Economic Intelligence
+                    </a>
+
+                    <p>
+                        An end-to-end Azure data and analytics platform for
+                        Canadian economic intelligence.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-navigation">
+
+                    <div class="footer-group">
+
+                        <span class="footer-heading">
+                            Platform
+                        </span>
+
+                        <a href="architecture.html">
+                            Architecture
+                        </a>
+
+                        <a href="pipeline.html">
+                            Pipeline
+                        </a>
+
+                        <a href="analytics.html">
+                            Analytics
+                        </a>
+
+                    </div>
+
+
+                    <div class="footer-group">
+
+                        <span class="footer-heading">
+                            Explore
+                        </span>
+
+                        <a href="powerbi.html">
+                            Power BI
+                        </a>
+
+                        <a href="live-demo.html">
+                            Live Demo
+                        </a>
+
+                        <a href="about.html">
+                            About
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    Data sources include Statistics Canada, Bank of Canada,
+                    Finance Canada, and CMHC.
+                </p>
+
+                <p>
+                    Canadian Economic Intelligence Platform
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/architecture.js"></script>
+
+</body>
+</html>

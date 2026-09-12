@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Economic analytics and forecasting from the Canadian Economic Intelligence Platform, including growth, inflation, labour markets, housing, population, monetary policy, productivity, and retail sales forecasting."
+    >
+
+    <title>
+        Analytics | Canadian Economic Intelligence
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/styles.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/responsive.css"
+    >
+</head>
+
+<body>
+
+    <!-- =========================================================
+         SHARED COMPONENT
+         SECTION: Site header
+         ========================================================= -->
+
+    <header class="site-header">
+
+        <div class="container header-container">
+
+            <a
+                href="../index.html"
+                class="site-brand"
+                aria-label="Canadian Economic Intelligence homepage"
+            >
+                Canadian Economic Intelligence
+            </a>
+
+            <button
+                class="mobile-menu-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-controls="main-navigation"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav
+                class="main-nav"
+                id="main-navigation"
+                aria-label="Main navigation"
+            >
+
+                <a href="../index.html">
+                    Home
+                </a>
+
+                <a href="architecture.html">
+                    Architecture
+                </a>
+
+                <a href="pipeline.html">
+                    Pipeline
+                </a>
+
+                <a
+                    href="analytics.html"
+                    class="active"
+                    aria-current="page"
+                >
+                    Analytics
+                </a>
+
+                <a href="powerbi.html">
+                    Power BI
+                </a>
+
+                <a href="live-demo.html">
+                    Live Demo
+                </a>
+
+                <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub ↗
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- =========================================================
+             PAGE: Analytics
+             SECTION: Page hero
+             ========================================================= -->
+
+        <section class="inner-page-hero analytics-page-hero">
+
+            <div class="container">
+
+                <div class="inner-page-hero-content">
+
+                    <p class="eyebrow">
+                        ECONOMIC ANALYTICS
+                    </p>
+
+                    <h1>
+                        Connecting economic indicators into a unified analytical view.
+                    </h1>
+
+                    <p class="inner-page-description">
+                        The analytical layer brings together Canadian economic
+                        indicators across consumption, prices, labour markets,
+                        housing, population, monetary policy, productivity,
+                        and external conditions.
+                    </p>
+
+                </div>
+
+
+                <div class="analytics-summary-strip">
+
+                    <div class="analytics-summary-item">
+                        <span>Economic Data</span>
+                        <strong>10 Datasets</strong>
+                    </div>
+
+                    <div class="analytics-summary-item">
+                        <span>Gold Layer</span>
+                        <strong>5 Analytical Models</strong>
+                    </div>
+
+                    <div class="analytics-summary-item">
+                        <span>Forecasting</span>
+                        <strong>5 Models Compared</strong>
+                    </div>
+
+                    <div class="analytics-summary-item">
+                        <span>Reporting</span>
+                        <strong>12 SQL Tables</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Analytics
+             SECTION: Economic themes
+             ========================================================= -->
+
+        <section class="economic-themes-section">
+
+            <div class="container">
+
+                <div class="section-heading economic-themes-heading">
+
+                    <p class="eyebrow">
+                        ANALYTICAL FRAMEWORK
+                    </p>
+
+                    <h2>
+                        Indicators are organized around economic questions,
+                        not source systems.
+                    </h2>
+
+                    <p class="section-description">
+                        The analytical layer groups official datasets into
+                        economic themes so related indicators can be interpreted
+                        together rather than reviewed independently.
+                    </p>
+
+                </div>
+
+
+                <div class="economic-theme-list">
+
+                    <article class="economic-theme">
+
+                        <div class="economic-theme-number">
+                            01
+                        </div>
+
+                        <div class="economic-theme-title">
+                            <span>Growth &amp; Consumption</span>
+                            <h3>Economic activity and household demand</h3>
+                        </div>
+
+                        <div class="economic-theme-indicators">
+                            <span>GDP by Industry</span>
+                            <span>Retail Sales</span>
+                        </div>
+
+                    </article>
+
+
+                    <article class="economic-theme">
+
+                        <div class="economic-theme-number">
+                            02
+                        </div>
+
+                        <div class="economic-theme-title">
+                            <span>Prices &amp; Monetary Policy</span>
+                            <h3>Inflation conditions and policy response</h3>
+                        </div>
+
+                        <div class="economic-theme-indicators">
+                            <span>Consumer Price Index</span>
+                            <span>BoC Policy Rate</span>
+                        </div>
+
+                    </article>
+
+
+                    <article class="economic-theme">
+
+                        <div class="economic-theme-number">
+                            03
+                        </div>
+
+                        <div class="economic-theme-title">
+                            <span>Labour Market</span>
+                            <h3>Employment conditions across Canada</h3>
+                        </div>
+
+                        <div class="economic-theme-indicators">
+                            <span>Employment</span>
+                            <span>Unemployment</span>
+                            <span>Provincial Labour Data</span>
+                        </div>
+
+                    </article>
+
+
+                    <article class="economic-theme">
+
+                        <div class="economic-theme-number">
+                            04
+                        </div>
+
+                        <div class="economic-theme-title">
+                            <span>Housing &amp; Population</span>
+                            <h3>Demographic demand and housing supply</h3>
+                        </div>
+
+                        <div class="economic-theme-indicators">
+                            <span>Population Estimates</span>
+                            <span>Housing Starts</span>
+                        </div>
+
+                    </article>
+
+
+                    <article class="economic-theme">
+
+                        <div class="economic-theme-number">
+                            05
+                        </div>
+
+                        <div class="economic-theme-title">
+                            <span>External Conditions &amp; Productivity</span>
+                            <h3>Currency movements and productive capacity</h3>
+                        </div>
+
+                        <div class="economic-theme-indicators">
+                            <span>USD/CAD</span>
+                            <span>Labour Productivity</span>
+                        </div>
+
+                    </article>
+
+
+                    <article class="economic-theme">
+
+                        <div class="economic-theme-number">
+                            06
+                        </div>
+
+                        <div class="economic-theme-title">
+                            <span>Fiscal Conditions</span>
+                            <h3>Government fiscal context and affordability</h3>
+                        </div>
+
+                        <div class="economic-theme-indicators">
+                            <span>Federal Fiscal Data</span>
+                            <span>Affordability Analysis</span>
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Analytics
+             SECTION: Economic explorer
+             ========================================================= -->
+
+        <section class="economic-explorer-section">
+
+            <div class="container">
+
+                <div class="section-heading economic-explorer-heading">
+
+                    <p class="eyebrow">
+                        INTERACTIVE ECONOMIC EXPLORER
+                    </p>
+
+                    <h2>
+                        Explore the analytical role of each economic theme.
+                    </h2>
+
+                    <p class="section-description">
+                        Select a theme to see how its indicators contribute to
+                        the platform's integrated economic analysis.
+                    </p>
+
+                </div>
+
+
+                <div class="economic-explorer">
+
+                    <div
+                        class="economic-explorer-tabs"
+                        role="tablist"
+                        aria-label="Economic themes"
+                    >
+
+                        <button
+                            class="economic-explorer-tab active"
+                            type="button"
+                            data-economic-theme="growth"
+                            aria-pressed="true"
+                        >
+                            Growth
+                        </button>
+
+                        <button
+                            class="economic-explorer-tab"
+                            type="button"
+                            data-economic-theme="prices"
+                            aria-pressed="false"
+                        >
+                            Prices
+                        </button>
+
+                        <button
+                            class="economic-explorer-tab"
+                            type="button"
+                            data-economic-theme="labour"
+                            aria-pressed="false"
+                        >
+                            Labour
+                        </button>
+
+                        <button
+                            class="economic-explorer-tab"
+                            type="button"
+                            data-economic-theme="housing"
+                            aria-pressed="false"
+                        >
+                            Housing
+                        </button>
+
+                        <button
+                            class="economic-explorer-tab"
+                            type="button"
+                            data-economic-theme="external"
+                            aria-pressed="false"
+                        >
+                            External
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="economic-explorer-panel"
+                        aria-live="polite"
+                    >
+
+                        <div class="economic-explorer-content">
+
+                            <p class="economic-explorer-label">
+                                SELECTED THEME
+                            </p>
+
+                            <h3 id="economic-theme-title">
+                                Growth &amp; Consumption
+                            </h3>
+
+                            <p id="economic-theme-description">
+                                GDP by industry and retail sales provide
+                                complementary views of economic activity,
+                                production, and household consumption.
+                            </p>
+
+                        </div>
+
+
+                        <div class="economic-explorer-details">
+
+                            <div>
+                                <span>Indicators</span>
+                                <strong id="economic-theme-indicators">
+                                    GDP by Industry · Retail Sales
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Primary Grain</span>
+                                <strong id="economic-theme-grain">
+                                    Monthly
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Analytical Use</span>
+                                <strong id="economic-theme-use">
+                                    Growth and consumption monitoring
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Gold Output</span>
+                                <strong id="economic-theme-output">
+                                    Economic Overview · Industry Analysis
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Analytics
+             SECTION: Gold analytical models
+             ========================================================= -->
+
+        <section class="gold-analytics-section">
+
+            <div class="container">
+
+                <div class="gold-analytics-layout">
+
+                    <div class="gold-analytics-intro">
+
+                        <p class="eyebrow">
+                            GOLD ANALYTICAL LAYER
+                        </p>
+
+                        <h2>
+                            Five analytical models convert validated data into
+                            reusable economic intelligence.
+                        </h2>
+
+                        <p>
+                            Gold datasets are organized around analytical
+                            purposes rather than individual source systems,
+                            allowing multiple indicators to support the same
+                            economic question.
+                        </p>
+
+                    </div>
+
+
+                    <div class="gold-model-list">
+
+                        <div class="gold-model-row">
+                            <span>01</span>
+
+                            <div>
+                                <strong>Economic Overview</strong>
+                                <p>
+                                    Integrated macroeconomic indicators aligned
+                                    primarily to monthly analysis.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="gold-model-row">
+                            <span>02</span>
+
+                            <div>
+                                <strong>Regional Analysis</strong>
+                                <p>
+                                    Provincial and regional indicators prepared
+                                    for geographic comparison.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="gold-model-row">
+                            <span>03</span>
+
+                            <div>
+                                <strong>Industry Analysis</strong>
+                                <p>
+                                    GDP, retail, and productivity measures
+                                    organized for industry-level analysis.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="gold-model-row">
+                            <span>04</span>
+
+                            <div>
+                                <strong>Fiscal &amp; Affordability</strong>
+                                <p>
+                                    Fiscal indicators combined with economic
+                                    measures for affordability analysis.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="gold-model-row">
+                            <span>05</span>
+
+                            <div>
+                                <strong>Forecasting Features</strong>
+                                <p>
+                                    Model-ready features designed for retail
+                                    sales forecasting and evaluation.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Analytics
+             SECTION: Retail sales forecasting
+             ========================================================= -->
+
+        <section class="forecasting-section">
+
+            <div class="container">
+
+                <div class="section-heading forecasting-heading">
+
+                    <p class="eyebrow">
+                        RETAIL SALES FORECASTING
+                    </p>
+
+                    <h2>
+                        Multiple forecasting approaches were evaluated against
+                        a common holdout period.
+                    </h2>
+
+                    <p class="section-description">
+                        Five models were compared using out-of-sample error
+                        metrics. Seasonal Naive produced the lowest validation
+                        RMSE and was selected for the final one-month forecast.
+                    </p>
+
+                </div>
+
+
+                <div class="forecast-results">
+
+                    <div class="forecast-primary-result">
+
+                        <span class="forecast-result-label">
+                            JULY 2026 FORECAST
+                        </span>
+
+                        <strong>
+                            $70.13B
+                        </strong>
+
+                        <p>
+                            Retail sales
+                        </p>
+
+                    </div>
+
+
+                    <div class="forecast-metric">
+
+                        <span>
+                            Selected Model
+                        </span>
+
+                        <strong>
+                            Seasonal Naive
+                        </strong>
+
+                    </div>
+
+
+                    <div class="forecast-metric">
+
+                        <span>
+                            Holdout MAE
+                        </span>
+
+                        <strong>
+                            ≈ $2.27B
+                        </strong>
+
+                    </div>
+
+
+                    <div class="forecast-metric">
+
+                        <span>
+                            Holdout RMSE
+                        </span>
+
+                        <strong>
+                            ≈ $2.52B
+                        </strong>
+
+                    </div>
+
+
+                    <div class="forecast-metric">
+
+                        <span>
+                            Forecast Horizon
+                        </span>
+
+                        <strong>
+                            1 Month
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="forecast-analysis-layout">
+
+                    <div class="forecast-models">
+
+                        <p class="forecast-panel-label">
+                            MODELS EVALUATED
+                        </p>
+
+                        <div class="forecast-model-row">
+                            <span>01</span>
+                            <strong>Seasonal Naive</strong>
+                            <small>Selected model</small>
+                        </div>
+
+                        <div class="forecast-model-row">
+                            <span>02</span>
+                            <strong>ETS</strong>
+                            <small>Time-series benchmark</small>
+                        </div>
+
+                        <div class="forecast-model-row">
+                            <span>03</span>
+                            <strong>Linear Regression</strong>
+                            <small>Regression benchmark</small>
+                        </div>
+
+                        <div class="forecast-model-row">
+                            <span>04</span>
+                            <strong>Random Forest</strong>
+                            <small>Ensemble model</small>
+                        </div>
+
+                        <div class="forecast-model-row">
+                            <span>05</span>
+                            <strong>Gradient Boosting</strong>
+                            <small>Boosted ensemble model</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="forecast-methodology">
+
+                        <p class="forecast-panel-label">
+                            MODEL SELECTION
+                        </p>
+
+                        <h3>
+                            Validation performance determines the final model.
+                        </h3>
+
+                        <p>
+                            Candidate models were evaluated against a holdout
+                            period using MAE and RMSE. The final model was
+                            selected using the lowest validation RMSE rather
+                            than choosing a model based on complexity.
+                        </p>
+
+                        <div class="forecast-selection-flow">
+
+                            <span>Historical Data</span>
+                            <span aria-hidden="true">→</span>
+                            <span>Validation</span>
+                            <span aria-hidden="true">→</span>
+                            <span>Model Comparison</span>
+                            <span aria-hidden="true">→</span>
+                            <span>Final Forecast</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Analytics
+             SECTION: Analytical serving
+             ========================================================= -->
+
+        <section class="analytics-serving-section">
+
+            <div class="container">
+
+                <div class="analytics-serving-layout">
+
+                    <div class="analytics-serving-intro">
+
+                        <p class="eyebrow">
+                            ANALYTICAL SERVING
+                        </p>
+
+                        <h2>
+                            Gold outputs are exposed through a curated SQL
+                            reporting layer.
+                        </h2>
+
+                        <p>
+                            Twelve reporting tables separate analytical
+                            processing from downstream visualization and
+                            application consumption.
+                        </p>
+
+                    </div>
+
+
+                    <div class="analytics-serving-groups">
+
+                        <div class="analytics-serving-group">
+
+                            <span>
+                                Macro &amp; Regional
+                            </span>
+
+                            <p>
+                                economic_overview
+                            </p>
+
+                            <p>
+                                regional_analysis_monthly
+                            </p>
+
+                        </div>
+
+
+                        <div class="analytics-serving-group">
+
+                            <span>
+                                Industry
+                            </span>
+
+                            <p>
+                                industry_gdp_monthly
+                            </p>
+
+                            <p>
+                                industry_retail_monthly
+                            </p>
+
+                            <p>
+                                industry_productivity_annual
+                            </p>
+
+                        </div>
+
+
+                        <div class="analytics-serving-group">
+
+                            <span>
+                                Fiscal &amp; Affordability
+                            </span>
+
+                            <p>
+                                affordability_monthly
+                            </p>
+
+                            <p>
+                                federal_fiscal_annual
+                            </p>
+
+                            <p>
+                                ontario_fiscal_annual
+                            </p>
+
+                        </div>
+
+
+                        <div class="analytics-serving-group">
+
+                            <span>
+                                Forecasting
+                            </span>
+
+                            <p>
+                                retail_model_metrics
+                            </p>
+
+                            <p>
+                                retail_holdout_predictions
+                            </p>
+
+                            <p>
+                                retail_model_metadata
+                            </p>
+
+                            <p>
+                                retail_forecasts
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Analytics
+             SECTION: Analytical principles
+             ========================================================= -->
+
+        <section class="analytics-principles-section">
+
+            <div class="container">
+
+                <div class="section-heading analytics-principles-heading">
+
+                    <p class="eyebrow">
+                        ANALYTICAL PRINCIPLES
+                    </p>
+
+                    <h2>
+                        Economic interpretation begins with consistent data design.
+                    </h2>
+
+                </div>
+
+
+                <div class="analytics-principles">
+
+                    <article class="analytics-principle">
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            Align Frequencies
+                        </h3>
+
+                        <p>
+                            Indicators with different publication frequencies
+                            are aligned according to analytical purpose.
+                        </p>
+
+                    </article>
+
+
+                    <article class="analytics-principle">
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            Preserve Economic Meaning
+                        </h3>
+
+                        <p>
+                            Transformations retain the meaning and grain of
+                            official source indicators.
+                        </p>
+
+                    </article>
+
+
+                    <article class="analytics-principle">
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            Evaluate Out of Sample
+                        </h3>
+
+                        <p>
+                            Forecast models are compared using holdout
+                            performance rather than training fit alone.
+                        </p>
+
+                    </article>
+
+
+                    <article class="analytics-principle">
+
+                        <span>
+                            04
+                        </span>
+
+                        <h3>
+                            Separate Analysis from Presentation
+                        </h3>
+
+                        <p>
+                            Analytical logic is created upstream and served to
+                            reporting applications through curated datasets.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Analytics
+             SECTION: Next page navigation
+             ========================================================= -->
+
+        <section class="next-page-section">
+
+            <div class="container">
+
+                <div class="next-page-inner">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            NEXT
+                        </p>
+
+                        <h2>
+                            See the analytical outputs in Power BI.
+                        </h2>
+
+                        <p>
+                            Continue to the Power BI page to explore the
+                            five-page economic intelligence dashboard.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="powerbi.html"
+                        class="button button-primary"
+                    >
+                        Explore Power BI →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         SHARED COMPONENT
+         SECTION: Site footer
+         ========================================================= -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+
+                    <a
+                        href="../index.html"
+                        class="footer-title"
+                    >
+                        Canadian Economic Intelligence
+                    </a>
+
+                    <p>
+                        An end-to-end Azure data and analytics platform for
+                        Canadian economic intelligence.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-navigation">
+
+                    <div class="footer-group">
+
+                        <span class="footer-heading">
+                            Platform
+                        </span>
+
+                        <a href="architecture.html">
+                            Architecture
+                        </a>
+
+                        <a href="pipeline.html">
+                            Pipeline
+                        </a>
+
+                        <a href="analytics.html">
+                            Analytics
+                        </a>
+
+                    </div>
+
+
+                    <div class="footer-group">
+
+                        <span class="footer-heading">
+                            Explore
+                        </span>
+
+                        <a href="powerbi.html">
+                            Power BI
+                        </a>
+
+                        <a href="live-demo.html">
+                            Live Demo
+                        </a>
+
+                        <a href="about.html">
+                            About
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    Data sources include Statistics Canada, Bank of Canada,
+                    Finance Canada, and CMHC.
+                </p>
+
+                <p>
+                    Canadian Economic Intelligence Platform
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/analytics.js"></script>
+
+</body>
+</html>

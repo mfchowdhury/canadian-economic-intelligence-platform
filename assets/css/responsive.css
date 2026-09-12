@@ -1,0 +1,985 @@
+/* =========================================================
+   Canadian Economic Intelligence Platform
+   Responsive layout
+   ========================================================= */
+
+
+/* ---------- Tablet and smaller desktop screens ---------- */
+
+@media (max-width: 1050px) {
+
+    .nav-container {
+        gap: 20px;
+    }
+
+    .main-nav {
+        gap: 14px;
+    }
+
+    .main-nav a {
+        font-size: 0.84rem;
+    }
+
+    .hero-container {
+        grid-template-columns:
+            minmax(0, 1.1fr)
+            minmax(280px, 0.9fr);
+
+        gap: 48px;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.5rem, 5vw, 3.7rem);
+    }
+
+
+    /* ---------- Architecture preview ---------- */
+
+    .architecture-flow {
+        grid-template-columns:
+            minmax(160px, 1fr)
+            auto
+            minmax(170px, 1fr)
+            auto
+            minmax(200px, 1fr);
+    }
+
+    .architecture-flow .architecture-node:nth-of-type(4),
+    .architecture-flow .architecture-node:nth-of-type(5) {
+        margin-top: 14px;
+    }
+
+
+    /* =========================================================
+       PAGE: Pipeline
+       RESPONSIVE: Large tablet
+       ========================================================= */
+
+    .pipeline-stage-flow {
+        grid-template-columns:
+            minmax(140px, 1fr)
+            auto
+            minmax(140px, 1fr)
+            auto
+            minmax(140px, 1fr);
+    }
+
+    .pipeline-quality-grid,
+    .pipeline-principles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pipeline-quality-item:nth-child(2),
+    .pipeline-principle:nth-child(2) {
+        border-right: 0;
+    }
+
+    .pipeline-quality-item:nth-child(-n + 2),
+    .pipeline-principle:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+        /* =========================================================
+       PAGE: Analytics
+       RESPONSIVE: Large tablet
+       ========================================================= */
+
+    .forecast-results {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .forecast-primary-result,
+    .forecast-metric {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .analytics-principles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .analytics-principle:nth-child(2) {
+        border-right: 0;
+    }
+
+    .analytics-principle:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+        /* =========================================================
+       PAGE: Power BI
+       RESPONSIVE: Large tablet
+       ========================================================= */
+
+    .powerbi-principles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .powerbi-principle:nth-child(2) {
+        border-right: 0;
+    }
+
+    .powerbi-principle:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+        /* =========================================================
+       PAGE: Live Demo
+       RESPONSIVE: Large tablet
+       ========================================================= */
+
+    .demo-economic-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .demo-principles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .demo-principle:nth-child(2) {
+        border-right: 0;
+    }
+
+    .demo-principle:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .demo-pipeline-flow {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .demo-pipeline-arrow {
+        display: none;
+    }
+
+        /* =========================================================
+       PAGE: About
+       RESPONSIVE: Large tablet
+       ========================================================= */
+
+    .about-skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 850px) {
+
+    /*
+       The hero changes to a single-column layout so the
+       project narrative remains the primary visual focus.
+    */
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 80px 0;
+    }
+
+    .hero-content {
+        max-width: 760px;
+    }
+
+    .hero-summary {
+        max-width: 620px;
+    }
+
+
+    /* ---------- Economic insights preview ---------- */
+
+    .insights-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .insight-visual-header {
+        flex-direction: column;
+    }
+
+
+    /* ---------- Key capabilities ---------- */
+
+    .capabilities-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+
+    /* ---------- Economic problem section ---------- */
+
+    .problem-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+
+    /* ---------- Platform at a glance ---------- */
+
+    /*
+       Platform stages stack vertically on smaller screens
+       to preserve readability and workflow order.
+    */
+    .platform-flow {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .platform-stage {
+        min-height: auto;
+    }
+
+    .flow-arrow {
+        justify-self: center;
+        transform: rotate(90deg);
+    }
+
+
+    /* ---------- Interactive delivery preview ---------- */
+
+    .delivery-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .delivery-panel-header {
+        flex-direction: column;
+    }
+
+
+    /* ---------- Technology stack ---------- */
+
+    .technology-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .technology-group {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+
+    /* ---------- Project call to action ---------- */
+
+    .project-cta-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .project-cta-actions {
+        width: 100%;
+    }
+
+    .project-cta-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+
+    /* ---------- Site footer ---------- */
+
+    .footer-main {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-navigation {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+
+
+    /*
+       Desktop navigation is temporarily hidden at this
+       breakpoint. A mobile navigation control will be
+       introduced with the shared navigation component.
+    */
+    .main-nav {
+        display: none;
+    }
+
+
+    /* =========================================================
+       PAGE: Pipeline
+       RESPONSIVE: Tablet
+       ========================================================= */
+
+    .pipeline-summary-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pipeline-summary-item:nth-child(2) {
+        border-right: 0;
+    }
+
+    .pipeline-summary-item:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .pipeline-stage-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .pipeline-stage-arrow {
+        min-height: 24px;
+        transform: rotate(90deg);
+    }
+
+    .pipeline-detail-panel,
+    .pipeline-orchestration-layout,
+    .pipeline-automation-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .pipeline-orchestration-layout,
+    .pipeline-automation-layout {
+        gap: 40px;
+    }
+        /* =========================================================
+       PAGE: Analytics
+       RESPONSIVE: Tablet
+       ========================================================= */
+
+    .analytics-summary-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .analytics-summary-item:nth-child(2) {
+        border-right: 0;
+    }
+
+    .analytics-summary-item:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .economic-theme {
+        grid-template-columns: 48px 1fr;
+    }
+
+    .economic-theme-indicators {
+        grid-column: 2;
+        justify-content: flex-start;
+    }
+
+    .economic-explorer-panel,
+    .gold-analytics-layout,
+    .forecast-analysis-layout,
+    .analytics-serving-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .gold-analytics-layout,
+    .analytics-serving-layout {
+        gap: 40px;
+    }
+
+    .analytics-serving-groups {
+        grid-template-columns: 1fr;
+    }
+
+        /* =========================================================
+       PAGE: Power BI
+       RESPONSIVE: Tablet
+       ========================================================= */
+
+    .powerbi-summary-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .powerbi-summary-item:nth-child(2) {
+        border-right: 0;
+    }
+
+    .powerbi-summary-item:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .powerbi-questions-layout,
+    .powerbi-forecast-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .powerbi-reporting-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .powerbi-reporting-arrow {
+        min-height: 24px;
+        transform: rotate(90deg);
+    }
+
+        /* =========================================================
+       PAGE: Live Demo
+       RESPONSIVE: Tablet
+       ========================================================= */
+
+    .live-demo-summary-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .live-demo-summary-item:nth-child(2) {
+        border-right: 0;
+    }
+
+    .live-demo-summary-item:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .live-demo-overview-layout,
+    .demo-forecast-layout,
+    .demo-quality-layout,
+    .demo-ai-panel {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .demo-pipeline-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-pipeline-stage {
+        min-height: auto;
+    }
+
+    .demo-ai-panel {
+        align-items: start;
+    }
+
+        /* =========================================================
+       PAGE: About
+       RESPONSIVE: Tablet
+       ========================================================= */
+
+    .about-summary-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-summary-item:nth-child(2) {
+        border-right: 0;
+    }
+
+    .about-summary-item:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .about-objective-layout,
+    .about-role-layout,
+    .about-stack-layout,
+    .about-links-panel {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-built-list {
+        grid-template-columns: 1fr;
+    }
+
+    .about-links-panel {
+        padding: 40px;
+    }
+
+        /* =========================================================
+       SHARED COMPONENT
+       RESPONSIVE: Mobile navigation
+       ========================================================= */
+
+    .mobile-menu-toggle {
+        display: block;
+        position: relative;
+        z-index: 1001;
+    }
+
+    .main-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+
+        padding: 14px 24px 22px;
+
+        background: var(--color-surface);
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .main-nav.is-open {
+        display: flex;
+    }
+
+    .main-nav a {
+        width: 100%;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .main-nav a:last-child {
+        border-bottom: 0;
+    }
+
+    .mobile-menu-toggle.is-open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .mobile-menu-toggle.is-open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-toggle.is-open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .header-container {
+        position: relative;
+    }
+
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+
+    .container {
+        width: min(var(--container-width), calc(100% - 28px));
+    }
+
+    .nav-container {
+        min-height: 68px;
+    }
+
+    .brand {
+        font-size: 0.9rem;
+    }
+
+    .hero {
+        padding: 64px 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.25rem, 11vw, 3rem);
+        line-height: 1.07;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+
+    /* ---------- Hero actions ---------- */
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .github-link {
+        margin-top: 20px;
+    }
+
+
+    /* ---------- Technology tags ---------- */
+
+    .technology-list {
+        margin-top: 26px;
+    }
+
+
+    /* ---------- Platform summary ---------- */
+
+    .hero-summary {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .summary-card {
+        min-height: 120px;
+        padding: 20px;
+    }
+
+    .summary-card strong {
+        font-size: 2rem;
+    }
+
+
+    /* ---------- Key capabilities ---------- */
+
+    .capabilities-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .capability-card {
+        min-height: auto;
+    }
+
+
+    /* ---------- Interactive delivery preview ---------- */
+
+    .delivery-panel {
+        padding: 24px;
+    }
+
+    .demo-line {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .demo-line strong {
+        text-align: left;
+    }
+
+
+    /* ---------- Technology stack ---------- */
+
+    .technology-group {
+        padding: 18px 0;
+    }
+
+
+    /* ---------- Site footer ---------- */
+
+    .footer-navigation {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* ---------- Architecture page ---------- */
+
+    .inner-page-hero h1 {
+        font-size: 2.45rem;
+    }
+
+    .architecture-summary-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .architecture-summary-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .architecture-summary-item:last-child {
+        border-bottom: 0;
+    }
+
+    .architecture-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .architecture-principles {
+        grid-template-columns: 1fr;
+    }
+
+    .architecture-principle {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .architecture-principle:last-child {
+        border-bottom: 0;
+    }
+
+
+    /* =========================================================
+       PAGE: Pipeline
+       RESPONSIVE: Mobile
+       ========================================================= */
+
+    .pipeline-summary-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .pipeline-summary-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .pipeline-summary-item:last-child {
+        border-bottom: 0;
+    }
+
+    .pipeline-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pipeline-quality-grid,
+    .pipeline-principles {
+        grid-template-columns: 1fr;
+    }
+
+    .pipeline-quality-item,
+    .pipeline-principle {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .pipeline-quality-item:last-child,
+    .pipeline-principle:last-child {
+        border-bottom: 0;
+    }
+
+    .pipeline-image-frame {
+        padding: 6px;
+    }
+        /* =========================================================
+       PAGE: Analytics
+       RESPONSIVE: Mobile
+       ========================================================= */
+
+    .analytics-summary-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-summary-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .analytics-summary-item:last-child {
+        border-bottom: 0;
+    }
+
+    .economic-theme {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .economic-theme-indicators {
+        grid-column: 1;
+    }
+
+    .economic-explorer-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .economic-explorer-tab {
+        width: 100%;
+        border-right: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .economic-explorer-panel {
+        padding: 24px;
+    }
+
+    .economic-explorer-details {
+        grid-template-columns: 1fr;
+    }
+
+    .forecast-results {
+        grid-template-columns: 1fr;
+    }
+
+    .forecast-primary-result,
+    .forecast-metric {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .forecast-metric:last-child {
+        border-bottom: 0;
+    }
+
+    .forecast-model-row {
+        grid-template-columns: 34px 1fr;
+    }
+
+    .forecast-model-row small {
+        grid-column: 2;
+    }
+
+    .analytics-principles {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-principle {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .analytics-principle:last-child {
+        border-bottom: 0;
+    }
+
+        /* =========================================================
+       PAGE: Power BI
+       RESPONSIVE: Mobile
+       ========================================================= */
+
+    .powerbi-summary-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .powerbi-summary-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .powerbi-summary-item:last-child {
+        border-bottom: 0;
+    }
+
+    .powerbi-report-page {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .powerbi-embed-frame {
+        aspect-ratio: 4 / 3;
+    }
+
+    .powerbi-embed-placeholder {
+        padding: 24px;
+    }
+
+    .powerbi-forecast-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .powerbi-forecast-primary {
+        grid-row: auto;
+    }
+
+    .powerbi-principles {
+        grid-template-columns: 1fr;
+    }
+
+    .powerbi-principle {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .powerbi-principle:last-child {
+        border-bottom: 0;
+    }
+
+        /* =========================================================
+       PAGE: Live Demo
+       RESPONSIVE: Mobile
+       ========================================================= */
+
+    .live-demo-summary-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .live-demo-summary-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .live-demo-summary-item:last-child {
+        border-bottom: 0;
+    }
+
+    .streamlit-demo-frame {
+        min-height: 430px;
+    }
+
+    .streamlit-demo-placeholder {
+        padding: 28px 22px;
+    }
+
+    .demo-economic-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-forecast-secondary {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-forecast-secondary div {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .demo-forecast-secondary div:nth-last-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .demo-forecast-secondary div:last-child {
+        border-bottom: 0;
+    }
+
+    .demo-principles {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-principle {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .demo-principle:last-child {
+        border-bottom: 0;
+    }
+
+        /* =========================================================
+       PAGE: About
+       RESPONSIVE: Mobile
+       ========================================================= */
+
+    .about-summary-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .about-summary-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .about-summary-item:last-child {
+        border-bottom: 0;
+    }
+
+    .about-skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-built-item,
+    .about-skill-group {
+        min-height: auto;
+    }
+
+    .about-links-panel {
+        padding: 30px 24px;
+    }
+
+    .about-link-actions {
+        width: 100%;
+    }
+
+    .about-link-actions .button {
+        width: 100%;
+        justify-content: center;
+    }
+
+}
+
+
+/* ---------- Small mobile screens ---------- */
+
+@media (max-width: 380px) {
+
+    .brand {
+        max-width: 220px;
+        white-space: normal;
+        line-height: 1.25;
+    }
+
+    .hero h1 {
+        font-size: 2.1rem;
+    }
+
+}
