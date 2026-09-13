@@ -1178,11 +1178,17 @@ button:focus-visible {
 }
 
 /* =========================================================
-   PAGE: Architecture
-   SECTION: Inner page hero
+   SHARED INNER-PAGE LAYOUT
+   SECTION: Page hero spacing
+   PURPOSE:
+   Provide consistent vertical separation between the sticky
+   site navigation and the introductory hero content on every
+   inner page, including Architecture, Pipeline, Analytics,
+   Power BI, and About.
    ========================================================= */
 
 .inner-page-hero {
+    padding: 72px 0 64px;
     background: var(--color-surface-soft);
 }
 

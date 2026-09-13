@@ -1,7 +1,10 @@
 /* =========================================================
    PAGE: Analytics
    SECTION: Interactive economic explorer
-   ======================================================== */
+   PURPOSE:
+   Capture the explorer elements used to display the selected
+   economic theme and its analytical context.
+   ========================================================= */
 
 const economicThemeTabs = document.querySelectorAll(
     ".economic-explorer-tab"
@@ -35,14 +38,18 @@ const economicThemeOutput = document.getElementById(
 /* =========================================================
    PAGE: Analytics
    SECTION: Economic theme content
+   PURPOSE:
+   Define the analytical description, indicators, grain,
+   use case, and Gold output for each explorer theme.
    ========================================================= */
 
 const economicThemeDetails = {
+
     growth: {
         title: "Growth & Consumption",
 
         description:
-            "GDP by industry and retail sales provide complementary views of economic activity, production, and household consumption.",
+            "GDP by industry and retail sales provide complementary views of production, economic activity, and household consumption.",
 
         indicators:
             "GDP by Industry · Retail Sales",
@@ -56,6 +63,7 @@ const economicThemeDetails = {
         output:
             "Economic Overview · Industry Analysis"
     },
+
 
     prices: {
         title: "Prices & Monetary Policy",
@@ -76,11 +84,12 @@ const economicThemeDetails = {
             "Economic Overview · Affordability Analysis"
     },
 
+
     labour: {
         title: "Labour Market",
 
         description:
-            "Employment and unemployment indicators provide a national and provincial view of labour-market conditions across Canada.",
+            "Employment and unemployment indicators provide national and provincial views of labour-market conditions across Canada.",
 
         indicators:
             "Employment · Unemployment · Provincial Labour Data",
@@ -95,11 +104,12 @@ const economicThemeDetails = {
             "Economic Overview · Regional Analysis"
     },
 
+
     housing: {
         title: "Housing & Population",
 
         description:
-            "Housing starts and population estimates provide complementary measures of housing supply and demographic demand.",
+            "Housing starts and population estimates provide complementary views of housing supply and demographic demand.",
 
         indicators:
             "Housing Starts · Population Estimates",
@@ -114,11 +124,12 @@ const economicThemeDetails = {
             "Regional Analysis · Affordability Analysis"
     },
 
+
     external: {
         title: "External Conditions & Productivity",
 
         description:
-            "USD/CAD exchange rates provide a view of external currency conditions, while labour productivity measures changes in productive performance.",
+            "USD/CAD exchange rates capture external currency conditions, while labour productivity measures changes in productive performance.",
 
         indicators:
             "USD/CAD Exchange Rate · Labour Productivity",
@@ -138,24 +149,31 @@ const economicThemeDetails = {
 /* =========================================================
    PAGE: Analytics
    SECTION: Update selected economic theme
+   PURPOSE:
+   Update the explorer panel when a visitor selects a
+   different economic theme.
    ========================================================= */
 
 function updateEconomicTheme(themeButton) {
     const themeKey = themeButton.dataset.economicTheme;
     const themeDetails = economicThemeDetails[themeKey];
 
+    // Stop safely if the selected theme has no configured content.
     if (!themeDetails) {
         return;
     }
 
+    // Reset all explorer tabs before activating the selected theme.
     economicThemeTabs.forEach((tab) => {
         tab.classList.remove("active");
         tab.setAttribute("aria-pressed", "false");
     });
 
+    // Mark the selected tab as active for styling and accessibility.
     themeButton.classList.add("active");
     themeButton.setAttribute("aria-pressed", "true");
 
+    // Populate the explorer panel with the selected theme's content.
     economicThemeTitle.textContent =
         themeDetails.title;
 
@@ -179,6 +197,8 @@ function updateEconomicTheme(themeButton) {
 /* =========================================================
    PAGE: Analytics
    SECTION: Economic explorer interaction events
+   PURPOSE:
+   Attach click events to each explorer tab.
    ========================================================= */
 
 economicThemeTabs.forEach((themeButton) => {

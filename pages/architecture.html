@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 
@@ -10,34 +11,43 @@
 
     <meta
         name="description"
-        content="Architecture of the Canadian Economic Intelligence Platform, including official data sources, Azure ingestion, lakehouse processing, analytical models, Azure SQL, Power BI, and interactive applications."
+        content="Architecture of the Canadian Economic Intelligence Platform, including official data sources, Azure Data Factory ingestion, lakehouse processing, analytical marts, Azure SQL, Power BI, and Streamlit."
     >
 
     <title>
         Architecture | Canadian Economic Intelligence
     </title>
 
+
+    <!-- Shared site styles -->
     <link
         rel="stylesheet"
         href="../assets/css/styles.css"
     >
 
+    <!-- Shared animation styles -->
     <link
         rel="stylesheet"
         href="../assets/css/animations.css"
     >
 
+    <!-- Shared responsive styles -->
     <link
         rel="stylesheet"
         href="../assets/css/responsive.css"
     >
 </head>
 
+
 <body>
 
-    <!-- ======================================================
-         Site header
-         ====================================================== -->
+    <!-- =========================================================
+         SHARED COMPONENT
+         SECTION: Site header
+         PURPOSE:
+         Provide consistent navigation across the portfolio
+         and direct access to the interactive application.
+         ========================================================= -->
 
     <header class="site-header">
 
@@ -51,6 +61,7 @@
                 Canadian Economic Intelligence
             </a>
 
+
             <button
                 class="mobile-menu-toggle"
                 type="button"
@@ -62,6 +73,7 @@
                 <span></span>
                 <span></span>
             </button>
+
 
             <nav
                 class="main-nav"
@@ -93,17 +105,25 @@
                     Power BI
                 </a>
 
-                <a href="live-demo.html">
-                    Live Demo
+
+                <!-- Open the deployed Streamlit application directly -->
+                <a
+                    href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Interactive App ↗
                 </a>
 
+
                 <a
-                    href="#"
+                    href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     GitHub ↗
                 </a>
+
 
                 <a href="about.html">
                     About
@@ -118,9 +138,13 @@
 
     <main>
 
-        <!-- ======================================================
-             Architecture page hero
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Architecture
+             SECTION: Hero
+             PURPOSE:
+             Introduce the platform architecture and summarize
+             the scale of the engineering and analytical design.
+             ========================================================= -->
 
         <section class="inner-page-hero architecture-page-hero">
 
@@ -133,17 +157,19 @@
                     </p>
 
                     <h1>
-                        From official Canadian data to decision-ready intelligence.
+                        From official Canadian data to
+                        decision-ready intelligence.
                     </h1>
 
                     <p class="inner-page-description">
-                        The platform integrates public economic data through
-                        automated ingestion, lakehouse processing, analytical
-                        modeling, relational serving, forecasting, and
-                        interactive reporting.
+                        The platform integrates official Canadian economic
+                        data through automated ingestion, lakehouse processing,
+                        analytical marts, relational serving, forecasting,
+                        and interactive reporting.
                     </p>
 
                 </div>
+
 
                 <div class="architecture-summary-strip">
 
@@ -154,12 +180,12 @@
 
                     <div class="architecture-summary-item">
                         <span>Datasets</span>
-                        <strong>10 Economic Series</strong>
+                        <strong>10 Economic Datasets</strong>
                     </div>
 
                     <div class="architecture-summary-item">
-                        <span>Gold Models</span>
-                        <strong>5 Analytical Outputs</strong>
+                        <span>Gold Layer</span>
+                        <strong>5 Analytical Marts</strong>
                     </div>
 
                     <div class="architecture-summary-item">
@@ -174,9 +200,13 @@
         </section>
 
 
-        <!-- ======================================================
-             End-to-end architecture
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Architecture
+             SECTION: End-to-end design
+             PURPOSE:
+             Show the major architectural stages from official
+             data sources through analytical consumption.
+             ========================================================= -->
 
         <section class="architecture-system-section">
 
@@ -195,8 +225,9 @@
 
                     <p class="section-description">
                         Each layer has a defined responsibility, from preserving
-                        raw source history to delivering curated datasets for
-                        dashboards, forecasting, and interactive applications.
+                        raw source history to delivering curated analytical
+                        outputs for reporting, forecasting, and interactive
+                        applications.
                     </p>
 
                 </div>
@@ -207,12 +238,14 @@
                     data-architecture-system
                 >
 
+                    <!-- Stage 01: Official data sources -->
                     <button
                         class="architecture-stage active"
                         type="button"
                         data-stage="sources"
                         aria-pressed="true"
                     >
+
                         <span class="architecture-stage-number">
                             01
                         </span>
@@ -226,8 +259,9 @@
                         </strong>
 
                         <small>
-                            StatCan · BoC · Finance Canada · CMHC
+                            StatCan · BoC · Finance Canada · Ontario Finance
                         </small>
+
                     </button>
 
 
@@ -239,12 +273,14 @@
                     </div>
 
 
+                    <!-- Stage 02: Automated ingestion and orchestration -->
                     <button
                         class="architecture-stage"
                         type="button"
                         data-stage="ingestion"
                         aria-pressed="false"
                     >
+
                         <span class="architecture-stage-number">
                             02
                         </span>
@@ -260,6 +296,7 @@
                         <small>
                             Pipelines · Scheduling · Monitoring
                         </small>
+
                     </button>
 
 
@@ -271,12 +308,14 @@
                     </div>
 
 
+                    <!-- Stage 03: Lakehouse processing -->
                     <button
                         class="architecture-stage"
                         type="button"
                         data-stage="lakehouse"
                         aria-pressed="false"
                     >
+
                         <span class="architecture-stage-number">
                             03
                         </span>
@@ -292,6 +331,7 @@
                         <small>
                             ADLS Gen2 · Azure Databricks
                         </small>
+
                     </button>
 
 
@@ -303,12 +343,14 @@
                     </div>
 
 
+                    <!-- Stage 04: Relational serving layer -->
                     <button
                         class="architecture-stage"
                         type="button"
                         data-stage="serving"
                         aria-pressed="false"
                     >
+
                         <span class="architecture-stage-number">
                             04
                         </span>
@@ -324,6 +366,7 @@
                         <small>
                             Reporting-ready analytical tables
                         </small>
+
                     </button>
 
 
@@ -335,12 +378,14 @@
                     </div>
 
 
+                    <!-- Stage 05: Decision and application layer -->
                     <button
                         class="architecture-stage"
                         type="button"
                         data-stage="delivery"
                         aria-pressed="false"
                     >
+
                         <span class="architecture-stage-number">
                             05
                         </span>
@@ -356,11 +401,13 @@
                         <small>
                             Analytics · Forecasting · Exploration
                         </small>
+
                     </button>
 
                 </div>
 
 
+                <!-- Interactive details are updated by architecture.js -->
                 <div
                     class="architecture-detail-panel"
                     aria-live="polite"
@@ -377,9 +424,10 @@
                         </h3>
 
                         <p id="architecture-detail-description">
-                            The platform begins with public Canadian economic
-                            data published by Statistics Canada, the Bank of
-                            Canada, Finance Canada, and CMHC.
+                            The platform begins with official Canadian economic
+                            data published by Statistics Canada, the Bank of Canada,
+                            Finance Canada, Ontario Finance, and CMHC-supplied
+                            housing data available through Statistics Canada.
                         </p>
 
                     </div>
@@ -389,27 +437,34 @@
 
                         <div>
                             <span>Technology</span>
+
                             <strong id="architecture-detail-technology">
                                 Public APIs and official datasets
                             </strong>
                         </div>
 
+
                         <div>
                             <span>Input</span>
+
                             <strong id="architecture-detail-input">
                                 Published economic indicators
                             </strong>
                         </div>
 
+
                         <div>
                             <span>Output</span>
+
                             <strong id="architecture-detail-output">
                                 Source-aligned raw datasets
                             </strong>
                         </div>
 
+
                         <div>
                             <span>Primary Role</span>
+
                             <strong id="architecture-detail-role">
                                 Authoritative economic data
                             </strong>
@@ -424,9 +479,13 @@
         </section>
 
 
-        <!-- ======================================================
-             Medallion architecture
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Architecture
+             SECTION: Lakehouse design
+             PURPOSE:
+             Explain how Bronze, Silver, and Gold separate
+             raw history, validated data, and analytical outputs.
+             ========================================================= -->
 
         <section class="medallion-section">
 
@@ -454,6 +513,7 @@
 
                 <div class="medallion-flow">
 
+                    <!-- Bronze preserves original source history -->
                     <article class="medallion-layer bronze-layer">
 
                         <span class="medallion-number">
@@ -488,6 +548,7 @@
                     </div>
 
 
+                    <!-- Silver validates and standardizes source data -->
                     <article class="medallion-layer silver-layer">
 
                         <span class="medallion-number">
@@ -522,6 +583,7 @@
                     </div>
 
 
+                    <!-- Gold organizes reusable analytical marts -->
                     <article class="medallion-layer gold-layer">
 
                         <span class="medallion-number">
@@ -535,7 +597,7 @@
                         <p>
                             Validated indicators are aligned by analytical
                             purpose and transformed into reusable economic
-                            intelligence datasets.
+                            intelligence marts.
                         </p>
 
                         <ul>
@@ -555,9 +617,13 @@
         </section>
 
 
-        <!-- ======================================================
-             Analytical architecture
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Architecture
+             SECTION: Analytical layer
+             PURPOSE:
+             Explain how indicators with different frequencies
+             and levels of detail are aligned for analysis.
+             ========================================================= -->
 
         <section class="analytical-architecture-section">
 
@@ -578,9 +644,10 @@
 
                         <p>
                             Economic data arrives at different frequencies and
-                            levels of detail. The Gold layer standardizes these
-                            differences so the datasets can support integrated
-                            analysis without changing the original source data.
+                            levels of detail. The Gold layer aligns these
+                            differences according to analytical purpose so
+                            indicators can support integrated analysis while
+                            preserving the meaning of the original source data.
                         </p>
 
                     </div>
@@ -635,7 +702,8 @@
                             </strong>
 
                             <p>
-                                Aligned using period-end values where appropriate.
+                                Aligned using period-end values where
+                                appropriate.
                             </p>
 
                         </div>
@@ -667,9 +735,13 @@
         </section>
 
 
-        <!-- ======================================================
-             Serving and consumption layer
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Architecture
+             SECTION: Serving layer
+             PURPOSE:
+             Show how Gold analytical outputs are exposed through
+             Azure SQL to downstream reporting and applications.
+             ========================================================= -->
 
         <section class="serving-layer-section">
 
@@ -688,7 +760,8 @@
 
                     <p class="section-description">
                         Azure SQL provides a stable reporting interface between
-                        analytical processing and downstream visualization tools.
+                        analytical processing and downstream reporting,
+                        visualization, and interactive applications.
                     </p>
 
                 </div>
@@ -696,14 +769,15 @@
 
                 <div class="serving-flow">
 
+                    <!-- Gold analytical outputs generated in Databricks -->
                     <div class="serving-source">
 
                         <span>
-                            Gold Data Models
+                            Gold Analytical Marts
                         </span>
 
                         <strong>
-                            Databricks
+                            Azure Databricks
                         </strong>
 
                     </div>
@@ -717,6 +791,7 @@
                     </div>
 
 
+                    <!-- Relational reporting interface -->
                     <div class="serving-database">
 
                         <span>
@@ -728,7 +803,7 @@
                         </strong>
 
                         <small>
-                            12 curated tables
+                            12 reporting tables
                         </small>
 
                     </div>
@@ -742,9 +817,11 @@
                     </div>
 
 
+                    <!-- Downstream analytical consumers -->
                     <div class="serving-consumers">
 
                         <div>
+
                             <span>
                                 Business Intelligence
                             </span>
@@ -752,9 +829,12 @@
                             <strong>
                                 Power BI
                             </strong>
+
                         </div>
 
+
                         <div>
+
                             <span>
                                 Interactive Analysis
                             </span>
@@ -762,9 +842,12 @@
                             <strong>
                                 Streamlit
                             </strong>
+
                         </div>
 
+
                         <div>
+
                             <span>
                                 Forecasting
                             </span>
@@ -772,6 +855,7 @@
                             <strong>
                                 Python / ML
                             </strong>
+
                         </div>
 
                     </div>
@@ -783,9 +867,13 @@
         </section>
 
 
-        <!-- ======================================================
-             Architecture design principles
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Architecture
+             SECTION: Design principles
+             PURPOSE:
+             Summarize the architectural decisions used to improve
+             maintainability, quality, and analytical reuse.
+             ========================================================= -->
 
         <section class="architecture-principles-section">
 
@@ -837,8 +925,8 @@
                         </h3>
 
                         <p>
-                            Silver processing applies validation and quality
-                            rules before data enters analytical models.
+                            Silver processing applies validation and data-quality
+                            rules before datasets enter the Gold analytical layer.
                         </p>
 
                     </article>
@@ -855,8 +943,9 @@
                         </h3>
 
                         <p>
-                            Databricks performs analytical transformation while
-                            Azure SQL provides a stable interface for reporting.
+                            Azure Databricks performs analytical transformation
+                            while Azure SQL provides a stable interface for
+                            reporting and downstream applications.
                         </p>
 
                     </article>
@@ -869,12 +958,14 @@
                         </span>
 
                         <h3>
-                            Build Reusable Analytical Models
+                            Build Reusable Analytical Marts
                         </h3>
 
                         <p>
-                            Gold datasets are organized by economic question
-                            rather than by source system alone.
+                            Gold outputs are organized around analytical purpose
+                            rather than individual source systems, allowing
+                            multiple indicators to support the same economic
+                            question.
                         </p>
 
                     </article>
@@ -886,9 +977,13 @@
         </section>
 
 
-        <!-- ======================================================
-             Next page
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Architecture
+             SECTION: Next page
+             PURPOSE:
+             Guide visitors from platform architecture to the
+             detailed orchestration and pipeline implementation.
+             ========================================================= -->
 
         <section class="next-page-section">
 
@@ -914,6 +1009,7 @@
 
                     </div>
 
+
                     <a
                         href="pipeline.html"
                         class="button button-primary"
@@ -930,9 +1026,13 @@
     </main>
 
 
-    <!-- ======================================================
-         Site footer
-         ====================================================== -->
+    <!-- =========================================================
+         SHARED COMPONENT
+         SECTION: Site footer
+         PURPOSE:
+         Provide consistent navigation and project information
+         across the portfolio.
+         ========================================================= -->
 
     <footer class="site-footer">
 
@@ -990,12 +1090,24 @@
                             Power BI
                         </a>
 
-                        <a href="live-demo.html">
-                            Live Demo
+                        <a
+                            href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Interactive App ↗
                         </a>
 
                         <a href="about.html">
                             About
+                        </a>
+
+                        <a
+                            href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            GitHub ↗
                         </a>
 
                     </div>
@@ -1009,7 +1121,8 @@
 
                 <p>
                     Data sources include Statistics Canada, Bank of Canada,
-                    Finance Canada, and CMHC.
+                    Finance Canada, Ontario Finance, and CMHC-supplied
+                    housing data published through Statistics Canada.
                 </p>
 
                 <p>
@@ -1023,8 +1136,12 @@
     </footer>
 
 
+    <!-- Shared site navigation behavior -->
     <script src="../assets/js/main.js"></script>
+
+    <!-- Architecture-stage interaction logic -->
     <script src="../assets/js/architecture.js"></script>
 
 </body>
+
 </html>

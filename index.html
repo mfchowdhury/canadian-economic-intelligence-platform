@@ -11,37 +11,74 @@
 
     <meta
         name="description"
-        content="Canadian Economic Intelligence Platform — an end-to-end Azure data platform for Canadian economic analytics, forecasting, Power BI reporting, and interactive intelligence."
+        content="Canadian Economic Intelligence Platform — an end-to-end Azure data and analytics platform developed by Mahin Chowdhury for Canadian economic analysis, forecasting, Power BI reporting, and interactive intelligence."
     >
 
     <title>
         Canadian Economic Intelligence Platform
     </title>
 
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <!-- Shared site styles -->
+    <link
+        rel="stylesheet"
+        href="assets/css/styles.css"
+    >
+
+    <!-- Shared animation styles -->
+    <link
+        rel="stylesheet"
+        href="assets/css/animations.css"
+    >
+
+    <!-- Shared responsive styles -->
+    <link
+        rel="stylesheet"
+        href="assets/css/responsive.css"
+    >
 </head>
 
 
 <body>
 
-    <!-- ======================================================
-         HOME PAGE: Header and Navigation
-         ====================================================== -->
+    <!-- =========================================================
+         SHARED COMPONENT
+         SECTION: Site header
+         PURPOSE:
+         Provide consistent navigation across the portfolio
+         and direct access to the interactive application.
+         ========================================================= -->
 
     <header class="site-header">
 
         <div class="container nav-container">
 
-            <a href="index.html" class="brand">
-                <span class="brand-mark" aria-hidden="true">◆</span>
-                <span>Canadian Economic Intelligence</span>
+            <a
+                href="index.html"
+                class="brand"
+            >
+                <span
+                    class="brand-mark"
+                    aria-hidden="true"
+                >
+                    ◆
+                </span>
+
+                <span>
+                    Canadian Economic Intelligence
+                </span>
             </a>
 
-            <nav class="main-nav" aria-label="Primary navigation">
 
-                <a href="index.html" class="active">
+            <nav
+                class="main-nav"
+                aria-label="Primary navigation"
+            >
+
+                <a
+                    href="index.html"
+                    class="active"
+                    aria-current="page"
+                >
                     Home
                 </a>
 
@@ -61,14 +98,16 @@
                     Power BI
                 </a>
 
-                <!-- Live Demo opens the deployed Streamlit application directly. -->
+
+                <!-- Open the deployed Streamlit application directly -->
                 <a
                     href="https://canadian-economic-intelligence-platform.streamlit.app/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Live Demo ↗
+                    Interactive App ↗
                 </a>
+
 
                 <a
                     href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
@@ -77,6 +116,7 @@
                 >
                     GitHub ↗
                 </a>
+
 
                 <a href="pages/about.html">
                     About
@@ -91,10 +131,13 @@
 
     <main>
 
-
-        <!-- ======================================================
-             HOME PAGE: Hero
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Hero
+             PURPOSE:
+             Introduce the project, its creator, and the primary
+             technical and analytical value of the platform.
+             ========================================================= -->
 
         <section class="hero">
 
@@ -112,11 +155,12 @@
                     </h1>
 
                     <p class="hero-description">
-                        An end-to-end Azure data platform that transforms
-                        official Canadian economic data into validated
-                        analytical datasets, dashboards, forecasts, and
-                        interactive intelligence.
+                        An end-to-end Azure data and analytics platform developed
+                        by Mahin Chowdhury that transforms official Canadian
+                        economic data into validated analytical datasets,
+                        dashboards, forecasts, and interactive intelligence.
                     </p>
+
 
                     <div class="hero-actions">
 
@@ -133,10 +177,11 @@
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Open Live Demo ↗
+                            Open Interactive App ↗
                         </a>
 
                     </div>
+
 
                     <a
                         href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
@@ -147,10 +192,11 @@
                         View GitHub Repository →
                     </a>
 
+
                     <div class="technology-list">
                         <span>Azure Data Factory</span>
                         <span>ADLS Gen2</span>
-                        <span>Databricks</span>
+                        <span>Azure Databricks</span>
                         <span>Azure SQL</span>
                         <span>Power BI</span>
                         <span>Python</span>
@@ -159,7 +205,7 @@
                 </div>
 
 
-                <!-- Project scale at a glance. -->
+                <!-- Project scale at a glance -->
                 <div class="hero-summary">
 
                     <div class="summary-card">
@@ -179,7 +225,7 @@
 
                     <div class="summary-card">
                         <strong>12</strong>
-                        <span>SQL Reporting Tables</span>
+                        <span>Reporting Tables</span>
                     </div>
 
                 </div>
@@ -189,9 +235,13 @@
         </section>
 
 
-        <!-- ======================================================
-             HOME PAGE: Economic Problem
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Economic problem
+             PURPOSE:
+             Explain why integrating official Canadian economic
+             indicators requires a structured analytical platform.
+             ========================================================= -->
 
         <section class="problem-section">
 
@@ -223,10 +273,10 @@
                     </p>
 
                     <p>
-                        This platform brings those sources into a consistent
+                        The platform brings these sources into a consistent
                         analytical environment where data can be validated,
-                        integrated, monitored, analyzed, forecast, and
-                        communicated more efficiently.
+                        standardized, integrated, monitored, analyzed,
+                        forecast, and communicated more efficiently.
                     </p>
 
                 </div>
@@ -236,11 +286,13 @@
         </section>
 
 
-        <!-- ======================================================
-             HOME PAGE: Platform at a Glance
-             A concise architecture summary replaces multiple
-             overlapping architecture sections on the old homepage.
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Platform at a glance
+             PURPOSE:
+             Summarize the end-to-end movement from official
+             economic data to analytical and decision products.
+             ========================================================= -->
 
         <section
             class="platform-section"
@@ -260,7 +312,7 @@
                     </h2>
 
                     <p class="section-description">
-                        A single cloud workflow connects official Canadian
+                        A unified cloud workflow connects official Canadian
                         economic data with engineering, analytical modeling,
                         reporting, forecasting, and interactive delivery.
                     </p>
@@ -272,7 +324,9 @@
 
                     <article class="platform-stage">
 
-                        <span class="stage-number">01</span>
+                        <span class="stage-number">
+                            01
+                        </span>
 
                         <h3>
                             Official Data
@@ -298,7 +352,9 @@
 
                     <article class="platform-stage">
 
-                        <span class="stage-number">02</span>
+                        <span class="stage-number">
+                            02
+                        </span>
 
                         <h3>
                             Data Engineering
@@ -323,14 +379,16 @@
 
                     <article class="platform-stage">
 
-                        <span class="stage-number">03</span>
+                        <span class="stage-number">
+                            03
+                        </span>
 
                         <h3>
                             Analytical Layer
                         </h3>
 
                         <p>
-                            Gold Data Models<br>
+                            Gold Analytical Marts<br>
                             Azure SQL<br>
                             Forecasting
                         </p>
@@ -348,7 +406,9 @@
 
                     <article class="platform-stage">
 
-                        <span class="stage-number">04</span>
+                        <span class="stage-number">
+                            04
+                        </span>
 
                         <h3>
                             Decision Layer
@@ -377,11 +437,13 @@
         </section>
 
 
-        <!-- ======================================================
-             HOME PAGE: Core Capabilities
-             Four capability groups summarize the implementation
-             without repeating the architecture.
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Core capabilities
+             PURPOSE:
+             Summarize the primary engineering, analytical,
+             forecasting, and delivery capabilities demonstrated.
+             ========================================================= -->
 
         <section class="capabilities-section">
 
@@ -421,7 +483,7 @@
 
                         <p>
                             Azure Data Factory orchestrates source ingestion
-                            and Databricks processing across a repeatable
+                            and Databricks processing through a repeatable
                             cloud workflow.
                         </p>
 
@@ -441,7 +503,7 @@
                         <p>
                             Bronze, Silver, and Gold layers preserve raw
                             history, validate source data, quarantine invalid
-                            records, and produce analytical datasets.
+                            records, and produce reusable analytical outputs.
                         </p>
 
                     </article>
@@ -491,9 +553,13 @@
         </section>
 
 
-        <!-- ======================================================
-             HOME PAGE: Economic Intelligence Preview
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Economic intelligence preview
+             PURPOSE:
+             Present selected forecasting outputs and provide
+             a preview of the analytical experience.
+             ========================================================= -->
 
         <section class="insights-preview">
 
@@ -510,8 +576,8 @@
                     </h2>
 
                     <p class="section-description">
-                        Gold analytical datasets align major Canadian
-                        indicators and support derived metrics, economic
+                        Gold analytical marts align major Canadian economic
+                        indicators to support derived metrics, economic
                         comparisons, and forecasting.
                     </p>
 
@@ -525,6 +591,7 @@
                         <div class="indicator-row">
 
                             <div>
+
                                 <span class="indicator-label">
                                     Retail Sales Forecast
                                 </span>
@@ -532,6 +599,7 @@
                                 <strong>
                                     $73.77B
                                 </strong>
+
                             </div>
 
                             <span class="indicator-note">
@@ -544,6 +612,7 @@
                         <div class="indicator-row">
 
                             <div>
+
                                 <span class="indicator-label">
                                     Selected Model
                                 </span>
@@ -551,6 +620,7 @@
                                 <strong>
                                     SARIMA
                                 </strong>
+
                             </div>
 
                             <span class="indicator-note">
@@ -563,6 +633,7 @@
                         <div class="indicator-row">
 
                             <div>
+
                                 <span class="indicator-label">
                                     Holdout RMSE
                                 </span>
@@ -570,6 +641,7 @@
                                 <strong>
                                     $0.93B
                                 </strong>
+
                             </div>
 
                             <span class="indicator-note">
@@ -582,6 +654,7 @@
                         <div class="indicator-row">
 
                             <div>
+
                                 <span class="indicator-label">
                                     Forecast Horizon
                                 </span>
@@ -589,6 +662,7 @@
                                 <strong>
                                     1 Month
                                 </strong>
+
                             </div>
 
                             <span class="indicator-note">
@@ -623,7 +697,7 @@
                         </div>
 
 
-                        <!-- Simplified visual preview; full reporting is available in Power BI. -->
+                        <!-- Simplified homepage preview of the forecast -->
                         <div
                             class="mini-chart"
                             aria-label="Retail sales forecast preview"
@@ -645,6 +719,7 @@
                                     one-month forecast.
                                 </desc>
 
+
                                 <line
                                     x1="40"
                                     y1="220"
@@ -653,6 +728,7 @@
                                     class="chart-axis"
                                 ></line>
 
+
                                 <line
                                     x1="40"
                                     y1="40"
@@ -660,6 +736,7 @@
                                     y2="220"
                                     class="chart-axis"
                                 ></line>
+
 
                                 <polyline
                                     points="
@@ -675,6 +752,7 @@
                                     class="chart-line-actual"
                                 ></polyline>
 
+
                                 <polyline
                                     points="
                                         590,105
@@ -682,6 +760,7 @@
                                     "
                                     class="chart-line-forecast"
                                 ></polyline>
+
 
                                 <circle
                                     cx="660"
@@ -726,10 +805,13 @@
         </section>
 
 
-        <!-- ======================================================
-             HOME PAGE: Reporting and Live Demo
-             Power BI owns visualization; Streamlit owns interaction.
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Analytical delivery
+             PURPOSE:
+             Present Power BI as the reporting layer and Streamlit
+             as the interactive application layer.
+             ========================================================= -->
 
         <section class="delivery-preview">
 
@@ -747,9 +829,9 @@
 
                     <p class="section-description">
                         The platform delivers curated analytical outputs
-                        through a five-page Power BI dashboard and a separate
-                        Streamlit application for live cloud automation and
-                        economic intelligence.
+                        through a five-page Power BI dashboard and a
+                        Streamlit application for cloud automation and
+                        data-grounded economic intelligence.
                     </p>
 
                 </div>
@@ -757,8 +839,7 @@
 
                 <div class="delivery-showcase">
 
-
-                    <!-- Power BI reporting product. -->
+                    <!-- Power BI reporting product -->
                     <article class="delivery-panel powerbi-panel">
 
                         <div class="delivery-panel-header">
@@ -809,7 +890,7 @@
                     </article>
 
 
-                    <!-- Streamlit is the dedicated interactive application. -->
+                    <!-- Streamlit interactive application -->
                     <article class="delivery-panel">
 
                         <div class="delivery-panel-header">
@@ -817,11 +898,11 @@
                             <div>
 
                                 <span class="delivery-label">
-                                    LIVE APPLICATION
+                                    INTERACTIVE APPLICATION
                                 </span>
 
                                 <h3>
-                                    Interactive Platform Demo
+                                    Economic Intelligence Application
                                 </h3>
 
                             </div>
@@ -834,9 +915,9 @@
 
 
                         <p class="delivery-description">
-                            Interact with the platform through a live
-                            application that demonstrates real Azure Data
-                            Factory automation and a data-grounded Economic
+                            Interact with the platform through a Streamlit
+                            application that demonstrates Azure Data Factory
+                            automation and a data-grounded Economic
                             Intelligence Assistant.
                         </p>
 
@@ -848,6 +929,7 @@
                                 <span></span>
                                 <span></span>
                             </div>
+
 
                             <div class="demo-terminal-body">
 
@@ -882,7 +964,7 @@
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Open the live demo ↗
+                            Open the interactive app ↗
                         </a>
 
                     </article>
@@ -894,9 +976,13 @@
         </section>
 
 
-        <!-- ======================================================
-             HOME PAGE: Technology Stack
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Technology stack
+             PURPOSE:
+             Organize the main technologies by their role within
+             the engineering and analytical architecture.
+             ========================================================= -->
 
         <section class="technology-section">
 
@@ -996,9 +1082,13 @@
         </section>
 
 
-        <!-- ======================================================
-             HOME PAGE: Final Project CTA
-             ====================================================== -->
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Final project CTA
+             PURPOSE:
+             Direct visitors toward the architecture, application,
+             and public implementation repository.
+             ========================================================= -->
 
         <section class="project-cta">
 
@@ -1018,8 +1108,8 @@
                         </h2>
 
                         <p>
-                            Explore the technical case study, interact with
-                            the live application, or review the public
+                            Explore the technical case study, use the
+                            interactive application, or review the public
                             repository for notebooks, engineering workflows,
                             forecasting methodology, and documentation.
                         </p>
@@ -1056,9 +1146,10 @@
     </main>
 
 
-    <!-- ======================================================
-         HOME PAGE: Footer
-         ====================================================== -->
+    <!-- =========================================================
+         SHARED COMPONENT
+         SECTION: Site footer
+         ========================================================= -->
 
     <footer class="site-footer">
 
@@ -1119,7 +1210,7 @@
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Live Demo ↗
+                        Interactive App ↗
                     </a>
 
                     <a href="pages/about.html">
@@ -1158,6 +1249,7 @@
     </footer>
 
 
+    <!-- Shared site navigation and interaction logic -->
     <script src="assets/js/main.js"></script>
 
 </body>
