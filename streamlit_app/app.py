@@ -1,7 +1,7 @@
 import requests
 import streamlit as st
 from azure.identity import ClientSecretCredential
-from datetime import datetime, timezone
+from datetime import datetime
 
 
 # =========================================================
@@ -9,10 +9,25 @@ from datetime import datetime, timezone
 # =========================================================
 
 st.set_page_config(
-    page_title="Canadian Economic Intelligence Platform",
+    page_title="Canadian Economic Intelligence | Live Demo",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
+)
+
+
+# =========================================================
+# PROJECT LINKS
+# =========================================================
+
+PORTFOLIO_URL = (
+    "https://mfchowdhury.github.io/"
+    "canadian-economic-intelligence-platform/"
+)
+
+GITHUB_URL = (
+    "https://github.com/mfchowdhury/"
+    "canadian-economic-intelligence-platform"
 )
 
 
@@ -71,7 +86,7 @@ def get_adf_headers():
 # =========================================================
 
 def test_adf_access():
-    """Verify that the Streamlit service principal can access the Data Factory."""
+    """Verify that the service principal can access the Data Factory."""
 
     config = get_adf_config()
 
@@ -157,11 +172,48 @@ def get_adf_run_status(run_id):
 
 
 # =========================================================
-# DATE AND STATUS FORMATTING
+# AZURE DATA FACTORY ACTIVITY RUNS
+# =========================================================
+
+def get_adf_activity_runs(run_id):
+    """Retrieve activity-level execution details for an ADF pipeline run."""
+
+    config = get_adf_config()
+
+    url = (
+        f"https://management.azure.com/subscriptions/"
+        f"{config['subscription_id']}"
+        f"/resourceGroups/{config['resource_group']}"
+        f"/providers/Microsoft.DataFactory/factories/"
+        f"{config['data_factory']}"
+        f"/pipelineruns/{run_id}/queryActivityruns"
+        f"?api-version=2018-06-01"
+    )
+
+    # ADF requires a time window when querying activity runs.
+    request_body = {
+        "lastUpdatedAfter": "2000-01-01T00:00:00Z",
+        "lastUpdatedBefore": "2100-01-01T00:00:00Z",
+    }
+
+    response = requests.post(
+        url,
+        headers=get_adf_headers(),
+        json=request_body,
+        timeout=30,
+    )
+
+    response.raise_for_status()
+
+    return response.json().get("value", [])
+
+
+# =========================================================
+# DATE, STATUS, AND DURATION FORMATTING
 # =========================================================
 
 def format_adf_datetime(timestamp):
-    """Convert an ADF UTC timestamp to a readable local display value."""
+    """Convert an ADF timestamp to a readable display value."""
 
     if not timestamp:
         return "—"
@@ -171,7 +223,7 @@ def format_adf_datetime(timestamp):
             timestamp.replace("Z", "+00:00")
         )
 
-        # Convert UTC to the user's project display timezone.
+        # Convert UTC to the environment's local display timezone.
         local_time = parsed_time.astimezone()
 
         return local_time.strftime("%b %d, %Y, %I:%M %p")
@@ -181,7 +233,7 @@ def format_adf_datetime(timestamp):
 
 
 def format_pipeline_status(status):
-    """Convert the ADF status value into a user-friendly label."""
+    """Convert an ADF status value into a user-friendly label."""
 
     status_labels = {
         "Queued": "Starting",
@@ -195,6 +247,108 @@ def format_pipeline_status(status):
     return status_labels.get(status, status or "Ready")
 
 
+def format_activity_status(status):
+    """Return a concise display label for an ADF activity status."""
+
+    status_labels = {
+        "Queued": "Starting",
+        "InProgress": "In Progress",
+        "Succeeded": "✓ Succeeded",
+        "Failed": "✕ Failed",
+        "Cancelled": "Cancelled",
+        "Canceling": "Cancelling",
+    }
+
+    return status_labels.get(status, status or "Waiting")
+
+
+def format_duration(duration_ms):
+    """Convert an ADF activity duration from milliseconds to a readable value."""
+
+    if duration_ms is None:
+        return "—"
+
+    try:
+        total_seconds = max(0, int(duration_ms) // 1000)
+
+        minutes, seconds = divmod(total_seconds, 60)
+        hours, minutes = divmod(minutes, 60)
+
+        if hours:
+            return f"{hours}h {minutes}m {seconds}s"
+
+        if minutes:
+            return f"{minutes}m {seconds}s"
+
+        return f"{seconds}s"
+
+    except (TypeError, ValueError):
+        return "—"
+
+
+# =========================================================
+# REPRESENTATIVE ACTIVITY CONFIGURATION
+# =========================================================
+
+# Only the six primary workflow activities are shown in the public demo.
+# Failure-handling activities remain part of ADF but are not displayed
+# as normal processing stages.
+
+ACTIVITY_DISPLAY_NAMES = {
+    "run_retail_sales_ingestion": "Retail Sales Ingestion",
+    "run_fx_ingestion": "USD/CAD Ingestion",
+    "run_retail_silver": "Retail Sales Silver",
+    "run_fx_silver": "USD/CAD Silver",
+    "run_gold_economic_overview": "Gold Economic Overview",
+    "run_gold_forecasting_features": "Gold Forecasting Features",
+}
+
+ACTIVITY_ORDER = list(ACTIVITY_DISPLAY_NAMES.keys())
+
+
+def prepare_activity_rows(activity_runs):
+    """Prepare the six representative ADF activities for display."""
+
+    activity_lookup = {
+        activity.get("activityName"): activity
+        for activity in activity_runs
+        if activity.get("activityName") in ACTIVITY_DISPLAY_NAMES
+    }
+
+    rows = []
+
+    for activity_name in ACTIVITY_ORDER:
+        activity = activity_lookup.get(activity_name)
+
+        if activity:
+            rows.append(
+                {
+                    "Activity": ACTIVITY_DISPLAY_NAMES[activity_name],
+                    "Status": format_activity_status(
+                        activity.get("status")
+                    ),
+                    "Run Start": format_adf_datetime(
+                        activity.get("activityRunStart")
+                    ),
+                    "Duration": format_duration(
+                        activity.get("durationInMs")
+                    ),
+                }
+            )
+
+        else:
+            rows.append(
+                {
+                    "Activity": ACTIVITY_DISPLAY_NAMES[activity_name],
+                    "Status": "Waiting",
+                    "Run Start": "—",
+                    "Duration": "—",
+                }
+            )
+
+    return rows
+
+
 # =========================================================
 # STREAMLIT SESSION STATE
 # =========================================================
@@ -204,6 +358,9 @@ if "adf_run_id" not in st.session_state:
 
 if "adf_run_data" not in st.session_state:
     st.session_state.adf_run_data = None
+
+if "adf_activity_runs" not in st.session_state:
+    st.session_state.adf_activity_runs = []
 
 if "adf_trigger_message" not in st.session_state:
     st.session_state.adf_trigger_message = None
@@ -261,35 +418,18 @@ st.markdown(
             color: #16324F;
         }
 
-        .info-card {
-            border: 1px solid #D9E1E8;
-            border-radius: 12px;
-            padding: 1.15rem 1.25rem;
-            background-color: #FFFFFF;
-            height: 100%;
-        }
-
-        .info-label {
-            color: #607D8B;
-            font-size: 0.85rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .info-value {
-            color: #16324F;
-            font-size: 1.15rem;
-            font-weight: 700;
-        }
-
         .note-text {
             color: #607D8B;
             font-size: 0.9rem;
             line-height: 1.5;
         }
 
-        .status-success {
-            color: #2E7D32;
+        .sidebar-label {
+            color: #607D8B;
+            font-size: 0.78rem;
             font-weight: 700;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
         }
 
         div[data-testid="stSidebar"] {
@@ -306,13 +446,22 @@ st.markdown(
 # =========================================================
 
 with st.sidebar:
+
+    st.markdown(
+        '<div class="sidebar-label">LIVE DEMO</div>',
+        unsafe_allow_html=True,
+    )
+
     st.markdown("## Canadian Economic Intelligence")
-    st.caption("Interactive project demonstration")
+
+    st.caption(
+        "Interactive demonstrations of the platform's "
+        "automation and analytical capabilities."
+    )
 
     page = st.radio(
         "Navigation",
         [
-            "Overview",
             "Automation Demo",
             "Economic Intelligence Assistant",
         ],
@@ -321,112 +470,16 @@ with st.sidebar:
 
     st.divider()
 
-    st.caption(
-        "Built with Azure Data Factory, ADLS Gen2, Azure Databricks, "
-        "Azure SQL, Power BI, Python, and Streamlit."
-    )
-
-
-# =========================================================
-# PAGE: OVERVIEW
-# =========================================================
-
-if page == "Overview":
-
     st.markdown(
-        '<div class="main-title">Canadian Economic Intelligence Platform</div>',
+        f'<a href="{PORTFOLIO_URL}" target="_blank">'
+        '← Back to Portfolio</a>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        """
-        <div class="main-subtitle">
-            An interactive companion to an end-to-end Canadian economic
-            intelligence platform, demonstrating automated economic-data
-            processing and AI-assisted economic analysis.
-        </div>
-        """,
+        f'<a href="{GITHUB_URL}" target="_blank">'
+        'View GitHub Repository ↗</a>',
         unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        '<div class="section-title">Platform Overview</div>',
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        """
-        <div class="section-description">
-            The platform integrates official Canadian economic data,
-            transforms it through a medallion architecture, and produces
-            analysis-ready datasets for reporting, forecasting, and
-            decision-oriented economic analysis.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        """
-        <div class="pipeline-box">
-            Official Data Sources
-            &nbsp; → &nbsp;
-            Azure Data Factory
-            &nbsp; → &nbsp;
-            ADLS Gen2
-            &nbsp; → &nbsp;
-            Azure Databricks
-            &nbsp; → &nbsp;
-            Gold
-            &nbsp; → &nbsp;
-            Azure SQL
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.write("")
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        st.markdown(
-            """
-            <div class="info-card">
-                <div class="info-label">Data Engineering</div>
-                <div class="info-value">Azure Lakehouse Pipeline</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with col2:
-        st.markdown(
-            """
-            <div class="info-card">
-                <div class="info-label">Economic Analysis</div>
-                <div class="info-value">Canadian Macro Data</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with col3:
-        st.markdown(
-            """
-            <div class="info-card">
-                <div class="info-label">Advanced Analytics</div>
-                <div class="info-value">Forecasting + AI</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    st.write("")
-
-    st.info(
-        "Use the navigation panel to explore the representative automation "
-        "workflow and the Economic Intelligence Assistant."
     )
 
 
@@ -434,7 +487,7 @@ if page == "Overview":
 # PAGE: AUTOMATION DEMO
 # =========================================================
 
-elif page == "Automation Demo":
+if page == "Automation Demo":
 
     st.markdown(
         '<div class="main-title">Automation Demo</div>',
@@ -444,9 +497,9 @@ elif page == "Automation Demo":
     st.markdown(
         """
         <div class="main-subtitle">
-            A representative automated workflow demonstrating ingestion,
-            transformation, validation, and Gold-layer integration using
-            Azure Data Factory and Azure Databricks.
+            Trigger and monitor a representative Azure Data Factory workflow
+            that ingests official Canadian economic data, executes Databricks
+            transformations, and refreshes analytical Gold datasets.
         </div>
         """,
         unsafe_allow_html=True,
@@ -464,8 +517,9 @@ elif page == "Automation Demo":
     st.markdown(
         """
         <div class="section-description">
-            The automation proof of concept uses representative datasets
-            from Statistics Canada and the Bank of Canada.
+            The live automation proof of concept uses Statistics Canada
+            Retail Sales and Bank of Canada USD/CAD data to demonstrate
+            the platform's end-to-end orchestration pattern.
         </div>
         """,
         unsafe_allow_html=True,
@@ -563,18 +617,18 @@ elif page == "Automation Demo":
     st.markdown(
         """
         <div class="section-description">
-            Start the live Azure Data Factory master pipeline and monitor
-            its actual execution status directly from Azure.
+            Pipeline and activity status are retrieved directly from
+            Azure Data Factory for the currently tracked execution.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     pipeline_status = "Ready"
-    last_run = "—"
+    run_started = "—"
 
-    # Retrieve the latest state for the run currently tracked
-    # by this Streamlit browser session.
+    # Retrieve the latest state for the ADF run tracked by
+    # the current Streamlit browser session.
     if st.session_state.adf_run_id:
 
         try:
@@ -588,45 +642,139 @@ elif page == "Automation Demo":
                 run_data.get("status")
             )
 
-            last_run = format_adf_datetime(
+            run_started = format_adf_datetime(
                 run_data.get("runStart")
             )
 
-        except Exception as e:
+        except Exception:
             pipeline_status = "Status Unavailable"
 
-    col1, col2 = st.columns(2)
+    status_col1, status_col2, status_col3 = st.columns(
+        [1.7, 1, 1.5]
+    )
 
-    with col1:
+    with status_col1:
         st.metric(
-            label="Pipeline Status",
+            label="Pipeline",
+            value="Master Economic Intelligence",
+        )
+
+    with status_col2:
+        st.metric(
+            label="Status",
             value=pipeline_status,
         )
 
-    with col2:
+    with status_col3:
         st.metric(
-            label="Last Run",
-            value=last_run,
+            label="Run Started",
+            value=run_started,
         )
 
-    st.write("")
-
-    # Display the ADF run identifier for traceability.
     if st.session_state.adf_run_id:
         st.caption(
             f"ADF Run ID: {st.session_state.adf_run_id}"
         )
 
-    # Display the most recent trigger confirmation.
+    # Display the most recent pipeline trigger confirmation.
     if st.session_state.adf_trigger_message:
         st.success(st.session_state.adf_trigger_message)
         st.session_state.adf_trigger_message = None
 
+    st.write("")
+
+    # ---------------------------------------------------------
+    # ACTIVITY EXECUTION STATUS
+    # ---------------------------------------------------------
+
+    st.markdown(
+        '<div class="section-title">Activity Execution</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div class="section-description">
+            The table shows the execution state of the six primary
+            activities in the representative automation workflow.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    if st.session_state.adf_run_id:
+
+        try:
+            activity_runs = get_adf_activity_runs(
+                st.session_state.adf_run_id
+            )
+
+            st.session_state.adf_activity_runs = activity_runs
+
+        except Exception:
+            activity_runs = st.session_state.adf_activity_runs
+
+        activity_rows = prepare_activity_rows(
+            activity_runs
+        )
+
+        st.dataframe(
+            activity_rows,
+            use_container_width=True,
+            hide_index=True,
+            column_config={
+                "Activity": st.column_config.TextColumn(
+                    "Activity",
+                    width="large",
+                ),
+                "Status": st.column_config.TextColumn(
+                    "Status",
+                    width="medium",
+                ),
+                "Run Start": st.column_config.TextColumn(
+                    "Run Start",
+                    width="large",
+                ),
+                "Duration": st.column_config.TextColumn(
+                    "Duration",
+                    width="small",
+                ),
+            },
+        )
+
+    else:
+        waiting_rows = prepare_activity_rows([])
+
+        st.dataframe(
+            waiting_rows,
+            use_container_width=True,
+            hide_index=True,
+            column_config={
+                "Activity": st.column_config.TextColumn(
+                    "Activity",
+                    width="large",
+                ),
+                "Status": st.column_config.TextColumn(
+                    "Status",
+                    width="medium",
+                ),
+                "Run Start": st.column_config.TextColumn(
+                    "Run Start",
+                    width="large",
+                ),
+                "Duration": st.column_config.TextColumn(
+                    "Duration",
+                    width="small",
+                ),
+            },
+        )
+
     st.markdown(
         """
         <div class="note-text">
-            This demonstration represents the automated workflow for
-            Retail Sales and USD/CAD rather than the complete dataset registry.
+            This public demonstration runs the representative Retail Sales
+            and USD/CAD workflow rather than the platform's complete
+            ten-dataset registry.
         </div>
         """,
         unsafe_allow_html=True,
@@ -638,6 +786,11 @@ elif page == "Automation Demo":
     # ---------------------------------------------------------
     # AUTOMATION CONTROLS
     # ---------------------------------------------------------
+
+    st.markdown(
+        '<div class="section-title">Automation Controls</div>',
+        unsafe_allow_html=True,
+    )
 
     current_adf_status = None
 
@@ -656,8 +809,8 @@ elif page == "Automation Demo":
 
     with button_col1:
 
-        # Prevent another run from being started from the same
-        # session while the tracked pipeline is still active.
+        # Session-level protection prevents another trigger from the
+        # same browser while the currently tracked run remains active.
         if st.button(
             "Run Automation Demo",
             type="primary",
@@ -669,6 +822,7 @@ elif page == "Automation Demo":
 
                 st.session_state.adf_run_id = run_id
                 st.session_state.adf_run_data = None
+                st.session_state.adf_activity_runs = []
                 st.session_state.adf_trigger_message = (
                     "ADF pipeline started successfully."
                 )
@@ -682,12 +836,12 @@ elif page == "Automation Demo":
 
     with button_col2:
 
-        # Refresh the current ADF run without starting
-        # another pipeline execution.
         refresh_disabled = (
             st.session_state.adf_run_id is None
         )
 
+        # Refresh both the master pipeline and its activity-level
+        # execution details without starting another ADF run.
         if st.button(
             "Refresh Run Status",
             disabled=refresh_disabled,
@@ -698,7 +852,12 @@ elif page == "Automation Demo":
                     st.session_state.adf_run_id
                 )
 
+                activity_runs = get_adf_activity_runs(
+                    st.session_state.adf_run_id
+                )
+
                 st.session_state.adf_run_data = run_data
+                st.session_state.adf_activity_runs = activity_runs
 
                 st.rerun()
 
@@ -709,8 +868,9 @@ elif page == "Automation Demo":
 
     if run_is_active:
         st.info(
-            "The Azure Data Factory pipeline is currently running. "
-            "Use Refresh Run Status to retrieve the latest execution state."
+            "The Azure Data Factory pipeline is currently processing. "
+            "Use Refresh Run Status to retrieve the latest pipeline "
+            "and activity execution states."
         )
 
     elif pipeline_status == "Succeeded":
@@ -720,14 +880,19 @@ elif page == "Automation Demo":
 
     elif pipeline_status == "Failed":
         st.error(
-            "The latest automation run failed. Review the Azure Data Factory "
-            "monitoring details for the failed activity."
+            "The latest automation run failed. Review the activity "
+            "execution table to identify the failed stage."
         )
 
     elif pipeline_status == "Cancelled":
         st.warning(
             "The latest automation run was cancelled."
         )
+
+    st.caption(
+        "Public-run frequency controls will limit how often the live "
+        "Azure workflow can be triggered."
+    )
 
 
 # =========================================================
@@ -745,7 +910,8 @@ elif page == "Economic Intelligence Assistant":
         """
         <div class="main-subtitle">
             Ask questions about curated Canadian economic data and receive
-            plain-language analytical explanations grounded in project data.
+            plain-language analytical explanations grounded in the
+            platform's validated datasets.
         </div>
         """,
         unsafe_allow_html=True,
@@ -759,8 +925,8 @@ elif page == "Economic Intelligence Assistant":
     st.markdown(
         """
         <div class="section-description">
-            The assistant will retrieve relevant validated indicators before
-            generating a response.
+            The assistant retrieves relevant validated indicators from
+            the analytical serving layer before generating an explanation.
         </div>
         """,
         unsafe_allow_html=True,
@@ -768,7 +934,9 @@ elif page == "Economic Intelligence Assistant":
 
     question = st.text_area(
         "Economic question",
-        placeholder="Example: How are Canadian economic conditions changing?",
+        placeholder=(
+            "Example: How are Canadian economic conditions changing?"
+        ),
         height=120,
     )
 
@@ -801,8 +969,9 @@ elif page == "Economic Intelligence Assistant":
     st.markdown(
         """
         <div class="section-description">
-            Each generated answer will show the indicators and reference
-            periods used so the analysis remains traceable to project data.
+            Each generated answer will show the indicators, values, and
+            reference periods used so the analysis remains traceable
+            to project data.
         </div>
         """,
         unsafe_allow_html=True,
