@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 
@@ -10,103 +11,114 @@
 
     <meta
         name="description"
-        content="Power BI reporting for the Canadian Economic Intelligence Platform, including executive, regional, industry, affordability, and forecasting views."
+        content="Canadian Economic Intelligence Platform — an end-to-end Azure data and analytics platform developed by Mahin Chowdhury for Canadian economic analysis, forecasting, Power BI reporting, and interactive intelligence."
     >
 
     <title>
-        Power BI | Canadian Economic Intelligence
+        Canadian Economic Intelligence Platform
     </title>
 
+    <!-- Shared site styles -->
     <link
         rel="stylesheet"
-        href="../assets/css/styles.css"
+        href="assets/css/styles.css"
     >
 
+    <!-- Shared animation styles -->
     <link
         rel="stylesheet"
-        href="../assets/css/animations.css"
+        href="assets/css/animations.css"
     >
 
+    <!-- Shared responsive styles -->
     <link
         rel="stylesheet"
-        href="../assets/css/responsive.css"
+        href="assets/css/responsive.css"
     >
 </head>
+
 
 <body>
 
     <!-- =========================================================
          SHARED COMPONENT
          SECTION: Site header
+         PURPOSE:
+         Provide consistent navigation across the portfolio
+         and direct access to the interactive application.
          ========================================================= -->
 
     <header class="site-header">
 
-        <div class="container header-container">
+        <div class="container nav-container">
 
             <a
-                href="../index.html"
-                class="site-brand"
-                aria-label="Canadian Economic Intelligence homepage"
+                href="index.html"
+                class="brand"
             >
-                Canadian Economic Intelligence
+                <span
+                    class="brand-mark"
+                    aria-hidden="true"
+                >
+                    ◆
+                </span>
+
+                <span>
+                    Canadian Economic Intelligence
+                </span>
             </a>
 
-            <button
-                class="mobile-menu-toggle"
-                type="button"
-                aria-label="Open navigation menu"
-                aria-controls="main-navigation"
-                aria-expanded="false"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
 
             <nav
                 class="main-nav"
-                id="main-navigation"
-                aria-label="Main navigation"
+                aria-label="Primary navigation"
             >
 
-                <a href="../index.html">
-                    Home
-                </a>
-
-                <a href="architecture.html">
-                    Architecture
-                </a>
-
-                <a href="pipeline.html">
-                    Pipeline
-                </a>
-
-                <a href="analytics.html">
-                    Analytics
-                </a>
-
                 <a
-                    href="powerbi.html"
+                    href="index.html"
                     class="active"
                     aria-current="page"
                 >
+                    Home
+                </a>
+
+                <a href="pages/architecture.html">
+                    Architecture
+                </a>
+
+                <a href="pages/pipeline.html">
+                    Pipeline
+                </a>
+
+                <a href="pages/analytics.html">
+                    Analytics
+                </a>
+
+                <a href="pages/powerbi.html">
                     Power BI
                 </a>
 
-                <a href="live-demo.html">
-                    Live Demo
+
+                <!-- Open the deployed Streamlit application directly -->
+                <a
+                    href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Interactive App ↗
                 </a>
 
+
                 <a
-                    href="#"
+                    href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     GitHub ↗
                 </a>
 
-                <a href="about.html">
+
+                <a href="pages/about.html">
                     About
                 </a>
 
@@ -120,753 +132,1010 @@
     <main>
 
         <!-- =========================================================
-             PAGE: Power BI
-             SECTION: Page hero
+             PAGE: Home
+             SECTION: Hero
+             PURPOSE:
+             Introduce the project, its creator, and the primary
+             technical and analytical value of the platform.
              ========================================================= -->
 
-        <section class="inner-page-hero powerbi-page-hero">
+        <section class="hero">
 
-            <div class="container">
+            <div class="container hero-container">
 
-                <div class="inner-page-hero-content">
+                <div class="hero-content">
 
                     <p class="eyebrow">
-                        BUSINESS INTELLIGENCE
+                        CANADIAN ECONOMIC INTELLIGENCE PLATFORM
                     </p>
 
                     <h1>
-                        Turning analytical outputs into an interactive economic dashboard.
+                        Turning Canadian economic data into
+                        decision-ready intelligence.
                     </h1>
 
-                    <p class="inner-page-description">
-                        Power BI provides the decision-facing layer of the
-                        platform, combining curated economic indicators,
-                        regional comparisons, industry analysis, affordability
-                        measures, and retail sales forecasting.
+                    <p class="hero-description">
+                        An end-to-end Azure data and analytics platform developed
+                        by Mahin Chowdhury that transforms official Canadian
+                        economic data into validated analytical datasets,
+                        dashboards, forecasts, and interactive intelligence.
                     </p>
 
-                </div>
 
-
-                <div class="powerbi-summary-strip">
-
-                    <div class="powerbi-summary-item">
-                        <span>Report Pages</span>
-                        <strong>5 Analytical Views</strong>
-                    </div>
-
-                    <div class="powerbi-summary-item">
-                        <span>Serving Layer</span>
-                        <strong>Azure SQL</strong>
-                    </div>
-
-                    <div class="powerbi-summary-item">
-                        <span>Forecasting</span>
-                        <strong>Retail Sales Outlook</strong>
-                    </div>
-
-                    <div class="powerbi-summary-item">
-                        <span>Delivery</span>
-                        <strong>Interactive Reporting</strong>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             PAGE: Power BI
-             SECTION: Report page overview
-             ========================================================= -->
-
-        <section class="powerbi-pages-section">
-
-            <div class="container">
-
-                <div class="section-heading powerbi-pages-heading">
-
-                    <p class="eyebrow">
-                        REPORT STRUCTURE
-                    </p>
-
-                    <h2>
-                        Five pages organize the platform's economic intelligence.
-                    </h2>
-
-                    <p class="section-description">
-                        Each report page is designed around a distinct analytical
-                        question while sharing the same curated SQL serving layer.
-                    </p>
-
-                </div>
-
-
-                <div class="powerbi-page-list">
-
-                    <article class="powerbi-report-page">
-
-                        <span class="powerbi-page-number">
-                            01
-                        </span>
-
-                        <div>
-                            <p class="powerbi-page-label">
-                                EXECUTIVE
-                            </p>
-
-                            <h3>
-                                Executive Overview
-                            </h3>
-
-                            <p>
-                                High-level macroeconomic indicators and summary
-                                measures for rapid assessment of current conditions.
-                            </p>
-                        </div>
-
-                    </article>
-
-
-                    <article class="powerbi-report-page">
-
-                        <span class="powerbi-page-number">
-                            02
-                        </span>
-
-                        <div>
-                            <p class="powerbi-page-label">
-                                REGIONAL
-                            </p>
-
-                            <h3>
-                                Regional Analysis
-                            </h3>
-
-                            <p>
-                                Provincial comparisons across labour, population,
-                                housing, and related regional indicators.
-                            </p>
-                        </div>
-
-                    </article>
-
-
-                    <article class="powerbi-report-page">
-
-                        <span class="powerbi-page-number">
-                            03
-                        </span>
-
-                        <div>
-                            <p class="powerbi-page-label">
-                                INDUSTRY
-                            </p>
-
-                            <h3>
-                                Industry Analysis
-                            </h3>
-
-                            <p>
-                                Industry-level views of GDP, retail activity,
-                                productivity, and sector performance.
-                            </p>
-                        </div>
-
-                    </article>
-
-
-                    <article class="powerbi-report-page">
-
-                        <span class="powerbi-page-number">
-                            04
-                        </span>
-
-                        <div>
-                            <p class="powerbi-page-label">
-                                FISCAL &amp; AFFORDABILITY
-                            </p>
-
-                            <h3>
-                                Fiscal &amp; Affordability
-                            </h3>
-
-                            <p>
-                                Fiscal context and affordability-related indicators
-                                presented within a consistent analytical framework.
-                            </p>
-                        </div>
-
-                    </article>
-
-
-                    <article class="powerbi-report-page">
-
-                        <span class="powerbi-page-number">
-                            05
-                        </span>
-
-                        <div>
-                            <p class="powerbi-page-label">
-                                FORECASTING
-                            </p>
-
-                            <h3>
-                                Forecasting &amp; Outlook
-                            </h3>
-
-                            <p>
-                                Retail sales forecasts, holdout evaluation,
-                                model comparison, and final model selection.
-                            </p>
-                        </div>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             PAGE: Power BI
-             SECTION: Live report embed
-             ========================================================= -->
-
-        <section class="powerbi-embed-section">
-
-            <div class="container">
-
-                <div class="section-heading powerbi-embed-heading">
-
-                    <p class="eyebrow">
-                        LIVE REPORT
-                    </p>
-
-                    <h2>
-                        Explore the Power BI dashboard.
-                    </h2>
-
-                    <p class="section-description">
-                        The embedded report provides direct access to the
-                        platform's interactive analytical views.
-                    </p>
-
-                </div>
-
-
-                <div class="powerbi-embed-frame">
-
-                    <!--
-                        Replace the placeholder source below with the
-                        Power BI Publish to web embed URL.
-                    -->
-
-                    <iframe
-                        title="Canadian Economic Intelligence Power BI Report"
-                        src="about:blank"
-                        allowfullscreen="true"
-                        loading="lazy"
-                    >
-                    </iframe>
-
-
-                    <div class="powerbi-embed-placeholder">
-
-                        <p class="powerbi-placeholder-label">
-                            POWER BI EMBED
-                        </p>
-
-                        <h3>
-                            Live report will appear here.
-                        </h3>
-
-                        <p>
-                            Replace the iframe source with the final Power BI
-                            Publish to web URL when the report is ready for
-                            public access.
-                        </p>
+                    <div class="hero-actions">
+
+                        <a
+                            href="#platform"
+                            class="btn btn-primary"
+                        >
+                            Explore the Platform
+                        </a>
+
+                        <a
+                            href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                            class="btn btn-secondary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Open Interactive App ↗
+                        </a>
 
                     </div>
 
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             PAGE: Power BI
-             SECTION: Dashboard questions
-             ========================================================= -->
-
-        <section class="powerbi-questions-section">
-
-            <div class="container">
-
-                <div class="powerbi-questions-layout">
-
-                    <div class="powerbi-questions-intro">
-
-                        <p class="eyebrow">
-                            DECISION QUESTIONS
-                        </p>
-
-                        <h2>
-                            The dashboard is designed to answer practical economic questions.
-                        </h2>
-
-                        <p>
-                            The report structure helps users move from a high-level
-                            view of the economy into more detailed regional,
-                            industry, affordability, and forecasting analysis.
-                        </p>
-
-                    </div>
-
-
-                    <div class="powerbi-question-list">
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                01
-                            </span>
-
-                            <p>
-                                How are major Canadian economic indicators changing over time?
-                            </p>
-
-                        </div>
-
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                02
-                            </span>
-
-                            <p>
-                                Which provinces show stronger or weaker labour and housing conditions?
-                            </p>
-
-                        </div>
-
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                03
-                            </span>
-
-                            <p>
-                                Which industries are driving changes in economic activity?
-                            </p>
-
-                        </div>
-
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                04
-                            </span>
-
-                            <p>
-                                How do fiscal and affordability indicators evolve alongside the broader economy?
-                            </p>
-
-                        </div>
-
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                05
-                            </span>
-
-                            <p>
-                                How does the selected retail sales forecasting model perform against the holdout period?
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             PAGE: Power BI
-             SECTION: Reporting architecture
-             ========================================================= -->
-
-        <section class="powerbi-reporting-section">
-
-            <div class="container">
-
-                <div class="section-heading powerbi-reporting-heading">
-
-                    <p class="eyebrow">
-                        REPORTING ARCHITECTURE
-                    </p>
-
-                    <h2>
-                        Power BI consumes curated analytical outputs rather than raw source data.
-                    </h2>
-
-                    <p class="section-description">
-                        Reporting is separated from upstream transformation so
-                        business logic remains controlled within the analytical
-                        and serving layers.
-                    </p>
-
-                </div>
-
-
-                <div class="powerbi-reporting-flow">
-
-                    <div class="powerbi-reporting-stage">
-
-                        <span>
-                            01
-                        </span>
-
-                        <small>
-                            Analytical Processing
-                        </small>
-
-                        <strong>
-                            Gold Data Models
-                        </strong>
-
-                        <p>
-                            Integrated analytical outputs prepared in Databricks.
-                        </p>
-
-                    </div>
-
-
-                    <div
-                        class="powerbi-reporting-arrow"
-                        aria-hidden="true"
-                    >
-                        →
-                    </div>
-
-
-                    <div class="powerbi-reporting-stage">
-
-                        <span>
-                            02
-                        </span>
-
-                        <small>
-                            Serving
-                        </small>
-
-                        <strong>
-                            Azure SQL
-                        </strong>
-
-                        <p>
-                            Twelve curated reporting tables provide a stable
-                            analytical interface.
-                        </p>
-
-                    </div>
-
-
-                    <div
-                        class="powerbi-reporting-arrow"
-                        aria-hidden="true"
-                    >
-                        →
-                    </div>
-
-
-                    <div class="powerbi-reporting-stage powerbi-reporting-final">
-
-                        <span>
-                            03
-                        </span>
-
-                        <small>
-                            Visualization
-                        </small>
-
-                        <strong>
-                            Power BI
-                        </strong>
-
-                        <p>
-                            Interactive dashboards, filters, comparisons,
-                            and forecasting views.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             PAGE: Power BI
-             SECTION: Forecasting report evidence
-             ========================================================= -->
-
-        <section class="powerbi-forecast-section">
-
-            <div class="container">
-
-                <div class="powerbi-forecast-layout">
-
-                    <div class="powerbi-forecast-intro">
-
-                        <p class="eyebrow">
-                            FORECASTING PAGE
-                        </p>
-
-                        <h2>
-                            Model evaluation is surfaced alongside the final forecast.
-                        </h2>
-
-                        <p>
-                            The forecasting report presents both the selected
-                            retail sales forecast and the evidence used to support
-                            model selection.
-                        </p>
-
-                    </div>
-
-
-                    <div class="powerbi-forecast-metrics">
-
-                        <div class="powerbi-forecast-primary">
-
-                            <span>
-                                JULY 2026 FORECAST
-                            </span>
-
-                            <strong>
-                                $70.13B
-                            </strong>
-
-                            <small>
-                                Retail Sales
-                            </small>
-
-                        </div>
-
-
-                        <div class="powerbi-forecast-metric">
-
-                            <span>
-                                Selected Model
-                            </span>
-
-                            <strong>
-                                Seasonal Naive
-                            </strong>
-
-                        </div>
-
-
-                        <div class="powerbi-forecast-metric">
-
-                            <span>
-                                Holdout MAE
-                            </span>
-
-                            <strong>
-                                ≈ $2.27B
-                            </strong>
-
-                        </div>
-
-
-                        <div class="powerbi-forecast-metric">
-
-                            <span>
-                                Holdout RMSE
-                            </span>
-
-                            <strong>
-                                ≈ $2.52B
-                            </strong>
-
-                        </div>
-
-
-                        <div class="powerbi-forecast-metric">
-
-                            <span>
-                                Forecast Horizon
-                            </span>
-
-                            <strong>
-                                1 Month
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             PAGE: Power BI
-             SECTION: Reporting principles
-             ========================================================= -->
-
-        <section class="powerbi-principles-section">
-
-            <div class="container">
-
-                <div class="section-heading powerbi-principles-heading">
-
-                    <p class="eyebrow">
-                        REPORTING PRINCIPLES
-                    </p>
-
-                    <h2>
-                        The dashboard emphasizes clarity, traceability, and analytical consistency.
-                    </h2>
-
-                </div>
-
-
-                <div class="powerbi-principles">
-
-                    <article class="powerbi-principle">
-
-                        <span>
-                            01
-                        </span>
-
-                        <h3>
-                            Curated Data First
-                        </h3>
-
-                        <p>
-                            Power BI consumes reporting-ready SQL tables rather
-                            than performing raw data engineering inside the report.
-                        </p>
-
-                    </article>
-
-
-                    <article class="powerbi-principle">
-
-                        <span>
-                            02
-                        </span>
-
-                        <h3>
-                            Consistent Analytical Grain
-                        </h3>
-
-                        <p>
-                            Visuals are built on datasets whose frequency and
-                            business keys are aligned upstream.
-                        </p>
-
-                    </article>
-
-
-                    <article class="powerbi-principle">
-
-                        <span>
-                            03
-                        </span>
-
-                        <h3>
-                            Evidence Alongside Forecasts
-                        </h3>
-
-                        <p>
-                            Forecast outputs are presented with model comparison
-                            and holdout evaluation rather than as isolated values.
-                        </p>
-
-                    </article>
-
-
-                    <article class="powerbi-principle">
-
-                        <span>
-                            04
-                        </span>
-
-                        <h3>
-                            Decision-Focused Layout
-                        </h3>
-
-                        <p>
-                            Report pages are organized around economic questions
-                            rather than the structure of the source systems.
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             PAGE: Power BI
-             SECTION: Next page navigation
-             ========================================================= -->
-
-        <section class="next-page-section">
-
-            <div class="container">
-
-                <div class="next-page-inner">
-
-                    <div>
-
-                        <p class="eyebrow">
-                            NEXT
-                        </p>
-
-                        <h2>
-                            Move from dashboards to interactive exploration.
-                        </h2>
-
-                        <p>
-                            Continue to the Live Demo page to explore the
-                            interactive application layer of the platform.
-                        </p>
-
-                    </div>
 
                     <a
-                        href="live-demo.html"
-                        class="button button-primary"
+                        href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
+                        class="github-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
-                        View Live Demo →
+                        View GitHub Repository →
                     </a>
+
+
+                    <div class="technology-list">
+                        <span>Azure Data Factory</span>
+                        <span>ADLS Gen2</span>
+                        <span>Azure Databricks</span>
+                        <span>Azure SQL</span>
+                        <span>Power BI</span>
+                        <span>Python</span>
+                    </div>
+
+                </div>
+
+
+                <!-- Project scale at a glance -->
+                <div class="hero-summary">
+
+                    <div class="summary-card">
+                        <strong>10</strong>
+                        <span>Official Datasets</span>
+                    </div>
+
+                    <div class="summary-card">
+                        <strong>5</strong>
+                        <span>Power BI Pages</span>
+                    </div>
+
+                    <div class="summary-card">
+                        <strong>4</strong>
+                        <span>Forecast Models</span>
+                    </div>
+
+                    <div class="summary-card">
+                        <strong>12</strong>
+                        <span>Reporting Tables</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Economic problem
+             PURPOSE:
+             Explain why integrating official Canadian economic
+             indicators requires a structured analytical platform.
+             ========================================================= -->
+
+        <section class="problem-section">
+
+            <div class="container problem-container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        THE ECONOMIC PROBLEM
+                    </p>
+
+                    <h2>
+                        Official economic data is powerful,
+                        but fragmented.
+                    </h2>
+
+                </div>
+
+
+                <div class="problem-content">
+
+                    <p>
+                        Canadian economic indicators are published across
+                        different official sources, frequencies, structures,
+                        and release schedules. Comparing economic conditions
+                        across growth, inflation, labour markets, housing,
+                        fiscal policy, and other areas therefore requires
+                        substantial preparation.
+                    </p>
+
+                    <p>
+                        The platform brings these sources into a consistent
+                        analytical environment where data can be validated,
+                        standardized, integrated, monitored, analyzed,
+                        forecast, and communicated more efficiently.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Platform at a glance
+             PURPOSE:
+             Summarize the end-to-end movement from official
+             economic data to analytical and decision products.
+             ========================================================= -->
+
+        <section
+            class="platform-section"
+            id="platform"
+        >
+
+            <div class="container">
+
+                <div class="section-heading platform-heading">
+
+                    <p class="eyebrow">
+                        PLATFORM AT A GLANCE
+                    </p>
+
+                    <h2>
+                        From official data to economic intelligence.
+                    </h2>
+
+                    <p class="section-description">
+                        A unified cloud workflow connects official Canadian
+                        economic data with engineering, analytical modeling,
+                        reporting, forecasting, and interactive delivery.
+                    </p>
+
+                </div>
+
+
+                <div class="platform-flow">
+
+                    <article class="platform-stage">
+
+                        <span class="stage-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Official Data
+                        </h3>
+
+                        <p>
+                            Statistics Canada<br>
+                            Bank of Canada<br>
+                            Finance Canada<br>
+                            Ontario Finance
+                        </p>
+
+                    </article>
+
+
+                    <div
+                        class="flow-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <article class="platform-stage">
+
+                        <span class="stage-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Data Engineering
+                        </h3>
+
+                        <p>
+                            Azure Data Factory<br>
+                            ADLS Gen2<br>
+                            Azure Databricks
+                        </p>
+
+                    </article>
+
+
+                    <div
+                        class="flow-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <article class="platform-stage">
+
+                        <span class="stage-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Analytical Layer
+                        </h3>
+
+                        <p>
+                            Gold Analytical Marts<br>
+                            Azure SQL<br>
+                            Forecasting
+                        </p>
+
+                    </article>
+
+
+                    <div
+                        class="flow-arrow"
+                        aria-hidden="true"
+                    >
+                        →
+                    </div>
+
+
+                    <article class="platform-stage">
+
+                        <span class="stage-number">
+                            04
+                        </span>
+
+                        <h3>
+                            Decision Layer
+                        </h3>
+
+                        <p>
+                            Power BI<br>
+                            Streamlit<br>
+                            Economic Intelligence Assistant
+                        </p>
+
+                    </article>
+
+                </div>
+
+
+                <a
+                    href="pages/architecture.html"
+                    class="architecture-link"
+                >
+                    Explore the full architecture →
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Core capabilities
+             PURPOSE:
+             Summarize the primary engineering, analytical,
+             forecasting, and delivery capabilities demonstrated.
+             ========================================================= -->
+
+        <section class="capabilities-section">
+
+            <div class="container">
+
+                <div class="section-heading capabilities-heading">
+
+                    <p class="eyebrow">
+                        CORE CAPABILITIES
+                    </p>
+
+                    <h2>
+                        Engineering, analytics, and delivery
+                        in one platform.
+                    </h2>
+
+                    <p class="section-description">
+                        The project demonstrates the complete path from
+                        official source data to validated analytical
+                        products and interactive decision tools.
+                    </p>
+
+                </div>
+
+
+                <div class="capabilities-grid home-capabilities-grid">
+
+                    <article class="capability-card">
+
+                        <span class="capability-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Automated Data Engineering
+                        </h3>
+
+                        <p>
+                            Azure Data Factory orchestrates source ingestion
+                            and Databricks processing through a repeatable
+                            cloud workflow.
+                        </p>
+
+                    </article>
+
+
+                    <article class="capability-card">
+
+                        <span class="capability-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Lakehouse &amp; Data Quality
+                        </h3>
+
+                        <p>
+                            Bronze, Silver, and Gold layers preserve raw
+                            history, validate source data, quarantine invalid
+                            records, and produce reusable analytical outputs.
+                        </p>
+
+                    </article>
+
+
+                    <article class="capability-card">
+
+                        <span class="capability-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Economic Analytics &amp; Forecasting
+                        </h3>
+
+                        <p>
+                            Integrated economic indicators support national,
+                            regional, industry, fiscal, affordability, and
+                            time-series forecasting analysis.
+                        </p>
+
+                    </article>
+
+
+                    <article class="capability-card">
+
+                        <span class="capability-number">
+                            04
+                        </span>
+
+                        <h3>
+                            Reporting &amp; Interactive Intelligence
+                        </h3>
+
+                        <p>
+                            Azure SQL serves curated outputs to Power BI
+                            reporting and a Streamlit application for live
+                            automation and data-grounded economic analysis.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Economic intelligence preview
+             PURPOSE:
+             Present selected forecasting outputs and provide
+             a preview of the analytical experience.
+             ========================================================= -->
+
+        <section class="insights-preview">
+
+            <div class="container">
+
+                <div class="section-heading insights-preview-heading">
+
+                    <p class="eyebrow">
+                        ECONOMIC INTELLIGENCE
+                    </p>
+
+                    <h2>
+                        Analysis built from validated economic data.
+                    </h2>
+
+                    <p class="section-description">
+                        Gold analytical marts align major Canadian economic
+                        indicators to support derived metrics, economic
+                        comparisons, and forecasting.
+                    </p>
+
+                </div>
+
+
+                <div class="insights-layout">
+
+                    <div class="indicator-list">
+
+                        <div class="indicator-row">
+
+                            <div>
+
+                                <span class="indicator-label">
+                                    Retail Sales Forecast
+                                </span>
+
+                                <strong>
+                                    $73.77B
+                                </strong>
+
+                            </div>
+
+                            <span class="indicator-note">
+                                Jul 2026
+                            </span>
+
+                        </div>
+
+
+                        <div class="indicator-row">
+
+                            <div>
+
+                                <span class="indicator-label">
+                                    Selected Model
+                                </span>
+
+                                <strong>
+                                    SARIMA
+                                </strong>
+
+                            </div>
+
+                            <span class="indicator-note">
+                                Forecasting
+                            </span>
+
+                        </div>
+
+
+                        <div class="indicator-row">
+
+                            <div>
+
+                                <span class="indicator-label">
+                                    Holdout RMSE
+                                </span>
+
+                                <strong>
+                                    $0.93B
+                                </strong>
+
+                            </div>
+
+                            <span class="indicator-note">
+                                Model Evaluation
+                            </span>
+
+                        </div>
+
+
+                        <div class="indicator-row">
+
+                            <div>
+
+                                <span class="indicator-label">
+                                    Forecast Horizon
+                                </span>
+
+                                <strong>
+                                    1 Month
+                                </strong>
+
+                            </div>
+
+                            <span class="indicator-note">
+                                Outlook
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="insight-visual">
+
+                        <div class="insight-visual-header">
+
+                            <div>
+
+                                <span class="indicator-label">
+                                    Retail Sales Outlook
+                                </span>
+
+                                <h3>
+                                    Actual vs Forecast
+                                </h3>
+
+                            </div>
+
+                            <span class="insight-status">
+                                SARIMA
+                            </span>
+
+                        </div>
+
+
+                        <!-- Simplified homepage preview of the forecast -->
+                        <div
+                            class="mini-chart"
+                            aria-label="Retail sales forecast preview"
+                        >
+
+                            <svg
+                                viewBox="0 0 700 260"
+                                role="img"
+                                aria-labelledby="retail-chart-title retail-chart-desc"
+                            >
+
+                                <title id="retail-chart-title">
+                                    Retail sales actual and forecast preview
+                                </title>
+
+                                <desc id="retail-chart-desc">
+                                    Simplified homepage visualization showing
+                                    historical retail sales followed by a
+                                    one-month forecast.
+                                </desc>
+
+
+                                <line
+                                    x1="40"
+                                    y1="220"
+                                    x2="660"
+                                    y2="220"
+                                    class="chart-axis"
+                                ></line>
+
+
+                                <line
+                                    x1="40"
+                                    y1="40"
+                                    x2="40"
+                                    y2="220"
+                                    class="chart-axis"
+                                ></line>
+
+
+                                <polyline
+                                    points="
+                                        40,180
+                                        120,160
+                                        200,170
+                                        280,130
+                                        360,145
+                                        440,110
+                                        520,120
+                                        590,105
+                                    "
+                                    class="chart-line-actual"
+                                ></polyline>
+
+
+                                <polyline
+                                    points="
+                                        590,105
+                                        660,82
+                                    "
+                                    class="chart-line-forecast"
+                                ></polyline>
+
+
+                                <circle
+                                    cx="660"
+                                    cy="82"
+                                    r="6"
+                                    class="chart-point"
+                                ></circle>
+
+                            </svg>
+
+                        </div>
+
+
+                        <div class="chart-legend">
+
+                            <span>
+                                <i class="legend-line actual"></i>
+                                Actual
+                            </span>
+
+                            <span>
+                                <i class="legend-line forecast"></i>
+                                Forecast
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="pages/analytics.html"
+                    class="architecture-link"
+                >
+                    Explore economic analytics →
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Analytical delivery
+             PURPOSE:
+             Present Power BI as the reporting layer and Streamlit
+             as the interactive application layer.
+             ========================================================= -->
+
+        <section class="delivery-preview">
+
+            <div class="container">
+
+                <div class="section-heading delivery-preview-heading">
+
+                    <p class="eyebrow">
+                        ANALYTICAL DELIVERY
+                    </p>
+
+                    <h2>
+                        Reporting and interactive intelligence.
+                    </h2>
+
+                    <p class="section-description">
+                        The platform delivers curated analytical outputs
+                        through a five-page Power BI dashboard and a
+                        Streamlit application for cloud automation and
+                        data-grounded economic intelligence.
+                    </p>
+
+                </div>
+
+
+                <div class="delivery-showcase">
+
+                    <!-- Power BI reporting product -->
+                    <article class="delivery-panel powerbi-panel">
+
+                        <div class="delivery-panel-header">
+
+                            <div>
+
+                                <span class="delivery-label">
+                                    POWER BI
+                                </span>
+
+                                <h3>
+                                    Economic Intelligence Dashboard
+                                </h3>
+
+                            </div>
+
+                            <span class="delivery-status">
+                                5 Pages
+                            </span>
+
+                        </div>
+
+
+                        <p class="delivery-description">
+                            A multi-page analytical dashboard covering
+                            national economic conditions, regional trends,
+                            industries, affordability, fiscal indicators,
+                            and forecasting.
+                        </p>
+
+
+                        <div class="report-pages">
+                            <span>Executive Overview</span>
+                            <span>Regional Analysis</span>
+                            <span>Industry Analysis</span>
+                            <span>Fiscal &amp; Affordability</span>
+                            <span>Forecasting &amp; Outlook</span>
+                        </div>
+
+
+                        <a
+                            href="pages/powerbi.html"
+                            class="text-link"
+                        >
+                            Explore Power BI reporting →
+                        </a>
+
+                    </article>
+
+
+                    <!-- Streamlit interactive application -->
+                    <article class="delivery-panel">
+
+                        <div class="delivery-panel-header">
+
+                            <div>
+
+                                <span class="delivery-label">
+                                    INTERACTIVE APPLICATION
+                                </span>
+
+                                <h3>
+                                    Economic Intelligence Application
+                                </h3>
+
+                            </div>
+
+                            <span class="delivery-status">
+                                Streamlit
+                            </span>
+
+                        </div>
+
+
+                        <p class="delivery-description">
+                            Interact with the platform through a Streamlit
+                            application that demonstrates Azure Data Factory
+                            automation and a data-grounded Economic
+                            Intelligence Assistant.
+                        </p>
+
+
+                        <div class="demo-terminal">
+
+                            <div class="demo-terminal-header">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+
+                            <div class="demo-terminal-body">
+
+                                <div class="demo-line">
+                                    <span>Automation</span>
+                                    <strong>Azure Data Factory</strong>
+                                </div>
+
+                                <div class="demo-line">
+                                    <span>Workflow</span>
+                                    <strong>Live Run Monitoring</strong>
+                                </div>
+
+                                <div class="demo-line">
+                                    <span>Intelligence</span>
+                                    <strong>Economic Assistant</strong>
+                                </div>
+
+                                <div class="demo-line">
+                                    <span>Interface</span>
+                                    <strong>Streamlit</strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <a
+                            href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                            class="text-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Open the interactive app ↗
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Technology stack
+             PURPOSE:
+             Organize the main technologies by their role within
+             the engineering and analytical architecture.
+             ========================================================= -->
+
+        <section class="technology-section">
+
+            <div class="container">
+
+                <div class="technology-layout">
+
+                    <div class="technology-intro">
+
+                        <p class="eyebrow">
+                            TECHNOLOGY STACK
+                        </p>
+
+                        <h2>
+                            Built with cloud, data, and analytical tooling.
+                        </h2>
+
+                        <p class="section-description">
+                            Technologies are organized around their role in
+                            the platform rather than presented as a simple
+                            list of tools.
+                        </p>
+
+                    </div>
+
+
+                    <div class="technology-groups">
+
+                        <div class="technology-group">
+
+                            <span class="technology-category">
+                                Data Engineering
+                            </span>
+
+                            <div class="technology-items">
+                                <span>Azure Data Factory</span>
+                                <span>ADLS Gen2</span>
+                                <span>Azure Databricks</span>
+                                <span>Delta Lake</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="technology-group">
+
+                            <span class="technology-category">
+                                Serving &amp; Reporting
+                            </span>
+
+                            <div class="technology-items">
+                                <span>Azure SQL</span>
+                                <span>Power BI</span>
+                                <span>SQL</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="technology-group">
+
+                            <span class="technology-category">
+                                Analytics
+                            </span>
+
+                            <div class="technology-items">
+                                <span>Python</span>
+                                <span>PySpark</span>
+                                <span>scikit-learn</span>
+                                <span>Time-Series Forecasting</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="technology-group">
+
+                            <span class="technology-category">
+                                Interactive Delivery
+                            </span>
+
+                            <div class="technology-items">
+                                <span>Streamlit</span>
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Home
+             SECTION: Final project CTA
+             PURPOSE:
+             Direct visitors toward the architecture, application,
+             and public implementation repository.
+             ========================================================= -->
+
+        <section class="project-cta">
+
+            <div class="container">
+
+                <div class="project-cta-inner">
+
+                    <div class="project-cta-content">
+
+                        <p class="eyebrow">
+                            EXPLORE THE PROJECT
+                        </p>
+
+                        <h2>
+                            Review the architecture, implementation,
+                            and analytical outputs.
+                        </h2>
+
+                        <p>
+                            Explore the technical case study, use the
+                            interactive application, or review the public
+                            repository for notebooks, engineering workflows,
+                            forecasting methodology, and documentation.
+                        </p>
+
+                    </div>
+
+
+                    <div class="project-cta-actions">
+
+                        <a
+                            href="pages/architecture.html"
+                            class="button button-primary"
+                        >
+                            Explore Architecture
+                        </a>
+
+                        <a
+                            href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
+                            class="button button-secondary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View GitHub ↗
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -884,94 +1153,105 @@
 
     <footer class="site-footer">
 
-        <div class="container">
+        <div class="container footer-main">
 
-            <div class="footer-main">
+            <div class="footer-brand">
 
-                <div class="footer-brand">
+                <a
+                    href="index.html"
+                    class="footer-title"
+                >
+                    Canadian Economic Intelligence
+                </a>
 
-                    <a
-                        href="../index.html"
-                        class="footer-title"
-                    >
-                        Canadian Economic Intelligence
+                <p>
+                    An end-to-end Azure data and analytics platform
+                    for Canadian economic intelligence.
+                </p>
+
+            </div>
+
+
+            <div class="footer-navigation">
+
+                <div class="footer-group">
+
+                    <span class="footer-heading">
+                        Platform
+                    </span>
+
+                    <a href="pages/architecture.html">
+                        Architecture
                     </a>
 
-                    <p>
-                        An end-to-end Azure data and analytics platform for
-                        Canadian economic intelligence.
-                    </p>
+                    <a href="pages/pipeline.html">
+                        Pipeline
+                    </a>
+
+                    <a href="pages/analytics.html">
+                        Analytics
+                    </a>
 
                 </div>
 
 
-                <div class="footer-navigation">
+                <div class="footer-group">
 
-                    <div class="footer-group">
+                    <span class="footer-heading">
+                        Explore
+                    </span>
 
-                        <span class="footer-heading">
-                            Platform
-                        </span>
+                    <a href="pages/powerbi.html">
+                        Power BI
+                    </a>
 
-                        <a href="architecture.html">
-                            Architecture
-                        </a>
+                    <a
+                        href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Interactive App ↗
+                    </a>
 
-                        <a href="pipeline.html">
-                            Pipeline
-                        </a>
+                    <a href="pages/about.html">
+                        About
+                    </a>
 
-                        <a href="analytics.html">
-                            Analytics
-                        </a>
-
-                    </div>
-
-
-                    <div class="footer-group">
-
-                        <span class="footer-heading">
-                            Explore
-                        </span>
-
-                        <a href="powerbi.html">
-                            Power BI
-                        </a>
-
-                        <a href="live-demo.html">
-                            Live Demo
-                        </a>
-
-                        <a href="about.html">
-                            About
-                        </a>
-
-                    </div>
+                    <a
+                        href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        GitHub ↗
+                    </a>
 
                 </div>
 
             </div>
 
+        </div>
 
-            <div class="footer-bottom">
 
-                <p>
-                    Data sources include Statistics Canada, Bank of Canada,
-                    Finance Canada, and CMHC.
-                </p>
+        <div class="container footer-bottom">
 
-                <p>
-                    Canadian Economic Intelligence Platform
-                </p>
+            <p>
+                Data sources include Statistics Canada, Bank of Canada,
+                Finance Canada, Ontario Finance, and CMHC-supplied
+                housing data published through Statistics Canada.
+            </p>
 
-            </div>
+            <p>
+                Canadian Economic Intelligence Platform
+            </p>
 
         </div>
 
     </footer>
 
 
-    <script src="../assets/js/main.js"></script>
+    <!-- Shared site navigation and interaction logic -->
+    <script src="assets/js/main.js"></script>
 
 </body>
+
 </html>
