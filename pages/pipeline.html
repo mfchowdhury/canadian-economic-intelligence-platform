@@ -94,12 +94,16 @@
                     Power BI
                 </a>
 
-                <a href="live-demo.html">
-                    Live Demo
+                <a
+                    href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Live Demo ↗
                 </a>
 
                 <a
-                    href="#"
+                    href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -139,10 +143,11 @@
                     </h1>
 
                     <p class="inner-page-description">
-                        Azure Data Factory coordinates the movement of official
-                        Canadian economic data through Bronze, Silver, and Gold
-                        processing before curated outputs are delivered to the
-                        reporting and forecasting layers.
+                        The platform integrates ten official economic datasets
+                        through Bronze, Silver, and Gold processing. A representative
+                        Azure Data Factory workflow automates Retail Sales and USD/CAD
+                        ingestion through validated Silver processing and Gold
+                        analytical outputs.
                     </p>
 
                 </div>
@@ -166,8 +171,8 @@
                     </div>
 
                     <div class="pipeline-summary-item">
-                        <span>Schedule</span>
-                        <strong>Monthly Orchestration</strong>
+                        <span>Automation Scope</span>
+                        <strong>Representative Workflow</strong>
                     </div>
 
                 </div>
@@ -408,9 +413,11 @@
                         </h3>
 
                         <p id="pipeline-detail-description">
-                            The pipeline begins with official Canadian economic
-                            datasets published by Statistics Canada, the Bank of
-                            Canada, Finance Canada, and CMHC.
+                            The platform integrates official Canadian economic
+                            data published by Statistics Canada, the Bank of Canada,
+                            Finance Canada, and Ontario Finance. Housing starts are
+                            sourced through Statistics Canada using data supplied
+                            by CMHC.
                         </p>
 
                     </div>
@@ -421,28 +428,28 @@
                         <div>
                             <span>Technology</span>
                             <strong id="pipeline-detail-technology">
-                                Public APIs and official datasets
+                                Official APIs, downloadable datasets, and public data tables
                             </strong>
                         </div>
 
                         <div>
                             <span>Input</span>
                             <strong id="pipeline-detail-input">
-                                Published economic indicators
+                                Published Canadian economic and fiscal indicators
                             </strong>
                         </div>
 
                         <div>
                             <span>Output</span>
                             <strong id="pipeline-detail-output">
-                                Source-ready ingestion payloads
+                                Source data prepared for ingestion
                             </strong>
                         </div>
 
                         <div>
                             <span>Control</span>
                             <strong id="pipeline-detail-control">
-                                Source availability and schema checks
+                                Source availability, expected structure, and dataset metadata
                             </strong>
                         </div>
 
@@ -477,9 +484,11 @@
                         </h2>
 
                         <p>
-                            The representative master pipeline executes ingestion
-                            first, then triggers Databricks transformations only
-                            after upstream dependencies succeed.
+                            The master automation proof of concept orchestrates
+                            Statistics Canada Retail Sales and Bank of Canada
+                            USD/CAD ingestion, then triggers Databricks Silver
+                            and Gold processing only after required upstream
+                            dependencies succeed.
                         </p>
 
                         <p>
@@ -507,19 +516,25 @@
 
                         <div class="orchestration-step">
                             <span>03</span>
-                            <strong>Silver Processing</strong>
-                            <small>Retail + FX validation</small>
+                            <strong>Retail Sales Silver</strong>
+                            <small>Validation · standardization</small>
                         </div>
 
                         <div class="orchestration-step">
                             <span>04</span>
+                            <strong>USD/CAD Silver</strong>
+                            <small>Validation · canonical FX data</small>
+                        </div>
+
+                        <div class="orchestration-step">
+                            <span>05</span>
                             <strong>Gold Economic Overview</strong>
                             <small>Integrated monthly analytics</small>
                         </div>
 
                         <div class="orchestration-step">
-                            <span>05</span>
-                            <strong>Forecasting Features</strong>
+                            <span>06</span>
+                            <strong>Gold Forecasting Features</strong>
                             <small>Model-ready analytical features</small>
                         </div>
 
@@ -573,8 +588,9 @@
                     </div>
 
                     <figcaption>
-                        Representative Successful Azure Data Factory master pipeline run showing automated ingestion,
-                        Silver transformations, and Gold-layer processing.
+                        Successful Azure Data Factory master pipeline run showing
+                        automated ingestion, Silver transformations, and Gold-layer
+                        processing through Gold Forecasting Features.
                     </figcaption>
 
                 </figure>
@@ -714,9 +730,9 @@
                         </h2>
 
                         <p>
-                            The platform uses scheduled orchestration and failure
-                            monitoring to move from manual execution toward a
-                            repeatable economic data workflow.
+                            The representative ADF workflow combines dependency-based
+                            execution, explicit failure handling, monitoring, and
+                            monthly scheduling for repeatable economic data processing.
                         </p>
 
                     </div>
@@ -1010,8 +1026,12 @@
                             Power BI
                         </a>
 
-                        <a href="live-demo.html">
-                            Live Demo
+                        <a
+                            href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Live Demo ↗
                         </a>
 
                         <a href="about.html">
@@ -1029,7 +1049,8 @@
 
                 <p>
                     Data sources include Statistics Canada, Bank of Canada,
-                    Finance Canada, and CMHC.
+                    Finance Canada, Ontario Finance, and CMHC-supplied housing
+                    data published through Statistics Canada.
                 </p>
 
                 <p>

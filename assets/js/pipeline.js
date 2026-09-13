@@ -1,7 +1,7 @@
 /* =========================================================
    PAGE: Pipeline
-   Interactive pipeline stage selector
-   ======================================================== */
+   SECTION: Interactive pipeline stage selector
+   ========================================================= */
 
 const pipelineStages = document.querySelectorAll(".pipeline-stage");
 
@@ -32,94 +32,160 @@ const pipelineDetailControl = document.getElementById(
 
 /* =========================================================
    PAGE: Pipeline
-   Pipeline stage content
+   SECTION: Pipeline stage content
    ========================================================= */
 
 const pipelineDetails = {
+
     source: {
         title: "Official Data Sources",
+
         description:
-            "The pipeline begins with official Canadian economic datasets published by Statistics Canada, the Bank of Canada, Finance Canada, and CMHC.",
-        technology: "Public APIs and official datasets",
-        input: "Published economic indicators",
-        output: "Source-ready ingestion payloads",
-        control: "Source availability and schema checks"
+            "The platform integrates official Canadian economic data published by Statistics Canada, the Bank of Canada, Finance Canada, and Ontario Finance. Housing starts are sourced through Statistics Canada using data supplied by CMHC.",
+
+        technology:
+            "Official APIs, downloadable datasets, and public data tables",
+
+        input:
+            "Published Canadian economic and fiscal indicators",
+
+        output:
+            "Source data prepared for ingestion",
+
+        control:
+            "Source availability, expected structure, and dataset metadata"
     },
+
 
     ingest: {
         title: "Automated Data Ingestion",
+
         description:
-            "Azure Data Factory coordinates representative ingestion workflows and moves source data into the Bronze layer while preserving source-aligned structure.",
-        technology: "Azure Data Factory",
-        input: "API responses, files, and official source data",
-        output: "Bronze raw datasets in ADLS Gen2",
-        control: "Activity status, dependency checks, and failure handling"
+            "Azure Data Factory orchestrates representative automated ingestion workflows for Statistics Canada Retail Sales and Bank of Canada USD/CAD data. The broader platform contains ten official economic datasets.",
+
+        technology:
+            "Azure Data Factory",
+
+        input:
+            "Official API responses and downloadable source files",
+
+        output:
+            "Immutable raw data stored in the Bronze layer",
+
+        control:
+            "Activity dependencies, run status, failure paths, and monitoring"
     },
+
 
     bronze: {
         title: "Bronze Raw Data Layer",
+
         description:
-            "The Bronze layer preserves immutable source history so datasets can be traced, audited, and reprocessed without reacquiring historical source data.",
-        technology: "Azure Data Lake Storage Gen2",
-        input: "Raw ingested source data",
-        output: "Source-aligned historical datasets",
-        control: "File availability, path structure, and ingestion completeness"
+            "The Bronze layer preserves source-aligned raw history before analytical transformation. This supports traceability, reproducibility, auditing, and reprocessing without unnecessarily reacquiring historical source data.",
+
+        technology:
+            "Azure Data Lake Storage Gen2",
+
+        input:
+            "Raw ingested source data",
+
+        output:
+            "Immutable source-aligned historical datasets",
+
+        control:
+            "File availability, storage paths, ingestion completeness, and source traceability"
     },
+
 
     silver: {
         title: "Silver Validation Layer",
+
         description:
-            "Azure Databricks transforms raw source data into canonical datasets by applying validation, cleaning, filtering, standardization, and data-quality rules.",
-        technology: "Azure Databricks and PySpark",
-        input: "Bronze raw datasets",
-        output: "Validated canonical datasets",
-        control: "Schema validation, business rules, and quarantine handling"
+            "Azure Databricks converts raw source data into validated canonical datasets by applying schema checks, cleaning, standardization, business rules, and dataset-specific transformations. Invalid records are directed to quarantine rather than silently removed.",
+
+        technology:
+            "Azure Databricks · PySpark · Delta Lake",
+
+        input:
+            "Bronze raw datasets",
+
+        output:
+            "Validated canonical Silver datasets",
+
+        control:
+            "Schema validation, business keys, duplicate checks, data-quality rules, and quarantine handling"
     },
+
 
     gold: {
         title: "Gold Analytical Layer",
+
         description:
-            "Validated datasets are aligned by economic purpose and transformed into reusable analytical models for economic overview, regional analysis, industry analysis, affordability, and forecasting.",
-        technology: "Azure Databricks",
-        input: "Validated Silver datasets",
-        output: "Integrated analytical and forecasting datasets",
-        control: "Grain alignment, business keys, frequency alignment, and derived metrics"
+            "Validated Silver datasets are aligned according to analytical purpose and transformed into five reusable Gold models covering economic overview, regional analysis, industry analysis, fiscal and affordability analysis, and forecasting features.",
+
+        technology:
+            "Azure Databricks · PySpark · Delta Lake",
+
+        input:
+            "Validated Silver datasets",
+
+        output:
+            "Integrated economic indicators, derived metrics, analytical marts, and forecasting features",
+
+        control:
+            "Business keys, analytical grain, frequency alignment, source-date tracking, and derived-metric validation"
     },
 
+
     serve: {
-        title: "Reporting and Analytical Delivery",
+        title: "Serving and Analytical Delivery",
+
         description:
-            "Gold outputs are served through Azure SQL and consumed by Power BI, forecasting workflows, and interactive applications for decision-focused analysis.",
-        technology: "Azure SQL, Power BI, Streamlit, Python",
-        input: "Gold analytical outputs",
-        output: "Reporting tables, dashboards, forecasts, and interactive analysis",
-        control: "Curated table structure and downstream consumption readiness"
+            "Curated Gold outputs are published to Azure SQL for downstream consumption. Power BI provides five-page economic reporting, while the Streamlit application provides a live automation demonstration and an interactive economic intelligence interface.",
+
+        technology:
+            "Azure SQL · Power BI · Streamlit",
+
+        input:
+            "Validated Gold analytical outputs",
+
+        output:
+            "SQL reporting tables, Power BI dashboards, forecasts, and interactive applications",
+
+        control:
+            "Curated reporting structures, downstream readiness, and separation of analytical processing from presentation"
     }
 };
 
 
 /* =========================================================
    PAGE: Pipeline
-   Update selected pipeline stage
+   SECTION: Update selected stage
    ========================================================= */
 
 function updatePipelineStage(stageButton) {
+
     const stageKey = stageButton.dataset.pipelineStage;
     const stageDetails = pipelineDetails[stageKey];
 
+    // Ignore a stage if no matching detail configuration exists.
     if (!stageDetails) {
         return;
     }
 
+    // Reset the visual and accessibility state of all stage buttons.
     pipelineStages.forEach((stage) => {
         stage.classList.remove("active");
         stage.setAttribute("aria-pressed", "false");
     });
 
+    // Mark the selected stage as active.
     stageButton.classList.add("active");
     stageButton.setAttribute("aria-pressed", "true");
 
-    pipelineDetailTitle.textContent = stageDetails.title;
+    // Populate the detail panel with the selected stage information.
+    pipelineDetailTitle.textContent =
+        stageDetails.title;
 
     pipelineDetailDescription.textContent =
         stageDetails.description;
@@ -140,11 +206,13 @@ function updatePipelineStage(stageButton) {
 
 /* =========================================================
    PAGE: Pipeline
-   Stage interaction events
+   SECTION: Stage interaction events
    ========================================================= */
 
 pipelineStages.forEach((stageButton) => {
+
     stageButton.addEventListener("click", () => {
         updatePipelineStage(stageButton);
     });
+
 });
