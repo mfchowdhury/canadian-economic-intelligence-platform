@@ -1,6 +1,7 @@
 import requests
 import streamlit as st
 from azure.identity import ClientSecretCredential
+from datetime import datetime, timezone
 
 
 # =========================================================
@@ -20,6 +21,8 @@ st.set_page_config(
 # =========================================================
 
 def get_azure_credential():
+    """Create the Azure credential used for ADF management requests."""
+
     return ClientSecretCredential(
         tenant_id=st.secrets["azure"]["tenant_id"],
         client_id=st.secrets["azure"]["client_id"],
@@ -27,30 +30,63 @@ def get_azure_credential():
     )
 
 
-def test_adf_access():
+def get_management_token():
+    """Acquire an Azure Management API access token."""
+
     credential = get_azure_credential()
 
-    token = credential.get_token(
+    return credential.get_token(
         "https://management.azure.com/.default"
-    )
+    ).token
 
-    subscription_id = st.secrets["azure"]["subscription_id"]
-    resource_group = st.secrets["azure"]["resource_group"]
-    data_factory = st.secrets["azure"]["data_factory"]
+
+# =========================================================
+# AZURE DATA FACTORY CONFIGURATION
+# =========================================================
+
+def get_adf_config():
+    """Return the Azure Data Factory configuration from Streamlit Secrets."""
+
+    return {
+        "subscription_id": st.secrets["azure"]["subscription_id"],
+        "resource_group": st.secrets["azure"]["resource_group"],
+        "data_factory": st.secrets["azure"]["data_factory"],
+        "pipeline_name": st.secrets["azure"]["pipeline_name"],
+    }
+
+
+def get_adf_headers():
+    """Build authenticated headers for Azure Management API requests."""
+
+    token = get_management_token()
+
+    return {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+
+
+# =========================================================
+# AZURE DATA FACTORY ACCESS TEST
+# =========================================================
+
+def test_adf_access():
+    """Verify that the Streamlit service principal can access the Data Factory."""
+
+    config = get_adf_config()
 
     url = (
-        f"https://management.azure.com/subscriptions/{subscription_id}"
-        f"/resourceGroups/{resource_group}"
-        f"/providers/Microsoft.DataFactory/factories/{data_factory}"
+        f"https://management.azure.com/subscriptions/"
+        f"{config['subscription_id']}"
+        f"/resourceGroups/{config['resource_group']}"
+        f"/providers/Microsoft.DataFactory/factories/"
+        f"{config['data_factory']}"
         f"?api-version=2018-06-01"
     )
 
     response = requests.get(
         url,
-        headers={
-            "Authorization": f"Bearer {token.token}",
-            "Content-Type": "application/json",
-        },
+        headers=get_adf_headers(),
         timeout=30,
     )
 
@@ -59,32 +95,28 @@ def test_adf_access():
     return response.json()
 
 
+# =========================================================
+# AZURE DATA FACTORY PIPELINE TRIGGER
+# =========================================================
+
 def trigger_adf_pipeline():
-    credential = get_azure_credential()
+    """Start the configured Azure Data Factory master pipeline."""
 
-    token = credential.get_token(
-        "https://management.azure.com/.default"
-    )
-
-    subscription_id = st.secrets["azure"]["subscription_id"]
-    resource_group = st.secrets["azure"]["resource_group"]
-    data_factory = st.secrets["azure"]["data_factory"]
-    pipeline_name = st.secrets["azure"]["pipeline_name"]
+    config = get_adf_config()
 
     url = (
-        f"https://management.azure.com/subscriptions/{subscription_id}"
-        f"/resourceGroups/{resource_group}"
-        f"/providers/Microsoft.DataFactory/factories/{data_factory}"
-        f"/pipelines/{pipeline_name}/createRun"
+        f"https://management.azure.com/subscriptions/"
+        f"{config['subscription_id']}"
+        f"/resourceGroups/{config['resource_group']}"
+        f"/providers/Microsoft.DataFactory/factories/"
+        f"{config['data_factory']}"
+        f"/pipelines/{config['pipeline_name']}/createRun"
         f"?api-version=2018-06-01"
     )
 
     response = requests.post(
         url,
-        headers={
-            "Authorization": f"Bearer {token.token}",
-            "Content-Type": "application/json",
-        },
+        headers=get_adf_headers(),
         json={},
         timeout=30,
     )
@@ -92,45 +124,89 @@ def trigger_adf_pipeline():
     response.raise_for_status()
 
     return response.json()["runId"]
+
+
 # =========================================================
-# ADF PIPELINE RUN STATUS
+# AZURE DATA FACTORY PIPELINE RUN STATUS
 # =========================================================
 
-# Retrieves the latest status and timestamps for a specific
-# Azure Data Factory pipeline run using its ADF Run ID.
 def get_adf_run_status(run_id):
-    credential = get_azure_credential()
+    """Retrieve status and timestamps for a specific ADF pipeline run."""
 
-    # Request an Azure Management API access token.
-    token = credential.get_token(
-        "https://management.azure.com/.default"
-    )
+    config = get_adf_config()
 
-    subscription_id = st.secrets["azure"]["subscription_id"]
-    resource_group = st.secrets["azure"]["resource_group"]
-    data_factory = st.secrets["azure"]["data_factory"]
-
-    # ADF REST endpoint for retrieving one pipeline run.
     url = (
-        f"https://management.azure.com/subscriptions/{subscription_id}"
-        f"/resourceGroups/{resource_group}"
-        f"/providers/Microsoft.DataFactory/factories/{data_factory}"
+        f"https://management.azure.com/subscriptions/"
+        f"{config['subscription_id']}"
+        f"/resourceGroups/{config['resource_group']}"
+        f"/providers/Microsoft.DataFactory/factories/"
+        f"{config['data_factory']}"
         f"/pipelineruns/{run_id}"
         f"?api-version=2018-06-01"
     )
 
     response = requests.get(
         url,
-        headers={
-            "Authorization": f"Bearer {token.token}",
-            "Content-Type": "application/json",
-        },
+        headers=get_adf_headers(),
         timeout=30,
     )
 
     response.raise_for_status()
 
     return response.json()
+
+
+# =========================================================
+# DATE AND STATUS FORMATTING
+# =========================================================
+
+def format_adf_datetime(timestamp):
+    """Convert an ADF UTC timestamp to a readable local display value."""
+
+    if not timestamp:
+        return "—"
+
+    try:
+        parsed_time = datetime.fromisoformat(
+            timestamp.replace("Z", "+00:00")
+        )
+
+        # Convert UTC to the user's project display timezone.
+        local_time = parsed_time.astimezone()
+
+        return local_time.strftime("%b %d, %Y, %I:%M %p")
+
+    except (ValueError, TypeError):
+        return timestamp
+
+
+def format_pipeline_status(status):
+    """Convert the ADF status value into a user-friendly label."""
+
+    status_labels = {
+        "Queued": "Starting",
+        "InProgress": "In Progress",
+        "Succeeded": "Succeeded",
+        "Failed": "Failed",
+        "Cancelled": "Cancelled",
+        "Canceling": "Cancelling",
+    }
+
+    return status_labels.get(status, status or "Ready")
+
+
+# =========================================================
+# STREAMLIT SESSION STATE
+# =========================================================
+
+if "adf_run_id" not in st.session_state:
+    st.session_state.adf_run_id = None
+
+if "adf_run_data" not in st.session_state:
+    st.session_state.adf_run_data = None
+
+if "adf_trigger_message" not in st.session_state:
+    st.session_state.adf_trigger_message = None
 
 
 # =========================================================
@@ -368,12 +444,17 @@ elif page == "Automation Demo":
     st.markdown(
         """
         <div class="main-subtitle">
-            A representative automated workflow demonstrating scheduled
-            ingestion, transformation, validation, and Gold-layer integration.
+            A representative automated workflow demonstrating ingestion,
+            transformation, validation, and Gold-layer integration using
+            Azure Data Factory and Azure Databricks.
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+    # ---------------------------------------------------------
+    # REPRESENTATIVE WORKFLOW
+    # ---------------------------------------------------------
 
     st.markdown(
         '<div class="section-title">Representative Workflow</div>',
@@ -470,6 +551,10 @@ elif page == "Automation Demo":
 
     st.write("")
 
+    # ---------------------------------------------------------
+    # LIVE ADF RUN STATUS
+    # ---------------------------------------------------------
+
     st.markdown(
         '<div class="section-title">Latest Automation Run</div>',
         unsafe_allow_html=True,
@@ -478,34 +563,64 @@ elif page == "Automation Demo":
     st.markdown(
         """
         <div class="section-description">
-            The automation demo can start the live Azure Data Factory
-            master pipeline and return the Azure run identifier.
+            Start the live Azure Data Factory master pipeline and monitor
+            its actual execution status directly from Azure.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    col1, col2, col3 = st.columns(3)
+    pipeline_status = "Ready"
+    last_run = "—"
+
+    # Retrieve the latest state for the run currently tracked
+    # by this Streamlit browser session.
+    if st.session_state.adf_run_id:
+
+        try:
+            run_data = get_adf_run_status(
+                st.session_state.adf_run_id
+            )
+
+            st.session_state.adf_run_data = run_data
+
+            pipeline_status = format_pipeline_status(
+                run_data.get("status")
+            )
+
+            last_run = format_adf_datetime(
+                run_data.get("runStart")
+            )
+
+        except Exception as e:
+            pipeline_status = "Status Unavailable"
+
+    col1, col2 = st.columns(2)
 
     with col1:
         st.metric(
             label="Pipeline Status",
-            value="Ready",
+            value=pipeline_status,
         )
 
     with col2:
         st.metric(
             label="Last Run",
-            value="—",
-        )
-
-    with col3:
-        st.metric(
-            label="Data Through",
-            value="—",
+            value=last_run,
         )
 
     st.write("")
+
+    # Display the ADF run identifier for traceability.
+    if st.session_state.adf_run_id:
+        st.caption(
+            f"ADF Run ID: {st.session_state.adf_run_id}"
+        )
+
+    # Display the most recent trigger confirmation.
+    if st.session_state.adf_trigger_message:
+        st.success(st.session_state.adf_trigger_message)
+        st.session_state.adf_trigger_message = None
 
     st.markdown(
         """
@@ -520,16 +635,99 @@ elif page == "Automation Demo":
     st.write("")
     st.divider()
 
-    # Start one live Azure Data Factory pipeline run.
-    if st.button("Run Automation Demo", type="primary"):
-        try:
-            run_id = trigger_adf_pipeline()
+    # ---------------------------------------------------------
+    # AUTOMATION CONTROLS
+    # ---------------------------------------------------------
 
-            st.success("ADF pipeline started successfully.")
-            st.write(f"Run ID: `{run_id}`")
+    current_adf_status = None
 
-        except Exception as e:
-            st.error(f"Unable to start ADF pipeline: {e}")
+    if st.session_state.adf_run_data:
+        current_adf_status = st.session_state.adf_run_data.get(
+            "status"
+        )
+
+    run_is_active = current_adf_status in {
+        "Queued",
+        "InProgress",
+        "Canceling",
+    }
+
+    button_col1, button_col2 = st.columns(2)
+
+    with button_col1:
+
+        # Prevent another run from being started from the same
+        # session while the tracked pipeline is still active.
+        if st.button(
+            "Run Automation Demo",
+            type="primary",
+            disabled=run_is_active,
+            use_container_width=True,
+        ):
+            try:
+                run_id = trigger_adf_pipeline()
+
+                st.session_state.adf_run_id = run_id
+                st.session_state.adf_run_data = None
+                st.session_state.adf_trigger_message = (
+                    "ADF pipeline started successfully."
+                )
+
+                st.rerun()
+
+            except Exception as e:
+                st.error(
+                    f"Unable to start ADF pipeline: {e}"
+                )
+
+    with button_col2:
+
+        # Refresh the current ADF run without starting
+        # another pipeline execution.
+        refresh_disabled = (
+            st.session_state.adf_run_id is None
+        )
+
+        if st.button(
+            "Refresh Run Status",
+            disabled=refresh_disabled,
+            use_container_width=True,
+        ):
+            try:
+                run_data = get_adf_run_status(
+                    st.session_state.adf_run_id
+                )
+
+                st.session_state.adf_run_data = run_data
+
+                st.rerun()
+
+            except Exception as e:
+                st.error(
+                    f"Unable to retrieve ADF run status: {e}"
+                )
+
+    if run_is_active:
+        st.info(
+            "The Azure Data Factory pipeline is currently running. "
+            "Use Refresh Run Status to retrieve the latest execution state."
+        )
+
+    elif pipeline_status == "Succeeded":
+        st.success(
+            "The latest automation run completed successfully."
+        )
+
+    elif pipeline_status == "Failed":
+        st.error(
+            "The latest automation run failed. Review the Azure Data Factory "
+            "monitoring details for the failed activity."
+        )
+
+    elif pipeline_status == "Cancelled":
+        st.warning(
+            "The latest automation run was cancelled."
+        )
 
 
 # =========================================================
@@ -582,7 +780,9 @@ elif page == "Economic Intelligence Assistant":
     if ask_button:
 
         if not question.strip():
-            st.warning("Enter an economic question first.")
+            st.warning(
+                "Enter an economic question first."
+            )
 
         else:
             st.info(
