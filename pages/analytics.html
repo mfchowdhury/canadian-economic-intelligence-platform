@@ -99,7 +99,7 @@
                 </a>
 
                 <a
-                    href="#"
+                    href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -162,7 +162,7 @@
 
                     <div class="analytics-summary-item">
                         <span>Forecasting</span>
-                        <strong>5 Models Compared</strong>
+                        <strong>4 Models Compared</strong>
                     </div>
 
                     <div class="analytics-summary-item">
@@ -605,9 +605,9 @@
                     </h2>
 
                     <p class="section-description">
-                        Five models were compared using out-of-sample error
-                        metrics. Seasonal Naive produced the lowest validation
-                        RMSE and was selected for the final one-month forecast.
+                        Four candidate models were compared using expanding-window
+                        one-step-ahead validation. SARIMA produced the lowest
+                        validation RMSE and was selected for the final one-month forecast.
                     </p>
 
                 </div>
@@ -622,7 +622,7 @@
                         </span>
 
                         <strong>
-                            $70.13B
+                            $73.77B
                         </strong>
 
                         <p>
@@ -639,7 +639,7 @@
                         </span>
 
                         <strong>
-                            Seasonal Naive
+                            SARIMA
                         </strong>
 
                     </div>
@@ -652,7 +652,7 @@
                         </span>
 
                         <strong>
-                            ≈ $2.27B
+                            ≈ $0.80B
                         </strong>
 
                     </div>
@@ -665,7 +665,7 @@
                         </span>
 
                         <strong>
-                            ≈ $2.52B
+                            ≈ $0.93B
                         </strong>
 
                     </div>
@@ -696,32 +696,26 @@
 
                         <div class="forecast-model-row">
                             <span>01</span>
-                            <strong>Seasonal Naive</strong>
-                            <small>Selected model</small>
+                            <strong>SARIMA</strong>
+                            <small>Selected model · 0.973B validation RMSE</small>
                         </div>
 
                         <div class="forecast-model-row">
                             <span>02</span>
-                            <strong>ETS</strong>
-                            <small>Time-series benchmark</small>
+                            <strong>Ridge Regression</strong>
+                            <small>1.392B validation RMSE</small>
                         </div>
 
                         <div class="forecast-model-row">
                             <span>03</span>
-                            <strong>Linear Regression</strong>
-                            <small>Regression benchmark</small>
+                            <strong>ETS</strong>
+                            <small>1.974B validation RMSE</small>
                         </div>
 
                         <div class="forecast-model-row">
                             <span>04</span>
-                            <strong>Random Forest</strong>
-                            <small>Ensemble model</small>
-                        </div>
-
-                        <div class="forecast-model-row">
-                            <span>05</span>
-                            <strong>Gradient Boosting</strong>
-                            <small>Boosted ensemble model</small>
+                            <strong>Seasonal Naive</strong>
+                            <small>2.549B validation RMSE</small>
                         </div>
 
                     </div>
@@ -738,10 +732,10 @@
                         </h3>
 
                         <p>
-                            Candidate models were evaluated against a holdout
-                            period using MAE and RMSE. The final model was
-                            selected using the lowest validation RMSE rather
-                            than choosing a model based on complexity.
+                            Candidate models were compared using expanding-window
+                            validation with MAE and RMSE. The model with the
+                            lowest validation RMSE was selected, then evaluated
+                            on a separate 12-month holdout period.
                         </p>
 
                         <div class="forecast-selection-flow">
@@ -961,8 +955,9 @@
                         </h3>
 
                         <p>
-                            Forecast models are compared using holdout
-                            performance rather than training fit alone.
+                            Forecast models are compared using out-of-sample
+                            validation, with the selected model evaluated on
+                            a separate holdout period.
                         </p>
 
                     </article>
@@ -1116,7 +1111,7 @@
 
                 <p>
                     Data sources include Statistics Canada, Bank of Canada,
-                    Finance Canada, and CMHC.
+                    Finance Canada, and Ontario Finance.
                 </p>
 
                 <p>
