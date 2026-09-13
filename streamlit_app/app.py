@@ -1,4 +1,5 @@
 import streamlit as st
+from azure.identity import ClientSecretCredential
 
 
 # =========================================================
@@ -11,6 +12,22 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+
+# =========================================================
+# AZURE AUTHENTICATION
+# =========================================================
+
+def test_azure_authentication():
+    credential = ClientSecretCredential(
+        tenant_id=st.secrets["azure"]["tenant_id"],
+        client_id=st.secrets["azure"]["client_id"],
+        client_secret=st.secrets["azure"]["client_secret"],
+    )
+
+    credential.get_token("https://management.azure.com/.default")
+
+    return True
 
 
 # =========================================================
@@ -376,6 +393,18 @@ elif page == "Automation Demo":
         """,
         unsafe_allow_html=True,
     )
+
+    st.write("")
+    st.divider()
+
+    # Temporary authentication test.
+    # This requests an Azure Management API token but does not run ADF.
+    if st.button("Test Azure Authentication"):
+        try:
+            test_azure_authentication()
+            st.success("Azure authentication succeeded.")
+        except Exception as e:
+            st.error(f"Azure authentication failed: {e}")
 
 
 # =========================================================
