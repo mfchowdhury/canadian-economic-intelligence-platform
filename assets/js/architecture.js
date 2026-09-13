@@ -1,6 +1,6 @@
 /* =========================================================
    Architecture interaction
-   ========================================================= */
+   ======================================================== */
 
 const architectureStages = document.querySelectorAll(".architecture-stage");
 

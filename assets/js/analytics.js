@@ -1,7 +1,7 @@
 /* =========================================================
    PAGE: Analytics
    SECTION: Interactive economic explorer
-   ========================================================= */
+   ======================================================== */
 
 const economicThemeTabs = document.querySelectorAll(
     ".economic-explorer-tab"

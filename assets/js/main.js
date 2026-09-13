@@ -1,7 +1,7 @@
 /* =========================================================
    SHARED SITE BEHAVIOR
    SECTION: Mobile navigation
-   ========================================================= */
+   ======================================================== */
 
 const menuToggle = document.querySelector(".mobile-menu-toggle");
 const mainNavigation = document.querySelector(".main-nav");

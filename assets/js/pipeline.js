@@ -1,7 +1,7 @@
 /* =========================================================
    PAGE: Pipeline
    Interactive pipeline stage selector
-   ========================================================= */
+   ======================================================== */
 
 const pipelineStages = document.querySelectorAll(".pipeline-stage");
 
