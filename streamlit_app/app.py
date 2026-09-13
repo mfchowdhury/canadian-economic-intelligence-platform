@@ -59,6 +59,41 @@ def test_adf_access():
     return response.json()
 
 
+def trigger_adf_pipeline():
+    credential = get_azure_credential()
+
+    token = credential.get_token(
+        "https://management.azure.com/.default"
+    )
+
+    subscription_id = st.secrets["azure"]["subscription_id"]
+    resource_group = st.secrets["azure"]["resource_group"]
+    data_factory = st.secrets["azure"]["data_factory"]
+    pipeline_name = st.secrets["azure"]["pipeline_name"]
+
+    url = (
+        f"https://management.azure.com/subscriptions/{subscription_id}"
+        f"/resourceGroups/{resource_group}"
+        f"/providers/Microsoft.DataFactory/factories/{data_factory}"
+        f"/pipelines/{pipeline_name}/createRun"
+        f"?api-version=2018-06-01"
+    )
+
+    response = requests.post(
+        url,
+        headers={
+            "Authorization": f"Bearer {token.token}",
+            "Content-Type": "application/json",
+        },
+        json={},
+        timeout=30,
+    )
+
+    response.raise_for_status()
+
+    return response.json()["runId"]
+
+
 # =========================================================
 # GLOBAL STYLES
 # =========================================================
@@ -404,7 +439,8 @@ elif page == "Automation Demo":
     st.markdown(
         """
         <div class="section-description">
-            Live operational metadata will be connected to the Azure environment.
+            The automation demo can start the live Azure Data Factory
+            master pipeline and return the Azure run identifier.
         </div>
         """,
         unsafe_allow_html=True,
@@ -415,7 +451,7 @@ elif page == "Automation Demo":
     with col1:
         st.metric(
             label="Pipeline Status",
-            value="Not Connected",
+            value="Ready",
         )
 
     with col2:
@@ -445,17 +481,16 @@ elif page == "Automation Demo":
     st.write("")
     st.divider()
 
-    # Temporary authorization test.
-    # This reads the Data Factory resource but does not run a pipeline.
-    if st.button("Test ADF Access"):
+    # Start one live Azure Data Factory pipeline run.
+    if st.button("Run Automation Demo", type="primary"):
         try:
-            factory = test_adf_access()
+            run_id = trigger_adf_pipeline()
 
-            st.success("ADF access succeeded.")
-            st.write(f"Data Factory: {factory['name']}")
+            st.success("ADF pipeline started successfully.")
+            st.write(f"Run ID: `{run_id}`")
 
         except Exception as e:
-            st.error(f"ADF access failed: {e}")
+            st.error(f"Unable to start ADF pipeline: {e}")
 
 
 # =========================================================
