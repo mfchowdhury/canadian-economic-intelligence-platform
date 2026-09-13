@@ -92,6 +92,45 @@ def trigger_adf_pipeline():
     response.raise_for_status()
 
     return response.json()["runId"]
+# =========================================================
+# ADF PIPELINE RUN STATUS
+# =========================================================
+
+# Retrieves the latest status and timestamps for a specific
+# Azure Data Factory pipeline run using its ADF Run ID.
+def get_adf_run_status(run_id):
+    credential = get_azure_credential()
+
+    # Request an Azure Management API access token.
+    token = credential.get_token(
+        "https://management.azure.com/.default"
+    )
+
+    subscription_id = st.secrets["azure"]["subscription_id"]
+    resource_group = st.secrets["azure"]["resource_group"]
+    data_factory = st.secrets["azure"]["data_factory"]
+
+    # ADF REST endpoint for retrieving one pipeline run.
+    url = (
+        f"https://management.azure.com/subscriptions/{subscription_id}"
+        f"/resourceGroups/{resource_group}"
+        f"/providers/Microsoft.DataFactory/factories/{data_factory}"
+        f"/pipelineruns/{run_id}"
+        f"?api-version=2018-06-01"
+    )
+
+    response = requests.get(
+        url,
+        headers={
+            "Authorization": f"Bearer {token.token}",
+            "Content-Type": "application/json",
+        },
+        timeout=30,
+    )
+
+    response.raise_for_status()
+
+    return response.json()
 
 
 # =========================================================
