@@ -1,4 +1,6 @@
+import requests
 import streamlit as st
+from azure.identity import ClientSecretCredential
 
 
 # =========================================================
@@ -11,6 +13,50 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+
+# =========================================================
+# AZURE AUTHENTICATION
+# =========================================================
+
+def get_azure_credential():
+    return ClientSecretCredential(
+        tenant_id=st.secrets["azure"]["tenant_id"],
+        client_id=st.secrets["azure"]["client_id"],
+        client_secret=st.secrets["azure"]["client_secret"],
+    )
+
+
+def test_adf_access():
+    credential = get_azure_credential()
+
+    token = credential.get_token(
+        "https://management.azure.com/.default"
+    )
+
+    subscription_id = st.secrets["azure"]["subscription_id"]
+    resource_group = st.secrets["azure"]["resource_group"]
+    data_factory = st.secrets["azure"]["data_factory"]
+
+    url = (
+        f"https://management.azure.com/subscriptions/{subscription_id}"
+        f"/resourceGroups/{resource_group}"
+        f"/providers/Microsoft.DataFactory/factories/{data_factory}"
+        f"?api-version=2018-06-01"
+    )
+
+    response = requests.get(
+        url,
+        headers={
+            "Authorization": f"Bearer {token.token}",
+            "Content-Type": "application/json",
+        },
+        timeout=30,
+    )
+
+    response.raise_for_status()
+
+    return response.json()
 
 
 # =========================================================
@@ -227,6 +273,7 @@ if page == "Overview":
         )
 
     st.write("")
+
     st.info(
         "Use the navigation panel to explore the representative automation "
         "workflow and the Economic Intelligence Assistant."
@@ -329,6 +376,24 @@ elif page == "Automation Demo":
         unsafe_allow_html=True,
     )
 
+    st.markdown(
+        """
+        <div style="text-align:center; font-size:1.8rem; padding:0.6rem;">
+            ↓
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div class="pipeline-box">
+            Gold Forecasting Features
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
     st.write("")
 
     st.markdown(
@@ -376,6 +441,21 @@ elif page == "Automation Demo":
         """,
         unsafe_allow_html=True,
     )
+
+    st.write("")
+    st.divider()
+
+    # Temporary authorization test.
+    # This reads the Data Factory resource but does not run a pipeline.
+    if st.button("Test ADF Access"):
+        try:
+            factory = test_adf_access()
+
+            st.success("ADF access succeeded.")
+            st.write(f"Data Factory: {factory['name']}")
+
+        except Exception as e:
+            st.error(f"ADF access failed: {e}")
 
 
 # =========================================================
@@ -428,11 +508,9 @@ elif page == "Economic Intelligence Assistant":
     if ask_button:
 
         if not question.strip():
-
             st.warning("Enter an economic question first.")
 
         else:
-
             st.info(
                 "The Economic Intelligence Assistant is not connected yet. "
                 "Azure SQL retrieval and the LLM connection will be added next."
