@@ -1016,16 +1016,23 @@ elif page == "Economic Intelligence Assistant":
     )
 
     if ask_button:
-
         if not question.strip():
             st.warning(
                 "Enter an economic question first."
+        )
+    else:
+        try:
+            sql_test = test_sql_connection()
+
+            st.success(
+                f"Azure SQL connected successfully. "
+                f"Database: {sql_test[0]} | "
+                f"User: {sql_test[1]}"
             )
 
-        else:
-            st.info(
-                "The Economic Intelligence Assistant is not connected yet. "
-                "Azure SQL retrieval and the LLM connection will be added next."
+        except Exception as e:
+            st.error(
+                f"Azure SQL connection failed: {e}"
             )
 
     st.write("")
