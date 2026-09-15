@@ -3,3 +3,4 @@ pandas
 plotly
 azure-identity
 requests
+mssql-python
