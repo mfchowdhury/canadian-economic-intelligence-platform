@@ -1,8 +1,10 @@
+import struct
+
+import mssql_python
 import requests
 import streamlit as st
 from azure.identity import ClientSecretCredential
 from datetime import datetime
-
 
 # =========================================================
 # PAGE CONFIGURATION
@@ -53,6 +55,57 @@ def get_management_token():
     return credential.get_token(
         "https://management.azure.com/.default"
     ).token
+
+
+
+# =========================================================
+# AZURE SQL CONNECTION
+# =========================================================
+
+SQL_COPT_SS_ACCESS_TOKEN = 1256
+
+
+def get_sql_config():
+    """Return the Azure SQL configuration from Streamlit Secrets."""
+
+    return {
+        "server": st.secrets["sql"]["server"],
+        "database": st.secrets["sql"]["database"],
+    }
+
+
+def get_sql_connection():
+    """Create an Azure SQL connection using Microsoft Entra authentication."""
+
+    config = get_sql_config()
+    credential = get_azure_credential()
+
+    access_token = credential.get_token(
+        "https://database.windows.net/.default"
+    ).token
+
+    token_bytes = access_token.encode("utf-16-le")
+
+    token_struct = struct.pack(
+        f"<I{len(token_bytes)}s",
+        len(token_bytes),
+        token_bytes,
+    )
+
+    connection_string = (
+        f"Server={config['server']};"
+        f"Database={config['database']};"
+        "Encrypt=yes;"
+        "TrustServerCertificate=no;"
+    )
+
+    return mssql_python.connect(
+        connection_string,
+        attrs_before={
+            SQL_COPT_SS_ACCESS_TOKEN: token_struct
+        },
+    )
+
 
 
 # =========================================================
