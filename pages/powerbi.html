@@ -11,26 +11,23 @@
 
     <meta
         name="description"
-        content="Power BI reporting for the Canadian Economic Intelligence Platform, including executive, regional, industry, affordability, and forecasting views."
+        content="Interactive Power BI reporting for the Canadian Economic Intelligence Platform, including executive, regional, industry, affordability, fiscal, and forecasting analysis."
     >
 
     <title>
         Power BI | Canadian Economic Intelligence
     </title>
 
-    <!-- Shared site styles -->
     <link
         rel="stylesheet"
         href="../assets/css/styles.css"
     >
 
-    <!-- Shared animation styles -->
     <link
         rel="stylesheet"
         href="../assets/css/animations.css"
     >
 
-    <!-- Shared responsive styles -->
     <link
         rel="stylesheet"
         href="../assets/css/responsive.css"
@@ -43,9 +40,6 @@
     <!-- =========================================================
          SHARED COMPONENT
          SECTION: Site header
-         PURPOSE:
-         Provide consistent navigation across the portfolio
-         and direct access to the interactive application.
          ========================================================= -->
 
     <header class="site-header">
@@ -104,7 +98,6 @@
                     Power BI
                 </a>
 
-                <!-- Open the deployed Streamlit application directly -->
                 <a
                     href="https://canadian-economic-intelligence-platform.streamlit.app/"
                     target="_blank"
@@ -137,9 +130,6 @@
         <!-- =========================================================
              PAGE: Power BI
              SECTION: Page hero
-             PURPOSE:
-             Introduce Power BI as the decision-facing reporting
-             layer of the economic intelligence platform.
              ========================================================= -->
 
         <section class="inner-page-hero powerbi-page-hero">
@@ -161,7 +151,7 @@
                         Power BI provides the decision-facing layer of the
                         platform, combining curated economic indicators,
                         regional comparisons, industry analysis, affordability
-                        measures, and retail sales forecasting.
+                        measures, fiscal conditions, and retail sales forecasting.
                     </p>
 
                 </div>
@@ -199,9 +189,6 @@
         <!-- =========================================================
              PAGE: Power BI
              SECTION: Report page overview
-             PURPOSE:
-             Summarize the five analytical pages included in
-             the Power BI dashboard.
              ========================================================= -->
 
         <section class="powerbi-pages-section">
@@ -220,8 +207,8 @@
                     </h2>
 
                     <p class="section-description">
-                        Each report page is designed around a distinct analytical
-                        question while sharing the same curated SQL serving layer.
+                        Each report page addresses a distinct analytical area
+                        while sharing the same curated Azure SQL serving layer.
                     </p>
 
                 </div>
@@ -272,8 +259,8 @@
                             </h3>
 
                             <p>
-                                Provincial comparisons across labour, population,
-                                housing, and related regional indicators.
+                                Provincial comparisons across labour-market,
+                                retail, inflation, population, and housing conditions.
                             </p>
 
                         </div>
@@ -324,8 +311,8 @@
                             </h3>
 
                             <p>
-                                Fiscal context and affordability-related indicators
-                                presented within a consistent analytical framework.
+                                Inflation, housing, fiscal balances, and government
+                                debt presented within a consistent analytical view.
                             </p>
 
                         </div>
@@ -364,12 +351,10 @@
 
         </section>
 
-                <!-- =========================================================
+
+        <!-- =========================================================
              PAGE: Power BI
-             SECTION: Live report embed
-             PURPOSE:
-             Embed the publicly published interactive Power BI report
-             directly within the portfolio website.
+             SECTION: Live interactive report
              ========================================================= -->
 
         <section class="powerbi-embed-section">
@@ -387,8 +372,8 @@
                     </h2>
 
                     <p class="section-description">
-                        Use the interactive report below to explore the
-                        platform's executive, regional, industry, affordability,
+                        Use the interactive report below to explore the platform's
+                        executive, regional, industry, affordability, fiscal,
                         and forecasting views.
                     </p>
 
@@ -397,10 +382,6 @@
 
                 <div class="powerbi-embed-frame">
 
-                    <!--
-                        Public Power BI report published through
-                        Power BI Publish to web.
-                    -->
                     <iframe
                         title="Canadian Economic Intelligence Dashboard"
                         src="https://app.powerbi.com/view?r=eyJrIjoiMzFjYjM0MWYtYWUyZC00MzlkLTg0NzktYTc1ZDk2ODA3OGUxIiwidCI6ImViNDVhNTBlLTNjMWEtNGVlNC1hMDM2LWE1NmZkMDc1ZTUyNCJ9"
@@ -416,126 +397,10 @@
 
         </section>
 
-        <!-- =========================================================
-             PAGE: Power BI
-             SECTION: Decision questions
-             PURPOSE:
-             Show the practical analytical questions the dashboard
-             is designed to help answer.
-             ========================================================= -->
-
-        <section class="powerbi-questions-section">
-
-            <div class="container">
-
-                <div class="powerbi-questions-layout">
-
-                    <div class="powerbi-questions-intro">
-
-                        <p class="eyebrow">
-                            DECISION QUESTIONS
-                        </p>
-
-                        <h2>
-                            The dashboard is designed to answer
-                            practical economic questions.
-                        </h2>
-
-                        <p>
-                            The report structure helps users move from a high-level
-                            view of the economy into more detailed regional,
-                            industry, affordability, and forecasting analysis.
-                        </p>
-
-                    </div>
-
-
-                    <div class="powerbi-question-list">
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                01
-                            </span>
-
-                            <p>
-                                How are major Canadian economic indicators
-                                changing over time?
-                            </p>
-
-                        </div>
-
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                02
-                            </span>
-
-                            <p>
-                                Which provinces show stronger or weaker
-                                labour and housing conditions?
-                            </p>
-
-                        </div>
-
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                03
-                            </span>
-
-                            <p>
-                                Which industries are driving changes in
-                                economic activity?
-                            </p>
-
-                        </div>
-
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                04
-                            </span>
-
-                            <p>
-                                How do fiscal and affordability indicators
-                                evolve alongside the broader economy?
-                            </p>
-
-                        </div>
-
-
-                        <div class="powerbi-question-row">
-
-                            <span>
-                                05
-                            </span>
-
-                            <p>
-                                How does the selected retail sales forecasting
-                                model perform against the holdout period?
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
 
         <!-- =========================================================
              PAGE: Power BI
              SECTION: Reporting architecture
-             PURPOSE:
-             Show how curated Gold analytical marts move through
-             Azure SQL before being consumed by Power BI.
              ========================================================= -->
 
         <section class="powerbi-reporting-section">
@@ -555,7 +420,7 @@
 
                     <p class="section-description">
                         Reporting is separated from upstream transformation so
-                        business logic remains controlled within the analytical
+                        analytical logic remains controlled within the Gold
                         and serving layers.
                     </p>
 
@@ -564,7 +429,6 @@
 
                 <div class="powerbi-reporting-flow">
 
-                    <!-- Gold analytical outputs -->
                     <div class="powerbi-reporting-stage">
 
                         <span>
@@ -595,7 +459,6 @@
                     </div>
 
 
-                    <!-- Relational reporting layer -->
                     <div class="powerbi-reporting-stage">
 
                         <span>
@@ -626,7 +489,6 @@
                     </div>
 
 
-                    <!-- Visualization layer -->
                     <div class="powerbi-reporting-stage powerbi-reporting-final">
 
                         <span>
@@ -657,10 +519,7 @@
 
         <!-- =========================================================
              PAGE: Power BI
-             SECTION: Forecasting report evidence
-             PURPOSE:
-             Present the selected forecast together with holdout
-             evaluation metrics used to assess model performance.
+             SECTION: Forecasting evidence
              ========================================================= -->
 
         <section class="powerbi-forecast-section">
@@ -672,18 +531,18 @@
                     <div class="powerbi-forecast-intro">
 
                         <p class="eyebrow">
-                            FORECASTING PAGE
+                            FORECASTING EVIDENCE
                         </p>
 
                         <h2>
-                            Model evaluation is surfaced alongside
-                            the final forecast.
+                            Model evaluation is presented alongside
+                            the final retail sales forecast.
                         </h2>
 
                         <p>
-                            The forecasting report presents both the selected
-                            retail sales forecast and the evidence used to support
-                            model selection.
+                            Four forecasting approaches were compared using
+                            time-series validation, followed by evaluation of
+                            the selected model on a 12-month holdout period.
                         </p>
 
                     </div>
@@ -770,116 +629,7 @@
 
         <!-- =========================================================
              PAGE: Power BI
-             SECTION: Reporting principles
-             PURPOSE:
-             Summarize the reporting design decisions used to
-             improve clarity, consistency, and traceability.
-             ========================================================= -->
-
-        <section class="powerbi-principles-section">
-
-            <div class="container">
-
-                <div class="section-heading powerbi-principles-heading">
-
-                    <p class="eyebrow">
-                        REPORTING PRINCIPLES
-                    </p>
-
-                    <h2>
-                        The dashboard emphasizes clarity, traceability,
-                        and analytical consistency.
-                    </h2>
-
-                </div>
-
-
-                <div class="powerbi-principles">
-
-                    <article class="powerbi-principle">
-
-                        <span>
-                            01
-                        </span>
-
-                        <h3>
-                            Curated Data First
-                        </h3>
-
-                        <p>
-                            Power BI consumes reporting-ready SQL tables rather
-                            than performing raw data engineering inside the report.
-                        </p>
-
-                    </article>
-
-
-                    <article class="powerbi-principle">
-
-                        <span>
-                            02
-                        </span>
-
-                        <h3>
-                            Consistent Analytical Grain
-                        </h3>
-
-                        <p>
-                            Visuals are built on datasets whose frequency and
-                            business keys are aligned upstream.
-                        </p>
-
-                    </article>
-
-
-                    <article class="powerbi-principle">
-
-                        <span>
-                            03
-                        </span>
-
-                        <h3>
-                            Evidence Alongside Forecasts
-                        </h3>
-
-                        <p>
-                            Forecast outputs are presented with model comparison
-                            and holdout evaluation rather than as isolated values.
-                        </p>
-
-                    </article>
-
-
-                    <article class="powerbi-principle">
-
-                        <span>
-                            04
-                        </span>
-
-                        <h3>
-                            Decision-Focused Layout
-                        </h3>
-
-                        <p>
-                            Report pages are organized around economic questions
-                            rather than the structure of the source systems.
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             PAGE: Power BI
              SECTION: Next page navigation
-             PURPOSE:
-             Continue from Power BI reporting into the deployed
-             Streamlit interactive application.
              ========================================================= -->
 
         <section class="next-page-section">
@@ -901,7 +651,8 @@
 
                         <p>
                             Open the deployed Streamlit application to explore
-                            cloud automation and interactive economic intelligence.
+                            live cloud automation and AI-assisted economic
+                            intelligence.
                         </p>
 
                     </div>
@@ -928,9 +679,6 @@
     <!-- =========================================================
          SHARED COMPONENT
          SECTION: Site footer
-         PURPOSE:
-         Provide consistent navigation and project information
-         across the portfolio.
          ========================================================= -->
 
     <footer class="site-footer">
@@ -989,7 +737,6 @@
                             Power BI
                         </a>
 
-                        <!-- Direct access to the deployed Streamlit application -->
                         <a
                             href="https://canadian-economic-intelligence-platform.streamlit.app/"
                             target="_blank"
@@ -1036,7 +783,6 @@
     </footer>
 
 
-    <!-- Shared site navigation behavior -->
     <script src="../assets/js/main.js"></script>
 
 </body>
