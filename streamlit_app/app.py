@@ -106,6 +106,23 @@ def get_sql_connection():
         },
     )
 
+def test_sql_connection():
+    """Verify that Streamlit can connect to Azure SQL."""
+
+    connection = get_sql_connection()
+
+    try:
+        cursor = connection.cursor()
+
+        cursor.execute(
+            "SELECT DB_NAME() AS database_name, USER_NAME() AS database_user;"
+        )
+
+        return cursor.fetchone()
+
+    finally:
+        connection.close()
+
 
 
 # =========================================================
