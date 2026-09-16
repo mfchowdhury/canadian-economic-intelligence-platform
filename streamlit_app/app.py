@@ -123,6 +123,29 @@ def test_sql_connection():
     finally:
         connection.close()
 
+def get_reporting_tables():
+    """Return the reporting tables available to the assistant."""
+
+    connection = get_sql_connection()
+
+    try:
+        cursor = connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT TABLE_NAME
+            FROM INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_SCHEMA = 'dbo'
+              AND TABLE_TYPE = 'BASE TABLE'
+            ORDER BY TABLE_NAME;
+            """
+        )
+
+        return [row[0] for row in cursor.fetchall()]
+
+    finally:
+        connection.close()
+
 
 
 # =========================================================
@@ -1034,6 +1057,7 @@ elif page == "Economic Intelligence Assistant":
             st.error(
                 f"Azure SQL connection failed: {e}"
             )
+
 
     st.write("")
     st.divider()
