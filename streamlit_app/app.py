@@ -1022,6 +1022,10 @@ if page == "Automation Demo":
 # PAGE: ECONOMIC INTELLIGENCE ASSISTANT
 # =========================================================
 
+# =========================================================
+# PAGE: ECONOMIC INTELLIGENCE ASSISTANT
+# =========================================================
+
 elif page == "Economic Intelligence Assistant":
 
     st.markdown(
@@ -1040,31 +1044,66 @@ elif page == "Economic Intelligence Assistant":
     )
 
     # ---------------------------------------------------------
-    # TEMPORARY FUNCTION API CONNECTION TEST
+    # TEMPORARY API CONNECTION TESTS
     # ---------------------------------------------------------
 
-    if st.button("Test Function API"):
-        try:
-            base_url = st.secrets["function_api"]["base_url"].rstrip("/")
-            function_key = st.secrets["function_api"]["function_key"]
+    test_col1, test_col2 = st.columns(2)
 
-            response = requests.get(
-                f"{base_url}/api/national/latest",
-                headers={
-                    "x-functions-key": function_key
-                },
-                timeout=30,
-            )
+    # Test the controlled Azure Function retrieval layer.
+    with test_col1:
+        if st.button(
+            "Test Function API",
+            use_container_width=True,
+        ):
+            try:
+                base_url = st.secrets["function_api"]["base_url"].rstrip("/")
+                function_key = st.secrets["function_api"]["function_key"]
 
-            response.raise_for_status()
+                response = requests.get(
+                    f"{base_url}/api/national/latest",
+                    headers={
+                        "x-functions-key": function_key
+                    },
+                    timeout=30,
+                )
 
-            st.success("Azure Function API connection succeeded.")
-            st.json(response.json())
+                response.raise_for_status()
 
-        except Exception as e:
-            st.error(
-                f"Azure Function API connection failed: {e}"
-            )
+                st.success(
+                    "Azure Function API connection succeeded."
+                )
+                st.json(response.json())
+
+            except Exception as e:
+                st.error(
+                    f"Azure Function API connection failed: {e}"
+                )
+
+    # Test the OpenAI API connection using the private Streamlit secret.
+    with test_col2:
+        if st.button(
+            "Test OpenAI API",
+            use_container_width=True,
+        ):
+            try:
+                client = OpenAI(
+                    api_key=st.secrets["openai"]["api_key"]
+                )
+
+                response = client.responses.create(
+                    model=st.secrets["openai"]["model"],
+                    input=(
+                        "Reply with exactly: "
+                        "OpenAI API connection succeeded."
+                    ),
+                )
+
+                st.success(response.output_text)
+
+            except Exception as e:
+                st.error(
+                    f"OpenAI API connection failed: {e}"
+                )
 
     # ---------------------------------------------------------
     # VALIDATED DATA EXPLORER

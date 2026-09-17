@@ -4,3 +4,4 @@ plotly
 azure-identity
 requests
 mssql-python
+openai
