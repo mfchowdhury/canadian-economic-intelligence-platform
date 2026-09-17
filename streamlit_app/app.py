@@ -76,12 +76,12 @@ def call_economic_api(route, params=None):
     config = get_api_config()
     url = f"{config['base_url']}/api/{route.lstrip('/')}"
 
-    request_params = dict(params or {})
-    request_params["code"] = config["function_key"]
-
     response = requests.get(
         url,
-        params=request_params,
+        params=dict(params or {}),
+        headers={
+            "x-functions-key": config["function_key"]
+        },
         timeout=30,
     )
 
@@ -96,7 +96,6 @@ def call_economic_api(route, params=None):
 
     response.raise_for_status()
     return response.json()
-
 
 # =========================================================
 # AZURE DATA FACTORY CONFIGURATION
