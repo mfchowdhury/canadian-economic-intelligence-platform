@@ -1,10 +1,8 @@
-import struct
-
-import mssql_python
 import requests
 import streamlit as st
 from azure.identity import ClientSecretCredential
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 # =========================================================
 # PAGE CONFIGURATION
@@ -59,93 +57,44 @@ def get_management_token():
 
 
 # =========================================================
-# AZURE SQL CONNECTION
+# ECONOMIC INTELLIGENCE API
 # =========================================================
 
-SQL_COPT_SS_ACCESS_TOKEN = 1256
-
-
-def get_sql_config():
-    """Return the Azure SQL configuration from Streamlit Secrets."""
+def get_api_config():
+    """Return the Economic Intelligence API configuration."""
 
     return {
-        "server": st.secrets["sql"]["server"],
-        "database": st.secrets["sql"]["database"],
+        "base_url": st.secrets["api"]["base_url"].rstrip("/"),
+        "function_key": st.secrets["api"]["function_key"],
     }
 
 
-def get_sql_connection():
-    """Create an Azure SQL connection using Microsoft Entra authentication."""
+def call_economic_api(route, params=None):
+    """Call a controlled Azure Function retrieval endpoint."""
 
-    config = get_sql_config()
-    credential = get_azure_credential()
+    config = get_api_config()
+    url = f"{config['base_url']}/api/{route.lstrip('/')}"
 
-    access_token = credential.get_token(
-        "https://database.windows.net/.default"
-    ).token
+    request_params = dict(params or {})
+    request_params["code"] = config["function_key"]
 
-    token_bytes = access_token.encode("utf-16-le")
-
-    token_struct = struct.pack(
-        f"<I{len(token_bytes)}s",
-        len(token_bytes),
-        token_bytes,
+    response = requests.get(
+        url,
+        params=request_params,
+        timeout=30,
     )
 
-    connection_string = (
-        f"Server={config['server']};"
-        f"Database={config['database']};"
-        "Encrypt=yes;"
-        "TrustServerCertificate=no;"
-    )
+    if response.status_code == 404:
+        try:
+            return response.json()
+        except ValueError:
+            return {
+                "status": "not_found",
+                "message": "No matching project data was found.",
+            }
 
-    return mssql_python.connect(
-        connection_string,
-        attrs_before={
-            SQL_COPT_SS_ACCESS_TOKEN: token_struct
-        },
-    )
-
-def test_sql_connection():
-    """Verify that Streamlit can connect to Azure SQL."""
-
-    connection = get_sql_connection()
-
-    try:
-        cursor = connection.cursor()
-
-        cursor.execute(
-            "SELECT DB_NAME() AS database_name, USER_NAME() AS database_user;"
-        )
-
-        return cursor.fetchone()
-
-    finally:
-        connection.close()
-
-def get_reporting_tables():
-    """Return the reporting tables available to the assistant."""
-
-    connection = get_sql_connection()
-
-    try:
-        cursor = connection.cursor()
-
-        cursor.execute(
-            """
-            SELECT TABLE_NAME
-            FROM INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_SCHEMA = 'dbo'
-              AND TABLE_TYPE = 'BASE TABLE'
-            ORDER BY TABLE_NAME;
-            """
-        )
-
-        return [row[0] for row in cursor.fetchall()]
-
-    finally:
-        connection.close()
-
+    response.raise_for_status()
+    return response.json()
 
 
 # =========================================================
@@ -265,6 +214,63 @@ def get_adf_run_status(run_id):
 
 
 # =========================================================
+# AZURE DATA FACTORY LATEST PIPELINE RUN
+# =========================================================
+
+def get_latest_adf_pipeline_run():
+    """Retrieve the most recent execution of the configured master pipeline."""
+
+    config = get_adf_config()
+
+    url = (
+        f"https://management.azure.com/subscriptions/"
+        f"{config['subscription_id']}"
+        f"/resourceGroups/{config['resource_group']}"
+        f"/providers/Microsoft.DataFactory/factories/"
+        f"{config['data_factory']}"
+        f"/queryPipelineRuns"
+        f"?api-version=2018-06-01"
+    )
+
+    # Keep ADF timestamps in UTC. Timezone conversion is presentation-only.
+    now_utc = datetime.now(timezone.utc)
+
+    request_body = {
+        "lastUpdatedAfter": (
+            now_utc - timedelta(days=90)
+        ).isoformat().replace("+00:00", "Z"),
+        "lastUpdatedBefore": (
+            now_utc + timedelta(minutes=5)
+        ).isoformat().replace("+00:00", "Z"),
+        "filters": [
+            {
+                "operand": "PipelineName",
+                "operator": "Equals",
+                "values": [config["pipeline_name"]],
+            }
+        ],
+        "orderBy": [
+            {
+                "orderBy": "RunStart",
+                "order": "DESC",
+            }
+        ],
+    }
+
+    response = requests.post(
+        url,
+        headers=get_adf_headers(),
+        json=request_body,
+        timeout=30,
+    )
+
+    response.raise_for_status()
+
+    runs = response.json().get("value", [])
+    return runs[0] if runs else None
+
+
+# =========================================================
 # AZURE DATA FACTORY ACTIVITY RUNS
 # =========================================================
 
@@ -306,7 +312,7 @@ def get_adf_activity_runs(run_id):
 # =========================================================
 
 def format_adf_datetime(timestamp):
-    """Convert an ADF timestamp to a readable display value."""
+    """Format an ADF UTC timestamp for presentation in Toronto time."""
 
     if not timestamp:
         return "—"
@@ -316,10 +322,16 @@ def format_adf_datetime(timestamp):
             timestamp.replace("Z", "+00:00")
         )
 
-        # Convert UTC to the environment's local display timezone.
-        local_time = parsed_time.astimezone()
+        if parsed_time.tzinfo is None:
+            parsed_time = parsed_time.replace(tzinfo=timezone.utc)
 
-        return local_time.strftime("%b %d, %Y, %I:%M %p")
+        toronto_time = parsed_time.astimezone(
+            ZoneInfo("America/Toronto")
+        )
+
+        return toronto_time.strftime(
+            "%b %d, %Y, %I:%M %p %Z"
+        )
 
     except (ValueError, TypeError):
         return timestamp
@@ -457,6 +469,26 @@ if "adf_activity_runs" not in st.session_state:
 
 if "adf_trigger_message" not in st.session_state:
     st.session_state.adf_trigger_message = None
+
+
+# Load the latest real ADF execution when a new Streamlit session starts.
+# ADF remains the source of truth, so the latest result survives browser
+# refreshes and remains visible until a newer pipeline run exists.
+if st.session_state.adf_run_id is None:
+    try:
+        latest_run = get_latest_adf_pipeline_run()
+
+        if latest_run:
+            st.session_state.adf_run_id = latest_run.get("runId")
+            st.session_state.adf_run_data = latest_run
+
+            if st.session_state.adf_run_id:
+                st.session_state.adf_activity_runs = get_adf_activity_runs(
+                    st.session_state.adf_run_id
+                )
+
+    except Exception:
+        pass
 
 
 # =========================================================
@@ -711,7 +743,7 @@ if page == "Automation Demo":
         """
         <div class="section-description">
             Pipeline and activity status are retrieved directly from
-            Azure Data Factory for the currently tracked execution.
+            Azure Data Factory for the latest master-pipeline execution.
         </div>
         """,
         unsafe_allow_html=True,
@@ -720,8 +752,7 @@ if page == "Automation Demo":
     pipeline_status = "Ready"
     run_started = "—"
 
-    # Retrieve the latest state for the ADF run tracked by
-    # the current Streamlit browser session.
+    # Refresh the latest persisted ADF execution from Azure Data Factory.
     if st.session_state.adf_run_id:
 
         try:
@@ -902,8 +933,7 @@ if page == "Automation Demo":
 
     with button_col1:
 
-        # Session-level protection prevents another trigger from the
-        # same browser while the currently tracked run remains active.
+        # Prevent another trigger while the currently tracked ADF run is active.
         if st.button(
             "Run Automation Demo",
             type="primary",
@@ -983,8 +1013,8 @@ if page == "Automation Demo":
         )
 
     st.caption(
-        "Public-run frequency controls will limit how often the live "
-        "Azure workflow can be triggered."
+        "The latest ADF run remains visible until a newer automation "
+        "run is started. Displayed timestamps use Toronto (ET) time."
     )
 
 
@@ -1002,94 +1032,231 @@ elif page == "Economic Intelligence Assistant":
     st.markdown(
         """
         <div class="main-subtitle">
-            Ask questions about curated Canadian economic data and receive
-            plain-language analytical explanations grounded in the
-            platform's validated datasets.
+            Explore validated Canadian economic indicators through the
+            platform's controlled Azure Function API.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
+    # ---------------------------------------------------------
+    # TEMPORARY FUNCTION API CONNECTION TEST
+    # ---------------------------------------------------------
+
+    if st.button("Test Function API"):
+        try:
+            base_url = st.secrets["function_api"]["base_url"].rstrip("/")
+            function_key = st.secrets["function_api"]["function_key"]
+
+            response = requests.get(
+                f"{base_url}/api/national/latest",
+                headers={
+                    "x-functions-key": function_key
+                },
+                timeout=30,
+            )
+
+            response.raise_for_status()
+
+            st.success("Azure Function API connection succeeded.")
+            st.json(response.json())
+
+        except Exception as e:
+            st.error(
+                f"Azure Function API connection failed: {e}"
+            )
+
+    # ---------------------------------------------------------
+    # VALIDATED DATA EXPLORER
+    # ---------------------------------------------------------
+
     st.markdown(
-        '<div class="section-title">Ask the Assistant</div>',
+        '<div class="section-title">Validated Data Explorer</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
         <div class="section-description">
-            The assistant retrieves relevant validated indicators from
-            the analytical serving layer before generating an explanation.
+            Select an analytical domain to retrieve current project evidence.
+            Streamlit calls controlled API endpoints rather than connecting
+            directly to Azure SQL.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    question = st.text_area(
-        "Economic question",
-        placeholder=(
-            "Example: How are Canadian economic conditions changing?"
-        ),
-        height=120,
+    domain = st.selectbox(
+        "Analytical domain",
+        [
+            "National Economy",
+            "Regional Analysis",
+            "Industry GDP",
+            "Industry Retail Sales",
+            "Industry Productivity",
+            "Affordability & Housing",
+            "Federal Fiscal",
+            "Ontario Fiscal",
+            "Retail Sales Forecast",
+        ],
     )
 
-    ask_button = st.button(
-        "Ask",
+    route = None
+    params = {}
+
+    if domain == "National Economy":
+        route = "national/latest"
+
+    elif domain == "Regional Analysis":
+        geo = st.text_input(
+            "Province or territory",
+            value="Ontario",
+        )
+        route = "regional"
+        params = {"geo": geo.strip()}
+
+    elif domain == "Industry GDP":
+        industry = st.text_input(
+            "Industry",
+            placeholder=(
+                "Enter the exact industry name used in the reporting table"
+            ),
+        )
+        route = "industry/gdp"
+        params = {"industry": industry.strip()}
+
+    elif domain == "Industry Retail Sales":
+        industry = st.text_input(
+            "Industry",
+            placeholder=(
+                "Enter the exact industry name used in the reporting table"
+            ),
+        )
+        route = "industry/retail"
+        params = {"industry": industry.strip()}
+
+    elif domain == "Industry Productivity":
+        industry = st.text_input(
+            "Industry",
+            placeholder=(
+                "Enter the exact industry name used in the reporting table"
+            ),
+        )
+        route = "industry/productivity"
+        params = {"industry": industry.strip()}
+
+    elif domain == "Affordability & Housing":
+        route = "affordability/latest"
+
+    elif domain == "Federal Fiscal":
+        route = "fiscal/federal/latest"
+
+    elif domain == "Ontario Fiscal":
+        route = "fiscal/ontario/latest"
+
+    elif domain == "Retail Sales Forecast":
+        route = "forecast/latest"
+
+    retrieve_button = st.button(
+        "Retrieve Validated Evidence",
         type="primary",
     )
 
-    if ask_button:
-        if not question.strip():
-            st.warning(
-                "Enter an economic question first."
+    if retrieve_button:
+        missing_parameter = (
+            domain == "Regional Analysis"
+            and not params.get("geo")
+        ) or (
+            domain in {
+                "Industry GDP",
+                "Industry Retail Sales",
+                "Industry Productivity",
+            }
+            and not params.get("industry")
         )
-    else:
-        try:
-            sql_test = test_sql_connection()
 
-            st.success(
-                f"Azure SQL connected successfully. "
-                f"Database: {sql_test[0]} | "
-                f"User: {sql_test[1]}"
+        if missing_parameter:
+            st.warning(
+                "Enter the required geography or industry first."
             )
 
-        except Exception as e:
-            st.error(
-                f"Azure SQL connection failed: {e}"
-            )
+        else:
+            try:
+                with st.spinner(
+                    "Retrieving validated project data..."
+                ):
+                    result = call_economic_api(
+                        route,
+                        params=params,
+                    )
 
+                if result.get("status") == "not_found":
+                    st.warning(
+                        result.get(
+                            "message",
+                            "No matching project data was found.",
+                        )
+                    )
+
+                elif result.get("status") != "ok":
+                    st.error(
+                        result.get(
+                            "message",
+                            "The Economic Intelligence API returned an error.",
+                        )
+                    )
+
+                else:
+                    st.success(
+                        "Validated evidence retrieved successfully."
+                    )
+
+                    st.markdown(
+                        '<div class="section-title">'
+                        'Response Evidence'
+                        '</div>',
+                        unsafe_allow_html=True,
+                    )
+
+                    st.json(result)
+
+            except requests.RequestException as e:
+                st.error(
+                    "Unable to reach the Economic Intelligence API: "
+                    f"{e}"
+                )
+
+            except Exception as e:
+                st.error(
+                    "Unable to retrieve economic evidence: "
+                    f"{e}"
+                )
 
     st.write("")
     st.divider()
 
+    # ---------------------------------------------------------
+    # AI ASSISTANT
+    # ---------------------------------------------------------
+
     st.markdown(
-        '<div class="section-title">Response Evidence</div>',
+        '<div class="section-title">AI Assistant</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
         <div class="section-description">
-            Each generated answer will show the indicators, values, and
-            reference periods used so the analysis remains traceable
-            to project data.
+            The controlled retrieval layer is now connected. Question routing,
+            evidence formatting, and grounded language-model interpretation
+            will be added on top of these validated API responses.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown(
-        """
-        | Indicator | Value | Reference Period |
-        |---|---:|---|
-        | Inflation | — | — |
-        | Unemployment | — | — |
-        | Retail Sales | — | — |
-        """
-    )
-
     st.caption(
-        "AI-generated responses provide analytical summaries of curated "
+        "AI-generated responses will provide analytical summaries of curated "
         "project data and should not be interpreted as official forecasts "
         "or policy advice."
     )
