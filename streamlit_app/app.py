@@ -1,5 +1,6 @@
 import requests
 import streamlit as st
+from openai import OpenAI
 from azure.identity import ClientSecretCredential
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
