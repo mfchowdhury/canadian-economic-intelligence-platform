@@ -65,8 +65,8 @@ def get_api_config():
     """Return the Economic Intelligence API configuration."""
 
     return {
-        "base_url": st.secrets["api"]["base_url"].rstrip("/"),
-        "function_key": st.secrets["api"]["function_key"],
+        "base_url": st.secrets["function_api"]["base_url"].rstrip("/"),
+        "function_key": st.secrets["function_api"]["function_key"],
     }
 
 
@@ -456,6 +456,742 @@ def prepare_activity_rows(activity_runs):
 
 
 # =========================================================
+# AUTOMATION COOLDOWN
+# =========================================================
+
+AUTOMATION_COOLDOWN_HOURS = 24
+
+
+def parse_adf_datetime(timestamp):
+    """Parse an ADF timestamp as a timezone-aware UTC datetime."""
+
+    if not timestamp:
+        return None
+
+    try:
+        parsed_time = datetime.fromisoformat(
+            timestamp.replace("Z", "+00:00")
+        )
+
+        if parsed_time.tzinfo is None:
+            parsed_time = parsed_time.replace(tzinfo=timezone.utc)
+
+        return parsed_time.astimezone(timezone.utc)
+
+    except (ValueError, TypeError):
+        return None
+
+
+def get_automation_cooldown(latest_run):
+    """
+    Return global cooldown information from the latest real ADF run.
+
+    ADF is the shared source of truth, so the cooldown is shared across
+    visitors and does not depend on a browser or Streamlit session.
+    """
+
+    if not latest_run:
+        return {
+            "active": False,
+            "next_eligible_utc": None,
+            "remaining": timedelta(0),
+        }
+
+    run_started = parse_adf_datetime(
+        latest_run.get("runStart")
+    )
+
+    if not run_started:
+        return {
+            "active": False,
+            "next_eligible_utc": None,
+            "remaining": timedelta(0),
+        }
+
+    next_eligible_utc = run_started + timedelta(
+        hours=AUTOMATION_COOLDOWN_HOURS
+    )
+    remaining = next_eligible_utc - datetime.now(timezone.utc)
+
+    return {
+        "active": remaining.total_seconds() > 0,
+        "next_eligible_utc": next_eligible_utc,
+        "remaining": max(remaining, timedelta(0)),
+    }
+
+
+def format_local_datetime(dt_value):
+    """Format a timezone-aware datetime in Toronto/ET time."""
+
+    if not dt_value:
+        return "—"
+
+    toronto_time = dt_value.astimezone(
+        ZoneInfo("America/Toronto")
+    )
+
+    return toronto_time.strftime(
+        "%b %d, %Y, %I:%M %p %Z"
+    )
+
+
+def format_remaining_time(delta_value):
+    """Format a remaining cooldown duration."""
+
+    total_seconds = max(
+        0,
+        int(delta_value.total_seconds())
+    )
+
+    hours, remainder = divmod(total_seconds, 3600)
+    minutes, _ = divmod(remainder, 60)
+
+    if hours:
+        return f"{hours}h {minutes}m"
+
+    return f"{minutes}m"
+
+
+# =========================================================
+# OPENAI CONFIGURATION
+# =========================================================
+
+def get_openai_client():
+    """Create the OpenAI client from private Streamlit secrets."""
+
+    return OpenAI(
+        api_key=st.secrets["openai"]["api_key"]
+    )
+
+
+def get_openai_model():
+    """Return the configured OpenAI model."""
+
+    return st.secrets["openai"]["model"]
+
+
+# =========================================================
+# ECONOMIC ASSISTANT SCOPE AND ROUTING
+# =========================================================
+
+SUPPORTED_GEOS = [
+    "Canada",
+    "Newfoundland and Labrador",
+    "Prince Edward Island",
+    "Nova Scotia",
+    "New Brunswick",
+    "Quebec",
+    "Ontario",
+    "Manitoba",
+    "Saskatchewan",
+    "Alberta",
+    "British Columbia",
+    "Yukon",
+    "Northwest Territories",
+    "Nunavut",
+]
+
+GEO_ALIASES = {
+    "canada": "Canada",
+    "newfoundland and labrador": "Newfoundland and Labrador",
+    "newfoundland": "Newfoundland and Labrador",
+    "pei": "Prince Edward Island",
+    "prince edward island": "Prince Edward Island",
+    "nova scotia": "Nova Scotia",
+    "new brunswick": "New Brunswick",
+    "quebec": "Quebec",
+    "ontario": "Ontario",
+    "manitoba": "Manitoba",
+    "saskatchewan": "Saskatchewan",
+    "alberta": "Alberta",
+    "british columbia": "British Columbia",
+    "bc": "British Columbia",
+    "yukon": "Yukon",
+    "northwest territories": "Northwest Territories",
+    "nwt": "Northwest Territories",
+    "nunavut": "Nunavut",
+}
+
+ECONOMIC_SCOPE_TERMS = {
+    "economy", "economic", "gdp", "growth", "inflation", "cpi",
+    "employment", "unemployment", "labour", "labor", "jobs",
+    "retail", "sales", "population", "exchange rate", "usd/cad",
+    "cad", "policy rate", "interest rate", "housing", "affordability",
+    "fiscal", "budget", "deficit", "surplus", "debt", "revenue",
+    "expenditure", "productivity", "industry", "forecast",
+    "manufacturing", "wholesale", "consumer", "prices",
+}
+
+SUPPORTED_SCOPE_TERMS = {
+    "gdp", "growth", "inflation", "cpi", "employment",
+    "unemployment", "labour", "labor", "jobs", "retail",
+    "sales", "population", "exchange rate", "usd/cad", "cad",
+    "policy rate", "interest rate", "housing", "affordability",
+    "fiscal", "budget", "deficit", "surplus", "debt", "revenue",
+    "expenditure", "productivity", "industry", "forecast",
+    "economy", "economic",
+}
+
+SUGGESTED_QUESTIONS = [
+    "How is Canada's economy performing?",
+    "What is Ontario's unemployment rate?",
+    "What is the latest inflation rate in Canada?",
+    "What is Ontario's latest fiscal position?",
+    "What is the latest retail sales forecast?",
+]
+
+
+def normalize_question(question):
+    """Normalize a question for lightweight routing."""
+
+    return " ".join(
+        question.lower().strip().split()
+    )
+
+
+def contains_any(text, terms):
+    """Return True when any routing term occurs in the text."""
+
+    return any(term in text for term in terms)
+
+
+def detect_geography(question):
+    """Detect a supported Canadian geography from a question."""
+
+    normalized = normalize_question(question)
+
+    # Longer aliases are checked first to avoid partial matches.
+    for alias in sorted(
+        GEO_ALIASES,
+        key=len,
+        reverse=True,
+    ):
+        if alias in normalized:
+            return GEO_ALIASES[alias]
+
+    return None
+
+
+def extract_industry_phrase(question):
+    """
+    Extract a simple industry phrase for controlled industry endpoints.
+
+    The API remains authoritative. If the phrase does not match a reporting
+    table label, the app returns a data-availability message rather than
+    guessing another industry.
+    """
+
+    normalized = normalize_question(question)
+
+    known_industries = [
+        "manufacturing",
+        "retail trade",
+        "wholesale trade",
+        "construction",
+        "mining",
+        "utilities",
+        "transportation and warehousing",
+        "finance and insurance",
+        "real estate",
+        "professional services",
+        "accommodation and food services",
+    ]
+
+    for industry in known_industries:
+        if industry in normalized:
+            return industry.title()
+
+    return None
+
+
+def route_economic_question(question):
+    """
+    Classify a question into:
+    - supported
+    - related_unsupported
+    - out_of_scope
+
+    Supported questions are mapped only to controlled Azure Function routes.
+    """
+
+    normalized = normalize_question(question)
+
+    if not normalized:
+        return {
+            "status": "empty",
+            "message": "Enter a question first.",
+        }
+
+    economic_related = contains_any(
+        normalized,
+        ECONOMIC_SCOPE_TERMS,
+    )
+
+    if not economic_related:
+        return {
+            "status": "out_of_scope",
+            "message": (
+                "This question is outside the scope of the Economic "
+                "Intelligence Assistant. Ask about Canadian economic "
+                "indicators available in this platform, such as GDP, "
+                "inflation, employment, retail sales, housing, fiscal "
+                "indicators, industries, regional conditions, or forecasts."
+            ),
+        }
+
+    geo = detect_geography(normalized)
+
+    # Forecast questions are intentionally limited to the project's
+    # retail-sales forecasting mart.
+    if "forecast" in normalized:
+        if contains_any(
+            normalized,
+            {"retail", "sales", "forecast", "canada", "economic"},
+        ):
+            return {
+                "status": "supported",
+                "domain": "Retail Sales Forecast",
+                "route": "forecast/latest",
+                "params": {},
+            }
+
+    # Fiscal routing.
+    if contains_any(
+        normalized,
+        {
+            "fiscal", "budget", "deficit", "surplus",
+            "debt", "revenue", "expenditure",
+        },
+    ):
+        if "ontario" in normalized:
+            return {
+                "status": "supported",
+                "domain": "Ontario Fiscal",
+                "route": "fiscal/ontario/latest",
+                "params": {},
+            }
+
+        if contains_any(
+            normalized,
+            {"federal", "canada", "canadian", "government"},
+        ):
+            return {
+                "status": "supported",
+                "domain": "Federal Fiscal",
+                "route": "fiscal/federal/latest",
+                "params": {},
+            }
+
+        return {
+            "status": "related_unsupported",
+            "message": (
+                "This is a Canadian economic question, but the fiscal "
+                "scope must be federal or Ontario for the validated "
+                "fiscal datasets currently available in this platform."
+            ),
+        }
+
+    # Industry productivity.
+    if "productivity" in normalized:
+        industry = extract_industry_phrase(normalized)
+
+        if industry:
+            return {
+                "status": "supported",
+                "domain": "Industry Productivity",
+                "route": "industry/productivity",
+                "params": {"industry": industry},
+            }
+
+        return {
+            "status": "related_unsupported",
+            "message": (
+                "This topic is related to Canadian economics, but an "
+                "industry is required for the productivity dataset "
+                "available in this platform."
+            ),
+        }
+
+    # Industry GDP.
+    if "gdp" in normalized and "industry" in normalized:
+        industry = extract_industry_phrase(normalized)
+
+        if industry:
+            return {
+                "status": "supported",
+                "domain": "Industry GDP",
+                "route": "industry/gdp",
+                "params": {"industry": industry},
+            }
+
+        return {
+            "status": "related_unsupported",
+            "message": (
+                "This is an industry-GDP question, but the requested "
+                "industry could not be matched safely to a controlled "
+                "reporting-table label."
+            ),
+        }
+
+    # Industry retail sales.
+    if (
+        "retail" in normalized
+        and "industry" in normalized
+    ):
+        industry = extract_industry_phrase(normalized)
+
+        if industry:
+            return {
+                "status": "supported",
+                "domain": "Industry Retail Sales",
+                "route": "industry/retail",
+                "params": {"industry": industry},
+            }
+
+        return {
+            "status": "related_unsupported",
+            "message": (
+                "This is an industry retail-sales question, but the "
+                "requested industry could not be matched safely to a "
+                "controlled reporting-table label."
+            ),
+        }
+
+    # Affordability and housing questions use the dedicated mart.
+    if contains_any(
+        normalized,
+        {"housing", "affordability"},
+    ):
+        return {
+            "status": "supported",
+            "domain": "Affordability & Housing",
+            "route": "affordability/latest",
+            "params": {},
+        }
+
+    # Province/territory questions use the regional endpoint.
+    if geo and geo != "Canada":
+        return {
+            "status": "supported",
+            "domain": "Regional Analysis",
+            "route": "regional",
+            "params": {"geo": geo},
+        }
+
+    # General supported Canadian macro questions use the national endpoint.
+    if contains_any(
+        normalized,
+        SUPPORTED_SCOPE_TERMS,
+    ):
+        return {
+            "status": "supported",
+            "domain": "National Economy",
+            "route": "national/latest",
+            "params": {},
+        }
+
+    return {
+        "status": "related_unsupported",
+        "message": (
+            "This topic is related to Canadian economics, but the "
+            "indicator needed to answer it is not currently available "
+            "through this platform's validated datasets."
+        ),
+    }
+
+
+# =========================================================
+# ASSISTANT EVIDENCE FORMATTING
+# =========================================================
+
+INDICATOR_LABELS = {
+    "retail_sales_dollars": "Retail Sales",
+    "retail_sales_mom_percent": "Retail Sales MoM",
+    "retail_sales_yoy_percent": "Retail Sales YoY",
+    "cpi_yoy_inflation_percent": "Inflation",
+    "employment_thousands": "Employment",
+    "employment_yoy_percent": "Employment YoY",
+    "unemployment_rate_percent": "Unemployment Rate",
+    "real_gdp_chained_2017_millions": "Real GDP",
+    "real_gdp_mom_percent": "Real GDP MoM",
+    "real_gdp_yoy_percent": "Real GDP YoY",
+    "population": "Population",
+    "avg_monthly_fx_usd_cad": "Average USD/CAD",
+    "policy_rate": "Policy Rate",
+    "housing_starts_saar": "Housing Starts SAAR",
+    "retail_sales_per_capita": "Retail Sales per Capita",
+    "retail_sales_yoy_gap_vs_canada": "Retail Sales YoY Gap vs Canada",
+    "cpi_inflation_gap_vs_canada": "Inflation Gap vs Canada",
+    "employment_yoy_gap_vs_canada": "Employment YoY Gap vs Canada",
+    "unemployment_rate_gap_vs_canada": "Unemployment Gap vs Canada",
+    "deficit_or_surplus": "Deficit / Surplus",
+    "net_debt": "Net Debt",
+    "total_revenues": "Total Revenues",
+    "total_expenditures": "Total Expenditures",
+    "own_source_revenues": "Own-Source Revenues",
+    "federal_transfers": "Federal Transfers",
+    "total_program_expenditures": "Program Expenditures",
+    "debt_charges": "Debt Charges",
+    "federal_transfers_as_percent_of_revenue": "Federal Transfers / Revenue",
+    "debt_charges_as_percent_of_revenue": "Debt Charges / Revenue",
+    "fiscal_position": "Fiscal Position",
+}
+
+
+def humanize_indicator_name(name):
+    """Convert a technical field name to a readable label."""
+
+    if name in INDICATOR_LABELS:
+        return INDICATOR_LABELS[name]
+
+    return name.replace("_", " ").title()
+
+
+def format_evidence_value(key, value):
+    """Apply concise display formatting to common economic indicators."""
+
+    if value is None:
+        return "—"
+
+    if isinstance(value, str):
+        return value
+
+    key_lower = key.lower()
+
+    if "percent" in key_lower or key_lower.endswith("_rate"):
+        return f"{value:,.2f}%"
+
+    if key_lower == "policy_rate":
+        return f"{value:,.2f}%"
+
+    if key_lower == "avg_monthly_fx_usd_cad":
+        return f"{value:,.4f}"
+
+    if "population" in key_lower:
+        return f"{value:,.0f}"
+
+    if "employment_thousands" in key_lower:
+        return f"{value:,.1f} thousand"
+
+    if "retail_sales_dollars" in key_lower:
+        return f"${value / 1_000_000_000:,.2f}B"
+
+    if "real_gdp_chained_2017_millions" in key_lower:
+        return f"${value / 1_000:,.2f}B"
+
+    if isinstance(value, float):
+        return f"{value:,.2f}"
+
+    if isinstance(value, int):
+        return f"{value:,}"
+
+    return str(value)
+
+
+def build_evidence_rows(api_result):
+    """
+    Convert a controlled API response into compact supporting-evidence rows.
+    """
+
+    rows = []
+    indicators = api_result.get("indicators", {})
+
+    for key, item in indicators.items():
+        if isinstance(item, dict):
+            value = item.get("value")
+            period = item.get(
+                "reference_period",
+                api_result.get("reference_period", "—"),
+            )
+        else:
+            value = item
+            period = (
+                api_result.get("reference_period")
+                or api_result.get("fiscal_year")
+                or "—"
+            )
+
+        rows.append(
+            {
+                "Indicator": humanize_indicator_name(key),
+                "Value": format_evidence_value(key, value),
+                "Reference Period": period or "—",
+            }
+        )
+
+    # Some endpoints may expose useful scalar fields outside "indicators".
+    if not rows:
+        excluded = {
+            "status",
+            "scope",
+            "message",
+            "reference_period",
+            "fiscal_year",
+        }
+
+        for key, value in api_result.items():
+            if key in excluded:
+                continue
+
+            if isinstance(value, (dict, list)):
+                continue
+
+            rows.append(
+                {
+                    "Indicator": humanize_indicator_name(key),
+                    "Value": format_evidence_value(key, value),
+                    "Reference Period": (
+                        api_result.get("reference_period")
+                        or api_result.get("fiscal_year")
+                        or "—"
+                    ),
+                }
+            )
+
+    return rows
+
+
+def build_grounding_text(api_result, evidence_rows):
+    """Build a compact evidence block for the language model."""
+
+    scope = api_result.get("scope", "Canadian economy")
+    period = (
+        api_result.get("reference_period")
+        or api_result.get("fiscal_year")
+        or "varies by indicator"
+    )
+
+    lines = [
+        f"Scope: {scope}",
+        f"Overall reference period: {period}",
+    ]
+
+    for row in evidence_rows:
+        lines.append(
+            f"- {row['Indicator']}: {row['Value']} "
+            f"(reference period: {row['Reference Period']})"
+        )
+
+    return "\n".join(lines)
+
+
+# =========================================================
+# GROUNDED LANGUAGE-MODEL RESPONSE
+# =========================================================
+
+def generate_grounded_answer(question, api_result, evidence_rows):
+    """
+    Generate an explanation using only evidence retrieved from the platform.
+    """
+
+    evidence_text = build_grounding_text(
+        api_result,
+        evidence_rows,
+    )
+
+    instructions = """
+You are the Economic Intelligence Assistant for a portfolio project
+focused on Canadian economic data.
+
+Answer only from the validated evidence supplied below.
+
+Rules:
+- Do not invent, estimate, or import facts that are not in the evidence.
+- Do not use outside knowledge to fill missing values.
+- Preserve the reference period when it matters.
+- If the evidence is insufficient for part of the question, say so clearly.
+- Distinguish observed historical indicators from forecasts.
+- Do not provide investment, legal, or policy advice.
+- Keep the answer concise and analytical, usually 1 to 3 short paragraphs.
+- Use plain language while retaining important economic terminology.
+"""
+
+    prompt = f"""
+USER QUESTION:
+{question}
+
+VALIDATED PROJECT EVIDENCE:
+{evidence_text}
+
+Provide a grounded answer to the user's question.
+"""
+
+    client = get_openai_client()
+
+    response = client.responses.create(
+        model=get_openai_model(),
+        instructions=instructions,
+        input=prompt,
+    )
+
+    return response.output_text.strip()
+
+
+def answer_economic_question(question):
+    """
+    Complete controlled assistant flow:
+    route -> retrieve -> format evidence -> grounded LLM explanation.
+    """
+
+    route_result = route_economic_question(question)
+
+    if route_result.get("status") != "supported":
+        return {
+            "status": route_result.get("status"),
+            "message": route_result.get("message"),
+        }
+
+    api_result = call_economic_api(
+        route_result["route"],
+        params=route_result.get("params", {}),
+    )
+
+    if api_result.get("status") == "not_found":
+        return {
+            "status": "related_unsupported",
+            "message": (
+                api_result.get("message")
+                or "The topic is related to this project, but no matching "
+                   "validated data was found."
+            ),
+        }
+
+    if api_result.get("status") != "ok":
+        return {
+            "status": "api_error",
+            "message": (
+                api_result.get("message")
+                or "The Economic Intelligence API returned an error."
+            ),
+        }
+
+    evidence_rows = build_evidence_rows(api_result)
+
+    if not evidence_rows:
+        return {
+            "status": "related_unsupported",
+            "message": (
+                "Validated data was retrieved, but there was not enough "
+                "evidence to construct a grounded answer."
+            ),
+        }
+
+    answer = generate_grounded_answer(
+        question,
+        api_result,
+        evidence_rows,
+    )
+
+    return {
+        "status": "ok",
+        "answer": answer,
+        "evidence_rows": evidence_rows,
+        "domain": route_result.get("domain"),
+        "scope": api_result.get("scope"),
+    }
+
+
+# =========================================================
 # STREAMLIT SESSION STATE
 # =========================================================
 
@@ -470,6 +1206,13 @@ if "adf_activity_runs" not in st.session_state:
 
 if "adf_trigger_message" not in st.session_state:
     st.session_state.adf_trigger_message = None
+
+
+if "assistant_result" not in st.session_state:
+    st.session_state.assistant_result = None
+
+if "assistant_question" not in st.session_state:
+    st.session_state.assistant_question = ""
 
 
 # Load the latest real ADF execution when a new Streamlit session starts.
@@ -930,28 +1673,123 @@ if page == "Automation Demo":
         "Canceling",
     }
 
+    # Use the latest real ADF run as shared state for the global cooldown.
+    # This means every visitor sees the same eligibility window.
+    latest_shared_run = st.session_state.adf_run_data
+
+    try:
+        refreshed_latest_run = get_latest_adf_pipeline_run()
+
+        if refreshed_latest_run:
+            latest_shared_run = refreshed_latest_run
+
+            latest_shared_run_id = refreshed_latest_run.get("runId")
+
+            # If Azure reports a newer run, make it the displayed result.
+            if (
+                latest_shared_run_id
+                and latest_shared_run_id != st.session_state.adf_run_id
+            ):
+                st.session_state.adf_run_id = latest_shared_run_id
+                st.session_state.adf_run_data = refreshed_latest_run
+                st.session_state.adf_activity_runs = (
+                    get_adf_activity_runs(latest_shared_run_id)
+                )
+
+    except Exception:
+        # Keep the last successfully loaded result visible if Azure status
+        # refresh is temporarily unavailable.
+        pass
+
+    cooldown = get_automation_cooldown(
+        latest_shared_run
+    )
+
+    cooldown_active = cooldown["active"]
+
+    run_disabled = (
+        run_is_active
+        or cooldown_active
+    )
+
+    if cooldown_active:
+        st.info(
+            "This public automation demo can be triggered once every "
+            f"{AUTOMATION_COOLDOWN_HOURS} hours across all visitors. "
+            "The latest run result remains visible until a newer run is "
+            "started."
+        )
+
+        cooldown_col1, cooldown_col2 = st.columns(2)
+
+        with cooldown_col1:
+            st.metric(
+                "Next Eligible Run",
+                format_local_datetime(
+                    cooldown["next_eligible_utc"]
+                ),
+            )
+
+        with cooldown_col2:
+            st.metric(
+                "Cooldown Remaining",
+                format_remaining_time(
+                    cooldown["remaining"]
+                ),
+            )
+
     button_col1, button_col2 = st.columns(2)
 
     with button_col1:
 
-        # Prevent another trigger while the currently tracked ADF run is active.
         if st.button(
             "Run Automation Demo",
             type="primary",
-            disabled=run_is_active,
+            disabled=run_disabled,
             use_container_width=True,
         ):
             try:
-                run_id = trigger_adf_pipeline()
-
-                st.session_state.adf_run_id = run_id
-                st.session_state.adf_run_data = None
-                st.session_state.adf_activity_runs = []
-                st.session_state.adf_trigger_message = (
-                    "ADF pipeline started successfully."
+                # Re-check the shared ADF state immediately before triggering
+                # so a stale browser session cannot bypass the global cooldown.
+                latest_before_trigger = get_latest_adf_pipeline_run()
+                latest_cooldown = get_automation_cooldown(
+                    latest_before_trigger
                 )
 
-                st.rerun()
+                latest_status = (
+                    latest_before_trigger.get("status")
+                    if latest_before_trigger
+                    else None
+                )
+
+                if latest_status in {
+                    "Queued",
+                    "InProgress",
+                    "Canceling",
+                }:
+                    st.warning(
+                        "A pipeline run is already active. Refresh the run "
+                        "status before trying again."
+                    )
+
+                elif latest_cooldown["active"]:
+                    st.warning(
+                        "The 24-hour global cooldown is still active. "
+                        "The next eligible run is "
+                        f"{format_local_datetime(latest_cooldown['next_eligible_utc'])}."
+                    )
+
+                else:
+                    run_id = trigger_adf_pipeline()
+
+                    st.session_state.adf_run_id = run_id
+                    st.session_state.adf_run_data = None
+                    st.session_state.adf_activity_runs = []
+                    st.session_state.adf_trigger_message = (
+                        "ADF pipeline started successfully."
+                    )
+
+                    st.rerun()
 
             except Exception as e:
                 st.error(
@@ -964,8 +1802,6 @@ if page == "Automation Demo":
             st.session_state.adf_run_id is None
         )
 
-        # Refresh both the master pipeline and its activity-level
-        # execution details without starting another ADF run.
         if st.button(
             "Refresh Run Status",
             disabled=refresh_disabled,
@@ -1014,14 +1850,11 @@ if page == "Automation Demo":
         )
 
     st.caption(
-        "The latest ADF run remains visible until a newer automation "
-        "run is started. Displayed timestamps use Toronto (ET) time."
+        "The latest ADF run and its activity results remain visible until "
+        "a newer automation run is started. The 24-hour trigger cooldown "
+        "is shared across visitors. Displayed timestamps use Toronto (ET) time."
     )
 
-
-# =========================================================
-# PAGE: ECONOMIC INTELLIGENCE ASSISTANT
-# =========================================================
 
 # =========================================================
 # PAGE: ECONOMIC INTELLIGENCE ASSISTANT
@@ -1037,74 +1870,193 @@ elif page == "Economic Intelligence Assistant":
     st.markdown(
         """
         <div class="main-subtitle">
-            Explore validated Canadian economic indicators through the
-            platform's controlled Azure Function API.
+            Ask natural-language questions about validated Canadian economic
+            indicators available through this platform. Answers are grounded
+            in the project's controlled Azure Function API and analytical
+            reporting layer.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     # ---------------------------------------------------------
-    # TEMPORARY API CONNECTION TESTS
+    # ASK THE ASSISTANT
     # ---------------------------------------------------------
 
-    test_col1, test_col2 = st.columns(2)
+    st.markdown(
+        '<div class="section-title">Ask the Assistant</div>',
+        unsafe_allow_html=True,
+    )
 
-    # Test the controlled Azure Function retrieval layer.
-    with test_col1:
-        if st.button(
-            "Test Function API",
-            use_container_width=True,
-        ):
+    st.markdown(
+        """
+        <div class="section-description">
+            The assistant routes supported questions to controlled project
+            endpoints, retrieves validated evidence, and uses GPT-5.6 Luna
+            only to explain that evidence. It does not have unrestricted
+            database access.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.caption(
+        "Try a question such as: "
+        + "  •  ".join(SUGGESTED_QUESTIONS[:3])
+    )
+
+    question = st.text_area(
+        "Economic question",
+        value=st.session_state.assistant_question,
+        placeholder=(
+            "Example: How is Canada's economy performing?"
+        ),
+        height=110,
+    )
+
+    ask_button = st.button(
+        "Ask the Assistant",
+        type="primary",
+        use_container_width=True,
+    )
+
+    if ask_button:
+
+        if not question.strip():
+            st.warning(
+                "Enter an economic question first."
+            )
+
+        else:
+            st.session_state.assistant_question = question.strip()
+
             try:
-                base_url = st.secrets["function_api"]["base_url"].rstrip("/")
-                function_key = st.secrets["function_api"]["function_key"]
+                with st.spinner(
+                    "Retrieving validated evidence and preparing a grounded answer..."
+                ):
+                    assistant_result = answer_economic_question(
+                        question.strip()
+                    )
 
-                response = requests.get(
-                    f"{base_url}/api/national/latest",
-                    headers={
-                        "x-functions-key": function_key
-                    },
-                    timeout=30,
-                )
+                st.session_state.assistant_result = assistant_result
 
-                response.raise_for_status()
-
-                st.success(
-                    "Azure Function API connection succeeded."
-                )
-                st.json(response.json())
-
-            except Exception as e:
-                st.error(
-                    f"Azure Function API connection failed: {e}"
-                )
-
-    # Test the OpenAI API connection using the private Streamlit secret.
-    with test_col2:
-        if st.button(
-            "Test OpenAI API",
-            use_container_width=True,
-        ):
-            try:
-                client = OpenAI(
-                    api_key=st.secrets["openai"]["api_key"]
-                )
-
-                response = client.responses.create(
-                    model=st.secrets["openai"]["model"],
-                    input=(
-                        "Reply with exactly: "
-                        "OpenAI API connection succeeded."
+            except requests.RequestException as e:
+                st.session_state.assistant_result = {
+                    "status": "api_error",
+                    "message": (
+                        "Unable to reach the Economic Intelligence API: "
+                        f"{e}"
                     ),
-                )
-
-                st.success(response.output_text)
+                }
 
             except Exception as e:
-                st.error(
-                    f"OpenAI API connection failed: {e}"
+                st.session_state.assistant_result = {
+                    "status": "model_error",
+                    "message": (
+                        "Unable to generate the economic explanation: "
+                        f"{e}"
+                    ),
+                }
+
+    assistant_result = st.session_state.assistant_result
+
+    if assistant_result:
+
+        result_status = assistant_result.get("status")
+
+        if result_status == "ok":
+            st.write("")
+
+            st.markdown(
+                '<div class="section-title">Economic Intelligence</div>',
+                unsafe_allow_html=True,
+            )
+
+            if assistant_result.get("domain"):
+                st.caption(
+                    f"Routed domain: {assistant_result['domain']}"
                 )
+
+            st.write(
+                assistant_result.get(
+                    "answer",
+                    "No answer was generated.",
+                )
+            )
+
+            st.markdown(
+                '<div class="section-title">Supporting Evidence</div>',
+                unsafe_allow_html=True,
+            )
+
+            st.markdown(
+                """
+                <div class="section-description">
+                    These are the validated project indicators supplied to
+                    the language model for this answer.
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            st.dataframe(
+                assistant_result.get(
+                    "evidence_rows",
+                    [],
+                ),
+                use_container_width=True,
+                hide_index=True,
+                column_config={
+                    "Indicator": st.column_config.TextColumn(
+                        "Indicator",
+                        width="large",
+                    ),
+                    "Value": st.column_config.TextColumn(
+                        "Value",
+                        width="medium",
+                    ),
+                    "Reference Period": st.column_config.TextColumn(
+                        "Reference Period",
+                        width="medium",
+                    ),
+                },
+            )
+
+        elif result_status == "out_of_scope":
+            st.info(
+                assistant_result.get(
+                    "message",
+                    "This question is outside the assistant's scope.",
+                )
+            )
+
+        elif result_status == "related_unsupported":
+            st.warning(
+                assistant_result.get(
+                    "message",
+                    "This economic topic is not currently supported "
+                    "by the platform's validated datasets.",
+                )
+            )
+
+        elif result_status == "empty":
+            st.warning(
+                assistant_result.get(
+                    "message",
+                    "Enter a question first.",
+                )
+            )
+
+        else:
+            st.error(
+                assistant_result.get(
+                    "message",
+                    "The assistant could not complete the request.",
+                )
+            )
+
+    st.write("")
+    st.divider()
 
     # ---------------------------------------------------------
     # VALIDATED DATA EXPLORER
@@ -1118,9 +2070,9 @@ elif page == "Economic Intelligence Assistant":
     st.markdown(
         """
         <div class="section-description">
-            Select an analytical domain to retrieve current project evidence.
-            Streamlit calls controlled API endpoints rather than connecting
-            directly to Azure SQL.
+            Inspect the controlled retrieval layer directly. This technical
+            view retrieves current project evidence from Azure Function
+            endpoints rather than connecting Streamlit directly to Azure SQL.
         </div>
         """,
         unsafe_allow_html=True,
@@ -1199,10 +2151,10 @@ elif page == "Economic Intelligence Assistant":
 
     retrieve_button = st.button(
         "Retrieve Validated Evidence",
-        type="primary",
     )
 
     if retrieve_button:
+
         missing_parameter = (
             domain == "Regional Analysis"
             and not params.get("geo")
@@ -1251,14 +2203,21 @@ elif page == "Economic Intelligence Assistant":
                         "Validated evidence retrieved successfully."
                     )
 
-                    st.markdown(
-                        '<div class="section-title">'
-                        'Response Evidence'
-                        '</div>',
-                        unsafe_allow_html=True,
+                    evidence_rows = build_evidence_rows(
+                        result
                     )
 
-                    st.json(result)
+                    if evidence_rows:
+                        st.dataframe(
+                            evidence_rows,
+                            use_container_width=True,
+                            hide_index=True,
+                        )
+
+                    with st.expander(
+                        "View API response"
+                    ):
+                        st.json(result)
 
             except requests.RequestException as e:
                 st.error(
@@ -1273,30 +2232,8 @@ elif page == "Economic Intelligence Assistant":
                 )
 
     st.write("")
-    st.divider()
-
-    # ---------------------------------------------------------
-    # AI ASSISTANT
-    # ---------------------------------------------------------
-
-    st.markdown(
-        '<div class="section-title">AI Assistant</div>',
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        """
-        <div class="section-description">
-            The controlled retrieval layer is now connected. Question routing,
-            evidence formatting, and grounded language-model interpretation
-            will be added on top of these validated API responses.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
     st.caption(
-        "AI-generated responses will provide analytical summaries of curated "
-        "project data and should not be interpreted as official forecasts "
-        "or policy advice."
+        "AI-generated responses summarize curated project data and should "
+        "not be interpreted as official forecasts, investment advice, or "
+        "policy advice."
     )
