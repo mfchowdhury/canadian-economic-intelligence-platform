@@ -74,52 +74,15 @@
 
 
             <!-- Primary portfolio navigation -->
-            <nav
-                class="main-nav"
-                id="main-navigation"
-                aria-label="Main navigation"
-            >
-
-                <a href="../index.html">
-                    Home
-                </a>
-
-                <a href="architecture.html">
-                    Architecture
-                </a>
-
-                <a href="pipeline.html">
-                    Pipeline
-                </a>
-
-                <a
-                    href="analytics.html"
-                    class="active"
-                    aria-current="page"
-                >
-                    Analytics
-                </a>
-
-                <a href="powerbi.html">
-                    Power BI
-                </a>
-
-                <a href="live-demo.html">
-                    Live Demo
-                </a>
-
-                <a
-                    href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    GitHub ↗
-                </a>
-
-                <a href="about.html">
-                    About
-                </a>
-
+            <nav class="main-nav" id="main-navigation" aria-label="Main navigation">
+                <a href="../index.html">Home</a>
+                <a href="architecture.html">Architecture</a>
+                <a href="pipeline.html">Pipeline</a>
+                <a href="analytics.html" class="active" aria-current="page">Analytics</a>
+                <a href="powerbi.html">Power BI</a>
+                <a href="https://canadian-economic-intelligence-platform.streamlit.app/" target="_blank" rel="noopener noreferrer">Interactive App ↗</a>
+                <a href="about.html">About</a>
+                <a href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
             </nav>
 
         </div>
@@ -153,10 +116,10 @@
                     </h1>
 
                     <p class="inner-page-description">
-                        The analytical layer integrates Canadian economic
-                        indicators across growth, consumption, prices,
-                        labour markets, housing, population, monetary policy,
-                        productivity, and external conditions.
+                        The analytical layer connects official Canadian economic
+                        indicators to support analysis across growth, consumer demand,
+                        inflation, labour markets, housing, population, monetary policy,
+                        productivity, fiscal conditions, and external conditions.
                     </p>
 
                 </div>
@@ -211,14 +174,14 @@
                     </p>
 
                     <h2>
-                        Indicators are organized around economic questions,
-                        not source systems.
+                        Ten source datasets are organized into related
+                        economic themes.
                     </h2>
 
                     <p class="section-description">
-                        Official datasets are grouped into related economic
-                        themes so indicators can be interpreted together
-                        rather than reviewed independently.
+                        The framework groups related indicators conceptually before
+                        they are transformed into analytical outputs for integrated,
+                        regional, industry, fiscal, and forecasting analysis.
                     </p>
 
                 </div>
@@ -374,157 +337,57 @@
              ========================================================= -->
 
         <section class="economic-explorer-section">
-
             <div class="container">
-
                 <div class="section-heading economic-explorer-heading">
-
-                    <p class="eyebrow">
-                        INTERACTIVE ECONOMIC EXPLORER
-                    </p>
-
-                    <h2>
-                        Explore the analytical role of each economic theme.
-                    </h2>
-
+                    <p class="eyebrow">ANALYTICAL OUTPUTS</p>
+                    <h2>From economic indicators to five analytical purposes.</h2>
                     <p class="section-description">
-                        Select a theme to see how its indicators contribute
-                        to the platform's integrated economic analysis.
+                        Select an output to see its analytical purpose,
+                        indicators, Gold mart, and downstream reporting use.
                     </p>
-
                 </div>
-
 
                 <div class="economic-explorer">
-
-                    <!--
-                        JavaScript uses data-economic-theme to update
-                        the explorer panel without reloading the page.
-                    -->
-                    <div
-                        class="economic-explorer-tabs"
-                        role="tablist"
-                        aria-label="Economic themes"
-                    >
-
-                        <button
-                            class="economic-explorer-tab active"
-                            type="button"
-                            data-economic-theme="growth"
-                            aria-pressed="true"
-                        >
-                            Growth
-                        </button>
-
-                        <button
-                            class="economic-explorer-tab"
-                            type="button"
-                            data-economic-theme="prices"
-                            aria-pressed="false"
-                        >
-                            Prices
-                        </button>
-
-                        <button
-                            class="economic-explorer-tab"
-                            type="button"
-                            data-economic-theme="labour"
-                            aria-pressed="false"
-                        >
-                            Labour
-                        </button>
-
-                        <button
-                            class="economic-explorer-tab"
-                            type="button"
-                            data-economic-theme="housing"
-                            aria-pressed="false"
-                        >
-                            Housing
-                        </button>
-
-                        <button
-                            class="economic-explorer-tab"
-                            type="button"
-                            data-economic-theme="external"
-                            aria-pressed="false"
-                        >
-                            External
-                        </button>
-
+                    <div class="economic-explorer-tabs" role="tablist" aria-label="Analytical outputs">
+                        <button class="economic-explorer-tab active" type="button" data-economic-theme="overview" aria-pressed="true">Overview</button>
+                        <button class="economic-explorer-tab" type="button" data-economic-theme="regional" aria-pressed="false">Regional</button>
+                        <button class="economic-explorer-tab" type="button" data-economic-theme="industry" aria-pressed="false">Industry</button>
+                        <button class="economic-explorer-tab" type="button" data-economic-theme="fiscal" aria-pressed="false">Fiscal &amp; Affordability</button>
+                        <button class="economic-explorer-tab" type="button" data-economic-theme="forecasting" aria-pressed="false">Forecasting</button>
                     </div>
 
-
-                    <!-- Dynamic explorer output updated by analytics.js -->
-                    <div
-                        class="economic-explorer-panel"
-                        aria-live="polite"
-                    >
-
+                    <div class="economic-explorer-panel" aria-live="polite">
                         <div class="economic-explorer-content">
-
-                            <p class="economic-explorer-label">
-                                SELECTED THEME
-                            </p>
-
-                            <h3 id="economic-theme-title">
-                                Growth &amp; Consumption
-                            </h3>
-
+                            <p class="economic-explorer-label">SELECTED OUTPUT</p>
+                            <h3 id="economic-theme-title">Integrated Economic Conditions</h3>
                             <p id="economic-theme-description">
-                                GDP by industry and retail sales provide
-                                complementary views of production,
-                                economic activity, and household consumption.
+                                Brings together retail sales, inflation, unemployment,
+                                GDP growth, USD/CAD, and the policy rate to monitor
+                                changes in Canadian economic conditions.
                             </p>
-
                         </div>
-
 
                         <div class="economic-explorer-details">
-
                             <div>
-                                <span>Indicators</span>
-
-                                <strong id="economic-theme-indicators">
-                                    GDP by Industry · Retail Sales
-                                </strong>
+                                <span>Indicators Used</span>
+                                <strong id="economic-theme-indicators">Retail Sales · CPI · Labour · GDP · USD/CAD · Policy Rate</strong>
                             </div>
-
-
                             <div>
-                                <span>Primary Grain</span>
-
-                                <strong id="economic-theme-grain">
-                                    Monthly
-                                </strong>
+                                <span>Analytical Purpose</span>
+                                <strong id="economic-theme-grain">Integrated economic conditions</strong>
                             </div>
-
-
                             <div>
-                                <span>Analytical Use</span>
-
-                                <strong id="economic-theme-use">
-                                    Growth and consumption monitoring
-                                </strong>
+                                <span>Gold Mart</span>
+                                <strong id="economic-theme-use">Economic Overview</strong>
                             </div>
-
-
                             <div>
-                                <span>Gold Output</span>
-
-                                <strong id="economic-theme-output">
-                                    Economic Overview · Industry Analysis
-                                </strong>
+                                <span>Reporting Output</span>
+                                <strong id="economic-theme-output">Power BI Overview</strong>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
 
@@ -562,7 +425,7 @@
                             Gold outputs are organized around analytical
                             purposes rather than individual source systems,
                             allowing multiple indicators to support the same
-                            economic question.
+                            analytical purpose.
                         </p>
 
                     </div>
@@ -682,15 +545,15 @@
                     </p>
 
                     <h2>
-                        Multiple forecasting approaches were evaluated
-                        against a common holdout period.
+                        Forecasting provides a complete model-selection
+                        and evaluation case study.
                     </h2>
 
                     <p class="section-description">
-                        Four candidate models were compared using
-                        expanding-window one-step-ahead validation.
-                        SARIMA produced the lowest validation RMSE and
-                        was selected for the final one-month forecast.
+                        Four candidate models were compared using expanding-window
+                        one-step-ahead validation. SARIMA achieved the lowest
+                        validation RMSE, was then evaluated on a separate 12-month
+                        holdout period, and was used for the final one-month forecast.
                     </p>
 
                 </div>
@@ -788,7 +651,7 @@
                             </strong>
 
                             <small>
-                                Selected model · 0.973B validation RMSE
+                                Autoregressive seasonal model · Selected · 0.973B validation RMSE
                             </small>
                         </div>
 
@@ -801,7 +664,7 @@
                             </strong>
 
                             <small>
-                                1.392B validation RMSE
+                                Feature-based regularized model · 1.392B validation RMSE
                             </small>
                         </div>
 
@@ -814,7 +677,7 @@
                             </strong>
 
                             <small>
-                                1.974B validation RMSE
+                                Level, trend, and seasonality model · 1.974B validation RMSE
                             </small>
                         </div>
 
@@ -827,7 +690,7 @@
                             </strong>
 
                             <small>
-                                2.549B validation RMSE
+                                Seasonal benchmark · 2.549B validation RMSE
                             </small>
                         </div>
 
@@ -855,19 +718,25 @@
 
                         <div class="forecast-selection-flow">
 
-                            <span>Historical Data</span>
+                            <span>Candidate Models</span>
 
                             <span aria-hidden="true">
                                 →
                             </span>
 
-                            <span>Validation</span>
+                            <span>Time-Series Validation</span>
 
                             <span aria-hidden="true">
                                 →
                             </span>
 
                             <span>Model Comparison</span>
+
+                            <span aria-hidden="true">
+                                →
+                            </span>
+
+                            <span>Holdout Evaluation</span>
 
                             <span aria-hidden="true">
                                 →
@@ -1235,8 +1104,12 @@
                             Power BI
                         </a>
 
-                        <a href="live-demo.html">
-                            Live Demo
+                        <a
+                            href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Interactive App ↗
                         </a>
 
                         <a href="about.html">
@@ -1254,7 +1127,8 @@
 
                 <p>
                     Data sources include Statistics Canada, Bank of Canada,
-                    Finance Canada, and Ontario Finance.
+                    Finance Canada, and CMHC-supplied housing data published
+                    through Statistics Canada.
                 </p>
 
                 <p>
