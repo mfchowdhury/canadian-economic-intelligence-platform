@@ -20,7 +20,7 @@ const architectureDetails = {
     sources: {
         title: "Official Data Sources",
         description:
-            "The platform begins with public Canadian economic data published by Statistics Canada, the Bank of Canada, Finance Canada, and CMHC.",
+            "The platform begins with public Canadian economic data published by Statistics Canada, the Bank of Canada, and Finance Canada. Housing starts are sourced through Statistics Canada using data supplied by CMHC.",
         technology: "Public APIs and official datasets",
         input: "Published economic indicators",
         output: "Source-aligned raw datasets",
@@ -40,10 +40,10 @@ const architectureDetails = {
     lakehouse: {
         title: "Lakehouse Processing",
         description:
-            "ADLS Gen2 and Azure Databricks implement the Bronze, Silver, and Gold architecture used to preserve raw history, validate canonical datasets, and create reusable analytical models.",
+            "ADLS Gen2 and Azure Databricks implement the Bronze, Silver, and Gold architecture used to preserve raw history, validate canonical datasets, and create reusable analytical marts.",
         technology: "ADLS Gen2 and Azure Databricks",
         input: "Bronze raw datasets",
-        output: "Validated Silver and analytical Gold datasets",
+        output: "Validated Silver datasets and Gold analytical marts",
         role: "Transformation, validation, and integration"
     },
 
@@ -60,11 +60,12 @@ const architectureDetails = {
     delivery: {
         title: "Decision and Application Layer",
         description:
-            "Curated analytical outputs are delivered through Power BI, Streamlit, and forecasting workflows so economic information can be explored and communicated through multiple interfaces.",
-        technology: "Power BI, Streamlit, Python",
+            "Curated analytical outputs are delivered through Power BI and a Streamlit application, with Azure Functions supporting controlled API access for the grounded economic assistant.",
+        technology: "Power BI, Streamlit, Azure Functions, OpenAI API",
         input: "Curated analytical and forecasting data",
-        output: "Dashboards, forecasts, and interactive analysis",
-        role: "Decision-focused delivery"
+        output:
+            "Dashboards, forecasts, automation monitoring, and grounded economic intelligence",
+        role: "Reporting and interactive delivery"
     }
 };
 
