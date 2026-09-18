@@ -10,27 +10,16 @@
 
     <meta
         name="description"
-        content="Pipeline orchestration for the Canadian Economic Intelligence Platform, including Azure Data Factory ingestion, Bronze, Silver, Gold processing, monitoring, and reporting delivery."
+        content="Pipeline execution for the Canadian Economic Intelligence Platform, including Azure Data Factory ingestion and orchestration, Databricks validation and transformation, dependency control, monitoring, and analytical delivery."
     >
 
     <title>
         Pipeline | Canadian Economic Intelligence
     </title>
 
-    <link
-        rel="stylesheet"
-        href="../assets/css/styles.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../assets/css/animations.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../assets/css/responsive.css"
-    >
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
 </head>
 
 <body>
@@ -99,7 +88,11 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Live Demo ↗
+                    Interactive App ↗
+                </a>
+
+                <a href="about.html">
+                    About
                 </a>
 
                 <a
@@ -108,10 +101,6 @@
                     rel="noopener noreferrer"
                 >
                     GitHub ↗
-                </a>
-
-                <a href="about.html">
-                    About
                 </a>
 
             </nav>
@@ -125,7 +114,9 @@
 
         <!-- =========================================================
              PAGE: Pipeline
-             SECTION: Page hero
+             SECTION: Hero
+             PURPOSE:
+             Explain how the architecture executes operationally.
              ========================================================= -->
 
         <section class="inner-page-hero pipeline-page-hero">
@@ -139,15 +130,14 @@
                     </p>
 
                     <h1>
-                        Automated ingestion, transformation, and analytical delivery.
+                        From source ingestion to controlled analytical delivery.
                     </h1>
 
                     <p class="inner-page-description">
-                        The platform integrates ten official economic datasets
-                        through Bronze, Silver, and Gold processing. A representative
-                        Azure Data Factory workflow automates Retail Sales and USD/CAD
-                        ingestion through validated Silver processing and Gold
-                        analytical outputs.
+                        Azure Data Factory orchestrates a representative
+                        automated workflow for Retail Sales and USD/CAD,
+                        coordinating ingestion, Databricks processing,
+                        dependency control, and Gold analytical outputs.
                     </p>
 
                 </div>
@@ -156,23 +146,23 @@
                 <div class="pipeline-summary-strip">
 
                     <div class="pipeline-summary-item">
-                        <span>Source Datasets</span>
+                        <span>Platform Scope</span>
                         <strong>10 Economic Datasets</strong>
                     </div>
 
                     <div class="pipeline-summary-item">
-                        <span>Processing Layers</span>
-                        <strong>Bronze · Silver · Gold</strong>
+                        <span>Automated Workflow</span>
+                        <strong>Retail Sales · USD/CAD</strong>
                     </div>
 
                     <div class="pipeline-summary-item">
-                        <span>Automation</span>
+                        <span>Orchestration</span>
                         <strong>Azure Data Factory</strong>
                     </div>
 
                     <div class="pipeline-summary-item">
-                        <span>Automation Scope</span>
-                        <strong>Representative Workflow</strong>
+                        <span>Processing</span>
+                        <strong>Azure Databricks</strong>
                     </div>
 
                 </div>
@@ -184,7 +174,11 @@
 
         <!-- =========================================================
              PAGE: Pipeline
-             SECTION: Interactive pipeline flow
+             SECTION: Pipeline execution flow
+             PURPOSE:
+             Show how data moves operationally through the platform.
+             Existing data attributes and detail IDs are preserved
+             for pipeline.js.
              ========================================================= -->
 
         <section class="pipeline-flow-section">
@@ -194,16 +188,17 @@
                 <div class="section-heading pipeline-flow-heading">
 
                     <p class="eyebrow">
-                        INTERACTIVE PIPELINE
+                        PIPELINE EXECUTION FLOW
                     </p>
 
                     <h2>
-                        Follow the data from source ingestion to analytical delivery.
+                        Follow each execution stage from source to delivery.
                     </h2>
 
                     <p class="section-description">
-                        Select a stage to see its role, technology, input, output,
-                        and validation responsibilities within the pipeline.
+                        Select a stage to inspect its operational role,
+                        technology, input, output, and control within the
+                        workflow.
                     </p>
 
                 </div>
@@ -217,20 +212,15 @@
                         data-pipeline-stage="source"
                         aria-pressed="true"
                     >
-                        <span class="pipeline-stage-number">
-                            01
-                        </span>
-
-                        <span class="pipeline-stage-label">
-                            Source
-                        </span>
+                        <span class="pipeline-stage-number">01</span>
+                        <span class="pipeline-stage-label">Source</span>
 
                         <strong>
                             Official Data
                         </strong>
 
                         <small>
-                            APIs · CSV · public datasets
+                            APIs · files · published datasets
                         </small>
                     </button>
 
@@ -249,13 +239,8 @@
                         data-pipeline-stage="ingest"
                         aria-pressed="false"
                     >
-                        <span class="pipeline-stage-number">
-                            02
-                        </span>
-
-                        <span class="pipeline-stage-label">
-                            Ingest
-                        </span>
+                        <span class="pipeline-stage-number">02</span>
+                        <span class="pipeline-stage-label">Ingest</span>
 
                         <strong>
                             Azure Data Factory
@@ -281,20 +266,15 @@
                         data-pipeline-stage="bronze"
                         aria-pressed="false"
                     >
-                        <span class="pipeline-stage-number">
-                            03
-                        </span>
-
-                        <span class="pipeline-stage-label">
-                            Bronze
-                        </span>
+                        <span class="pipeline-stage-number">03</span>
+                        <span class="pipeline-stage-label">Land</span>
 
                         <strong>
-                            Raw Data Lake
+                            Bronze
                         </strong>
 
                         <small>
-                            Immutable source history
+                            Source-aligned raw data
                         </small>
                     </button>
 
@@ -313,20 +293,15 @@
                         data-pipeline-stage="silver"
                         aria-pressed="false"
                     >
-                        <span class="pipeline-stage-number">
-                            04
-                        </span>
-
-                        <span class="pipeline-stage-label">
-                            Silver
-                        </span>
+                        <span class="pipeline-stage-number">04</span>
+                        <span class="pipeline-stage-label">Validate</span>
 
                         <strong>
-                            Validated Data
+                            Silver
                         </strong>
 
                         <small>
-                            Cleaning · quality · standardization
+                            Quality · cleaning · standardization
                         </small>
                     </button>
 
@@ -345,20 +320,15 @@
                         data-pipeline-stage="gold"
                         aria-pressed="false"
                     >
-                        <span class="pipeline-stage-number">
-                            05
-                        </span>
-
-                        <span class="pipeline-stage-label">
-                            Gold
-                        </span>
+                        <span class="pipeline-stage-number">05</span>
+                        <span class="pipeline-stage-label">Transform</span>
 
                         <strong>
-                            Analytical Models
+                            Gold
                         </strong>
 
                         <small>
-                            Integration · metrics · features
+                            Analytical Marts · features
                         </small>
                     </button>
 
@@ -377,20 +347,15 @@
                         data-pipeline-stage="serve"
                         aria-pressed="false"
                     >
-                        <span class="pipeline-stage-number">
-                            06
-                        </span>
-
-                        <span class="pipeline-stage-label">
-                            Serve
-                        </span>
+                        <span class="pipeline-stage-number">06</span>
+                        <span class="pipeline-stage-label">Deliver</span>
 
                         <strong>
-                            SQL &amp; Analytics
+                            SQL &amp; Applications
                         </strong>
 
                         <small>
-                            Reporting · forecasting · dashboards
+                            Reporting · interactive intelligence
                         </small>
                     </button>
 
@@ -413,11 +378,10 @@
                         </h3>
 
                         <p id="pipeline-detail-description">
-                            The platform integrates official Canadian economic
-                            data published by Statistics Canada, the Bank of Canada,
-                            Finance Canada, and Ontario Finance. Housing starts are
-                            sourced through Statistics Canada using data supplied
-                            by CMHC.
+                            The workflow begins with published Canadian
+                            economic data from official providers before
+                            ingestion activities move the required source
+                            data into the platform.
                         </p>
 
                     </div>
@@ -428,28 +392,28 @@
                         <div>
                             <span>Technology</span>
                             <strong id="pipeline-detail-technology">
-                                Official APIs, downloadable datasets, and public data tables
+                                Official APIs and published datasets
                             </strong>
                         </div>
 
                         <div>
                             <span>Input</span>
                             <strong id="pipeline-detail-input">
-                                Published Canadian economic and fiscal indicators
+                                Published economic indicators
                             </strong>
                         </div>
 
                         <div>
                             <span>Output</span>
                             <strong id="pipeline-detail-output">
-                                Source data prepared for ingestion
+                                Source data ready for ingestion
                             </strong>
                         </div>
 
                         <div>
                             <span>Control</span>
                             <strong id="pipeline-detail-control">
-                                Source availability, expected structure, and dataset metadata
+                                Source structure and availability checks
                             </strong>
                         </div>
 
@@ -464,7 +428,10 @@
 
         <!-- =========================================================
              PAGE: Pipeline
-             SECTION: Orchestration workflow
+             SECTION: Ingestion and orchestration
+             PURPOSE:
+             Demonstrate the implemented ADF master workflow and
+             execution order without re-explaining lakehouse design.
              ========================================================= -->
 
         <section class="pipeline-orchestration-section">
@@ -476,25 +443,24 @@
                     <div class="pipeline-orchestration-intro">
 
                         <p class="eyebrow">
-                            ORCHESTRATION
+                            INGESTION &amp; ORCHESTRATION
                         </p>
 
                         <h2>
-                            Azure Data Factory coordinates dependencies across the platform.
+                            ADF coordinates the master workflow and its dependencies.
                         </h2>
 
                         <p>
-                            The master automation proof of concept orchestrates
-                            Statistics Canada Retail Sales and Bank of Canada
-                            USD/CAD ingestion, then triggers Databricks Silver
-                            and Gold processing only after required upstream
-                            dependencies succeed.
+                            The automation proof of concept ingests Statistics
+                            Canada Retail Sales and Bank of Canada USD/CAD data,
+                            then starts the required Databricks processing only
+                            after upstream activities succeed.
                         </p>
 
                         <p>
-                            Explicit failure branches are included so failed
-                            activities do not silently continue through the
-                            analytical workflow.
+                            This keeps orchestration separate from transformation:
+                            ADF controls execution while Databricks performs the
+                            validation and analytical processing.
                         </p>
 
                     </div>
@@ -517,13 +483,13 @@
                         <div class="orchestration-step">
                             <span>03</span>
                             <strong>Retail Sales Silver</strong>
-                            <small>Validation · standardization</small>
+                            <small>Validate · standardize</small>
                         </div>
 
                         <div class="orchestration-step">
                             <span>04</span>
                             <strong>USD/CAD Silver</strong>
-                            <small>Validation · canonical FX data</small>
+                            <small>Validate · standardize</small>
                         </div>
 
                         <div class="orchestration-step">
@@ -535,7 +501,7 @@
                         <div class="orchestration-step">
                             <span>06</span>
                             <strong>Gold Forecasting Features</strong>
-                            <small>Model-ready analytical features</small>
+                            <small>Model-ready features</small>
                         </div>
 
                     </div>
@@ -549,7 +515,10 @@
 
         <!-- =========================================================
              PAGE: Pipeline
-             SECTION: Azure Data Factory evidence
+             SECTION: Implementation evidence
+             PURPOSE:
+             Show the actual ADF implementation rather than relying
+             only on explanatory text.
              ========================================================= -->
 
         <section class="pipeline-evidence-section">
@@ -567,9 +536,9 @@
                     </h2>
 
                     <p class="section-description">
-                        The workflow below shows representative ingestion,
-                        Silver and Gold processing, dependency paths, and
-                        explicit failure handling.
+                        The implemented workflow provides visible evidence of
+                        ingestion, Databricks execution, dependency paths,
+                        Gold processing, and failure handling.
                     </p>
 
                 </div>
@@ -580,17 +549,16 @@
                     <div class="pipeline-image-frame">
 
                         <img
-                            src="../assets/images/adf-master-pipeline.png"
-                            alt="Azure Data Factory master pipeline showing ingestion, Silver processing, Gold processing, and failure handling."
+                            src="../assets/images/adf-master-pipeline-placeholder.png"
+                            alt="Azure Data Factory master pipeline showing ingestion, Silver processing, Gold processing, dependencies, and failure handling."
                             loading="lazy"
                         >
 
                     </div>
 
                     <figcaption>
-                        Successful Azure Data Factory master pipeline run showing
-                        automated ingestion, Silver transformations, and Gold-layer
-                        processing through Gold Forecasting Features.
+                        Representative Azure Data Factory master pipeline
+                        execution through Gold analytical processing.
                     </figcaption>
 
                 </figure>
@@ -602,7 +570,10 @@
 
         <!-- =========================================================
              PAGE: Pipeline
-             SECTION: Data quality and error handling
+             SECTION: Transformation and validation
+             PURPOSE:
+             Explain what happens during execution in Silver and Gold,
+             rather than repeating their architectural definitions.
              ========================================================= -->
 
         <section class="pipeline-quality-section">
@@ -612,17 +583,17 @@
                 <div class="section-heading pipeline-quality-heading">
 
                     <p class="eyebrow">
-                        DATA QUALITY &amp; CONTROL
+                        TRANSFORMATION &amp; VALIDATION
                     </p>
 
                     <h2>
-                        Validation is built into the processing path.
+                        Data quality checks happen before analytical integration.
                     </h2>
 
                     <p class="section-description">
-                        The pipeline separates ingestion from validation so
-                        source data can be preserved while quality rules are
-                        applied before downstream analytical use.
+                        Databricks notebooks validate and standardize ingested
+                        data before Gold processing creates integrated
+                        analytical outputs.
                     </p>
 
                 </div>
@@ -632,17 +603,15 @@
 
                     <article class="pipeline-quality-item">
 
-                        <span>
-                            01
-                        </span>
+                        <span>01</span>
 
                         <h3>
-                            Preserve Raw Data
+                            Validate Structure
                         </h3>
 
                         <p>
-                            Bronze retains source-aligned data so upstream
-                            changes can be traced and data can be reprocessed.
+                            Silver processing checks expected schemas and
+                            required fields before downstream use.
                         </p>
 
                     </article>
@@ -650,17 +619,15 @@
 
                     <article class="pipeline-quality-item">
 
-                        <span>
-                            02
-                        </span>
+                        <span>02</span>
 
                         <h3>
-                            Validate in Silver
+                            Standardize Data
                         </h3>
 
                         <p>
-                            Schema checks, filters, transformations, and
-                            canonical rules are applied before integration.
+                            Source-specific fields are cleaned and transformed
+                            into consistent analytical structures.
                         </p>
 
                     </article>
@@ -668,17 +635,15 @@
 
                     <article class="pipeline-quality-item">
 
-                        <span>
-                            03
-                        </span>
+                        <span>03</span>
 
                         <h3>
-                            Quarantine Invalid Records
+                            Control Invalid Records
                         </h3>
 
                         <p>
-                            Invalid observations are isolated rather than
-                            silently removed from the processing workflow.
+                            Records that fail required validation rules are
+                            handled separately from trusted analytical data.
                         </p>
 
                     </article>
@@ -686,17 +651,15 @@
 
                     <article class="pipeline-quality-item">
 
-                        <span>
-                            04
-                        </span>
+                        <span>04</span>
 
                         <h3>
-                            Stop Failed Dependencies
+                            Build Gold Outputs
                         </h3>
 
                         <p>
-                            Explicit failure branches prevent downstream Gold
-                            processing from running on incomplete upstream data.
+                            Validated inputs are integrated into Analytical
+                            Marts and forecasting features for downstream use.
                         </p>
 
                     </article>
@@ -710,7 +673,10 @@
 
         <!-- =========================================================
              PAGE: Pipeline
-             SECTION: Automation and monitoring
+             SECTION: Dependency and failure control
+             PURPOSE:
+             Make execution dependencies and failure behavior explicit.
+             Existing operation-row classes are reused for styling.
              ========================================================= -->
 
         <section class="pipeline-automation-section">
@@ -722,17 +688,19 @@
                     <div class="pipeline-automation-intro">
 
                         <p class="eyebrow">
-                            OPERATIONS
+                            DEPENDENCY &amp; FAILURE CONTROL
                         </p>
 
                         <h2>
-                            Scheduling, dependency control, and monitoring support repeatable execution.
+                            Downstream processing depends on successful upstream execution.
                         </h2>
 
                         <p>
-                            The representative ADF workflow combines dependency-based
-                            execution, explicit failure handling, monitoring, and
-                            monthly scheduling for repeatable economic data processing.
+                            The master workflow uses dependency-based execution
+                            so required ingestion and Silver activities complete
+                            before Gold processing begins. Explicit failure paths
+                            surface unsuccessful execution rather than allowing
+                            the workflow to continue silently.
                         </p>
 
                     </div>
@@ -743,15 +711,16 @@
                         <div class="pipeline-operation-row">
 
                             <span>
-                                Schedule
+                                Upstream
                             </span>
 
                             <strong>
-                                Monthly pipeline execution
+                                Ingestion completes first
                             </strong>
 
                             <p>
-                                Designed around recurring economic data refreshes.
+                                Required source data must be available before
+                                its Silver transformation starts.
                             </p>
 
                         </div>
@@ -760,16 +729,16 @@
                         <div class="pipeline-operation-row">
 
                             <span>
-                                Dependencies
+                                Validation
                             </span>
 
                             <strong>
-                                Success-based execution paths
+                                Silver precedes Gold
                             </strong>
 
                             <p>
-                                Downstream transformations wait for required
-                                upstream activities.
+                                Gold activities depend on validated upstream
+                                processing rather than raw ingestion alone.
                             </p>
 
                         </div>
@@ -778,33 +747,16 @@
                         <div class="pipeline-operation-row">
 
                             <span>
-                                Failure Handling
+                                Failure
                             </span>
 
                             <strong>
-                                Explicit fail activities
+                                Explicit failure paths
                             </strong>
 
                             <p>
-                                Failures are surfaced rather than silently ignored.
-                            </p>
-
-                        </div>
-
-
-                        <div class="pipeline-operation-row">
-
-                            <span>
-                                Monitoring
-                            </span>
-
-                            <strong>
-                                Pipeline failure alerting
-                            </strong>
-
-                            <p>
-                                Operational alerts support faster investigation
-                                when orchestration fails.
+                                Failed activities are surfaced and prevent the
+                                dependent success path from continuing.
                             </p>
 
                         </div>
@@ -820,7 +772,9 @@
 
         <!-- =========================================================
              PAGE: Pipeline
-             SECTION: Pipeline design principles
+             SECTION: Monitoring and operations
+             PURPOSE:
+             Explain repeatable operation, scheduling, and observability.
              ========================================================= -->
 
         <section class="pipeline-principles-section">
@@ -830,12 +784,18 @@
                 <div class="section-heading pipeline-principles-heading">
 
                     <p class="eyebrow">
-                        PIPELINE PRINCIPLES
+                        MONITORING &amp; OPERATIONS
                     </p>
 
                     <h2>
-                        The workflow is designed for clear ownership and controlled dependencies.
+                        Execution is observable and designed for repeatable runs.
                     </h2>
+
+                    <p class="section-description">
+                        ADF provides the operational view needed to inspect
+                        pipeline runs, activity execution, dependencies, and
+                        failures across the automated workflow.
+                    </p>
 
                 </div>
 
@@ -844,17 +804,15 @@
 
                     <article class="pipeline-principle">
 
-                        <span>
-                            01
-                        </span>
+                        <span>01</span>
 
                         <h3>
-                            Separate Ingestion from Transformation
+                            Scheduled Execution
                         </h3>
 
                         <p>
-                            Source acquisition remains independent from
-                            downstream business and analytical logic.
+                            The workflow can run on a recurring schedule aligned
+                            with economic-data refresh requirements.
                         </p>
 
                     </article>
@@ -862,17 +820,15 @@
 
                     <article class="pipeline-principle">
 
-                        <span>
-                            02
-                        </span>
+                        <span>02</span>
 
                         <h3>
-                            Preserve Reprocessability
+                            Run-Level Monitoring
                         </h3>
 
                         <p>
-                            Raw source history allows transformations to be
-                            rerun without reacquiring historical data.
+                            Pipeline status provides a shared view of the latest
+                            orchestration execution.
                         </p>
 
                     </article>
@@ -880,17 +836,15 @@
 
                     <article class="pipeline-principle">
 
-                        <span>
-                            03
-                        </span>
+                        <span>03</span>
 
                         <h3>
-                            Make Failures Visible
+                            Activity Visibility
                         </h3>
 
                         <p>
-                            Dependency failures are surfaced explicitly so
-                            incomplete data does not propagate unnoticed.
+                            Individual activities can be inspected to identify
+                            where execution succeeded or failed.
                         </p>
 
                     </article>
@@ -898,17 +852,15 @@
 
                     <article class="pipeline-principle">
 
-                        <span>
-                            04
-                        </span>
+                        <span>04</span>
 
                         <h3>
-                            Support Incremental Evolution
+                            Repeatable Processing
                         </h3>
 
                         <p>
-                            The orchestration pattern can be extended as new
-                            datasets, validations, and analytical outputs are added.
+                            The master workflow provides a consistent execution
+                            path from ingestion through analytical processing.
                         </p>
 
                     </article>
@@ -922,7 +874,56 @@
 
         <!-- =========================================================
              PAGE: Pipeline
-             SECTION: Next page navigation
+             SECTION: Live automation demo
+             PURPOSE:
+             Connect the static engineering explanation to the real
+             Streamlit automation interface.
+             ========================================================= -->
+
+        <section class="next-page-section">
+
+            <div class="container">
+
+                <div class="next-page-inner">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            LIVE AUTOMATION DEMO
+                        </p>
+
+                        <h2>
+                            See the automated workflow in the interactive application.
+                        </h2>
+
+                        <p>
+                            The Automation Demo exposes the latest master
+                            pipeline run, activity execution, and controlled
+                            pipeline triggering through the live Streamlit
+                            application.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                        class="button button-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open Interactive App ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             PAGE: Pipeline
+             SECTION: Next page
              ========================================================= -->
 
         <section class="next-page-section">
@@ -938,13 +939,13 @@
                         </p>
 
                         <h2>
-                            Explore the economic analytics built on top of the pipeline.
+                            Explore the analytics built on the validated pipeline.
                         </h2>
 
                         <p>
-                            Continue to the Analytics page to review integrated
-                            indicators, economic themes, forecasting, and
-                            analytical outputs.
+                            Continue to Analytics to see how integrated economic
+                            indicators, Analytical Marts, and forecasting models
+                            turn processed data into economic intelligence.
                         </p>
 
                     </div>
@@ -968,7 +969,7 @@
     <!-- =========================================================
          SHARED COMPONENT
          SECTION: Site footer
-         ========================================================== -->
+         ========================================================= -->
 
     <footer class="site-footer">
 
@@ -1031,11 +1032,19 @@
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Live Demo ↗
+                            Interactive App ↗
                         </a>
 
                         <a href="about.html">
                             About
+                        </a>
+
+                        <a
+                            href="https://github.com/mfchowdhury/canadian-economic-intelligence-platform"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            GitHub ↗
                         </a>
 
                     </div>
@@ -1049,8 +1058,8 @@
 
                 <p>
                     Data sources include Statistics Canada, Bank of Canada,
-                    Finance Canada, Ontario Finance, and CMHC-supplied housing
-                    data published through Statistics Canada.
+                    Finance Canada, and CMHC-supplied housing data published
+                    through Statistics Canada.
                 </p>
 
                 <p>
