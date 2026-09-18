@@ -1953,9 +1953,9 @@ if page == "Automation Demo":
 
     if run_is_active:
         st.info(
-            "The Azure Data Factory pipeline is currently processing. "
-            "Use Refresh Run Status to retrieve the latest pipeline "
-            "and activity execution states."
+            "Pipeline running: This workflow may take several minutes to complete. "
+            "Activity statuses will update as Azure Data Factory progresses through "
+            "the pipeline. Use Refresh Run Status to retrieve the latest execution state."
         )
 
     elif pipeline_status == "Succeeded":
