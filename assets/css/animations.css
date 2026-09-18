@@ -1,1 +1,38 @@
-/* Portfolio styles maintained by mfchowdhury */
+/* =========================================================
+   Canadian Economic Intelligence Platform
+   Shared motion and accessibility preferences
+   ========================================================= */
+
+/* Subtle entry motion for the primary page introduction only. */
+@keyframes page-intro {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content,
+.inner-page-hero-content {
+    animation: page-intro 0.45s ease-out both;
+}
+
+/* Respect operating-system accessibility preferences. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
