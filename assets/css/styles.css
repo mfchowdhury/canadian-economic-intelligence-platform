@@ -105,7 +105,8 @@ button:focus-visible {
     backdrop-filter: blur(12px);
 }
 
-.nav-container {
+.nav-container,
+.header-container {
     min-height: 76px;
 
     display: flex;
@@ -115,7 +116,8 @@ button:focus-visible {
     gap: 32px;
 }
 
-.brand {
+.brand,
+.site-brand {
     flex-shrink: 0;
 
     color: var(--color-navy);
@@ -124,6 +126,34 @@ button:focus-visible {
     font-weight: 700;
 
     white-space: nowrap;
+}
+
+/* Hidden on desktop; enabled by responsive.css at the mobile breakpoint. */
+.mobile-menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 0;
+    border-radius: var(--radius-small);
+    cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    margin: 5px auto;
+    background: var(--color-navy);
+    border-radius: 999px;
+    transition:
+        transform var(--transition-fast),
+        opacity var(--transition-fast);
+}
+
+.mobile-menu-toggle:hover {
+    background: var(--color-surface-soft);
 }
 
 .main-nav {
@@ -248,7 +278,8 @@ button:focus-visible {
     margin-top: 32px;
 }
 
-.btn {
+.btn,
+.button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -270,27 +301,32 @@ button:focus-visible {
         background var(--transition-fast);
 }
 
-.btn:hover {
+.btn:hover,
+.button:hover {
     transform: translateY(-2px);
 }
 
-.btn-primary {
+.btn-primary,
+.button-primary {
     background: var(--color-navy);
     color: #ffffff;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.button-primary:hover {
     box-shadow: var(--shadow-soft);
 }
 
-.btn-secondary {
+.btn-secondary,
+.button-secondary {
     background: var(--color-surface);
     color: var(--color-navy);
 
     border: 1px solid var(--color-border);
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover,
+.button-secondary:hover {
     box-shadow: var(--shadow-soft);
 }
 
@@ -1177,6 +1213,25 @@ button:focus-visible {
     font-size: 0.78rem;
 }
 
+/* Shared overflow protection for grid and flex content. */
+.hero-container > *,
+.problem-container > *,
+.architecture-detail-panel > *,
+.pipeline-detail-panel > *,
+.pipeline-orchestration-layout > *,
+.pipeline-automation-layout > *,
+.economic-explorer-panel > *,
+.gold-analytics-layout > *,
+.forecast-analysis-layout > *,
+.analytics-serving-layout > *,
+.powerbi-reporting-flow > *,
+.about-objective-layout > *,
+.about-role-layout > *,
+.about-stack-layout > *,
+.about-links-panel > * {
+    min-width: 0;
+}
+
 /* =========================================================
    SHARED INNER-PAGE LAYOUT
    SECTION: Page hero spacing
@@ -1210,6 +1265,39 @@ button:focus-visible {
     color: var(--color-text-secondary);
     font-size: 1.05rem;
     line-height: 1.8;
+}
+
+/* Shared vertical rhythm for finalized inner-page sections. */
+.architecture-system-section,
+.medallion-section,
+.analytical-architecture-section,
+.serving-layer-section,
+.architecture-principles-section,
+.next-page-section,
+.pipeline-flow-section,
+.pipeline-orchestration-section,
+.pipeline-evidence-section,
+.pipeline-quality-section,
+.pipeline-automation-section,
+.pipeline-principles-section,
+.analytics-themes-section,
+.economic-themes-section,
+.economic-explorer-section,
+.gold-analytics-section,
+.forecasting-section,
+.analytics-serving-section,
+.analytics-principles-section,
+.powerbi-pages-section,
+.powerbi-embed-section,
+.powerbi-reporting-section,
+.about-objective-section,
+.about-built-section,
+.about-role-section,
+.about-skills-section,
+.about-stack-section,
+.about-links-section {
+    padding-top: 76px;
+    padding-bottom: 76px;
 }
 
 .architecture-summary-strip {
@@ -1410,8 +1498,10 @@ button:focus-visible {
 }
 
 .architecture-detail-grid strong {
+    min-width: 0;
     color: var(--color-navy);
     font-size: 0.88rem;
+    overflow-wrap: anywhere;
 }
 
 
@@ -1941,8 +2031,10 @@ button:focus-visible {
 }
 
 .pipeline-detail-grid strong {
+    min-width: 0;
     color: var(--color-navy);
     font-size: 0.88rem;
+    overflow-wrap: anywhere;
 }
 
 
@@ -2578,10 +2670,10 @@ button:focus-visible {
 
 .forecast-model-row {
     display: grid;
-    grid-template-columns: 40px minmax(0, 1fr) auto;
-    gap: 12px;
+    grid-template-columns: 32px 125px minmax(0, 1fr);
+    gap: 20px;
     align-items: center;
-    padding: 14px 0;
+    padding: 18px 0;
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -2596,13 +2688,17 @@ button:focus-visible {
 }
 
 .forecast-model-row strong {
+    min-width: 0;
     color: var(--color-navy);
     font-size: 0.9rem;
+    line-height: 1.4;
 }
 
 .forecast-model-row small {
+    min-width: 0;
     color: var(--color-text-secondary);
     font-size: 0.75rem;
+    line-height: 1.55;
 }
 
 .forecast-methodology h3 {
@@ -3297,8 +3393,8 @@ button:focus-visible {
     display: grid;
     grid-template-columns: 46px 1fr;
     gap: 16px;
-    min-height: 185px;
-    padding: 26px;
+    min-height: 160px;
+    padding: 24px;
     background: var(--color-surface);
     border-right: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
@@ -3401,8 +3497,8 @@ button:focus-visible {
 }
 
 .about-skill-group {
-    min-height: 230px;
-    padding: 26px;
+    min-height: 195px;
+    padding: 24px;
     background: var(--color-surface);
     border-right: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
@@ -3410,7 +3506,7 @@ button:focus-visible {
 
 .about-skill-group > span {
     display: block;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     color: var(--color-blue);
     font-size: 0.72rem;
     font-weight: 800;
@@ -3538,7 +3634,9 @@ button:focus-visible {
 
 .about-text-link:hover {
     color: #ffffff;
-}\n\n/* =========================================================
+}
+
+/* =========================================================
    PAGE: Home
    SECTION: Refined visual system
    ========================================================= */
