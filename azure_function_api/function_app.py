@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import struct
+import time
 from datetime import date, datetime
 
 import azure.functions as func
@@ -16,7 +17,7 @@ from azure.identity import DefaultAzureCredential
 SQL_COPT_SS_ACCESS_TOKEN = 1256
 
 
-def get_sql_connection():
+def get_sql_connection(max_attempts=2, retry_delay_seconds=2):
     """Create an Azure SQL connection using Microsoft Entra authentication."""
 
     sql_server = os.environ["SQL_SERVER"]
@@ -43,13 +44,31 @@ def get_sql_connection():
         "TrustServerCertificate=no;"
     )
 
-    return mssql_python.connect(
-        connection_string,
-        attrs_before={
-            SQL_COPT_SS_ACCESS_TOKEN: token_struct
-        },
-    )
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return mssql_python.connect(
+                connection_string,
+                attrs_before={
+                    SQL_COPT_SS_ACCESS_TOKEN: token_struct
+                },
+            )
 
+        except Exception:
+            if attempt == max_attempts:
+                logging.exception(
+                    "Azure SQL connection failed after %s attempts.",
+                    max_attempts,
+                )
+                raise
+
+            logging.warning(
+                "Azure SQL connection attempt %s failed. "
+                "Retrying in %s seconds.",
+                attempt,
+                retry_delay_seconds,
+            )
+
+            time.sleep(retry_delay_seconds)
 
 # =========================================================
 # RESPONSE HELPERS
