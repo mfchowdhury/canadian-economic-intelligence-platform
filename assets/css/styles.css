@@ -1151,7 +1151,7 @@ button:focus-visible {
     display: grid;
     grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.6fr);
     gap: 64px;
-    padding: 52px 0 36px;
+    padding: 44px 0 30px;
 }
 
 .footer-title {
@@ -1203,7 +1203,7 @@ button:focus-visible {
     display: flex;
     justify-content: space-between;
     gap: 24px;
-    padding: 22px 0 28px;
+    padding: 18px 0 22px;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
@@ -1243,7 +1243,7 @@ button:focus-visible {
    ========================================================= */
 
 .inner-page-hero {
-    padding: 72px 0 64px;
+    padding: 60px 0 56px;
     background: var(--color-surface-soft);
 }
 
@@ -1296,8 +1296,8 @@ button:focus-visible {
 .about-skills-section,
 .about-stack-section,
 .about-links-section {
-    padding-top: 76px;
-    padding-bottom: 76px;
+    padding-top: 64px;
+    padding-bottom: 64px;
 }
 
 .architecture-summary-strip {
@@ -3655,7 +3655,7 @@ button:focus-visible {
 
 .hero {
     min-height: auto;
-    padding: 108px 0 96px;
+    padding: 76px 0 72px;
     background:
         radial-gradient(circle at 82% 25%, rgba(47, 102, 144, 0.14), transparent 34%),
         linear-gradient(135deg, #f7f9fb 0%, #eef3f8 100%);
@@ -3710,8 +3710,8 @@ button:focus-visible {
 .delivery-preview,
 .technology-section,
 .project-cta {
-    padding-top: 88px;
-    padding-bottom: 88px;
+    padding-top: 68px;
+    padding-bottom: 68px;
 }
 
 .problem-section,
@@ -3763,11 +3763,62 @@ button:focus-visible {
 }
 
 .project-cta {
-    padding-top: 72px;
-    padding-bottom: 72px;
+    padding-top: 54px;
+    padding-bottom: 54px;
     background: linear-gradient(135deg, #16324f 0%, #1d4568 100%);
 }
 
 .site-footer {
     background: #10283f;
+}
+
+
+/* =========================================================
+   FINAL SITE-WIDE SPACING PASS
+   Keeps all six portfolio pages visually consistent.
+   ========================================================= */
+
+/* Compact the dark NEXT panels used across inner pages. */
+.next-page-section {
+    padding-top: 52px;
+    padding-bottom: 52px;
+}
+
+/* Pipeline ends with two closely related navigation/demo areas.
+   Keep them compact so the bottom of the Pipeline page does not
+   become disproportionately tall. */
+.pipeline-automation-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+/* Keep section headings close enough to their content. */
+.architecture-system-heading,
+.medallion-heading,
+.serving-layer-heading,
+.architecture-principles-heading,
+.pipeline-flow-heading,
+.pipeline-evidence-heading,
+.pipeline-quality-heading,
+.pipeline-principles-heading,
+.capabilities-heading,
+.insights-preview-heading,
+.delivery-preview-heading {
+    margin-bottom: 36px;
+}
+
+/* Home CTA should read as a transition, not another full-height section. */
+.project-cta-inner {
+    min-height: 0;
+}
+
+/* Slightly tighter spacing between the footer's main content and source line. */
+.footer-main {
+    padding-top: 44px;
+    padding-bottom: 30px;
+}
+
+.footer-bottom {
+    padding-top: 18px;
+    padding-bottom: 22px;
 }
