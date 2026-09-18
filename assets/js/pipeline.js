@@ -41,7 +41,7 @@ const pipelineDetails = {
         title: "Official Data Sources",
 
         description:
-            "The platform integrates official Canadian economic data published by Statistics Canada, the Bank of Canada, Finance Canada, and Ontario Finance. Housing starts are sourced through Statistics Canada using data supplied by CMHC.",
+            "The platform integrates official Canadian economic data published by Statistics Canada, the Bank of Canada, and Finance Canada. Housing starts are sourced through Statistics Canada using data supplied by CMHC.",
 
         technology:
             "Official APIs, downloadable datasets, and public data tables",
@@ -121,7 +121,7 @@ const pipelineDetails = {
         title: "Gold Analytical Layer",
 
         description:
-            "Validated Silver datasets are aligned according to analytical purpose and transformed into five reusable Gold models covering economic overview, regional analysis, industry analysis, fiscal and affordability analysis, and forecasting features.",
+            "Validated Silver datasets are aligned according to analytical purpose and transformed into five reusable Gold analytical marts covering economic overview, regional analysis, industry analysis, fiscal and affordability analysis, and forecasting features.",
 
         technology:
             "Azure Databricks · PySpark · Delta Lake",
