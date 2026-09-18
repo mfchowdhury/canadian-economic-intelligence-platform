@@ -1,208 +1,124 @@
-/* =========================================================
-   PAGE: Analytics
-   SECTION: Interactive economic explorer
-   PURPOSE:
-   Capture the explorer elements used to display the selected
-   economic theme and its analytical context.
-   ========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+    const tabs = document.querySelectorAll("[data-economic-theme]");
+    const title = document.getElementById("economic-theme-title");
+    const description = document.getElementById("economic-theme-description");
+    const indicators = document.getElementById("economic-theme-indicators");
+    const purpose = document.getElementById("economic-theme-grain");
+    const mart = document.getElementById("economic-theme-use");
+    const output = document.getElementById("economic-theme-output");
 
-const economicThemeTabs = document.querySelectorAll(
-    ".economic-explorer-tab"
-);
-
-const economicThemeTitle = document.getElementById(
-    "economic-theme-title"
-);
-
-const economicThemeDescription = document.getElementById(
-    "economic-theme-description"
-);
-
-const economicThemeIndicators = document.getElementById(
-    "economic-theme-indicators"
-);
-
-const economicThemeGrain = document.getElementById(
-    "economic-theme-grain"
-);
-
-const economicThemeUse = document.getElementById(
-    "economic-theme-use"
-);
-
-const economicThemeOutput = document.getElementById(
-    "economic-theme-output"
-);
-
-
-/* =========================================================
-   PAGE: Analytics
-   SECTION: Economic theme content
-   PURPOSE:
-   Define the analytical description, indicators, grain,
-   use case, and Gold output for each explorer theme.
-   ========================================================= */
-
-const economicThemeDetails = {
-
-    growth: {
-        title: "Growth & Consumption",
-
-        description:
-            "GDP by industry and retail sales provide complementary views of production, economic activity, and household consumption.",
-
-        indicators:
-            "GDP by Industry · Retail Sales",
-
-        grain:
-            "Monthly",
-
-        use:
-            "Growth and consumption monitoring",
-
-        output:
-            "Economic Overview · Industry Analysis"
-    },
-
-
-    prices: {
-        title: "Prices & Monetary Policy",
-
-        description:
-            "Consumer prices and the Bank of Canada policy rate connect inflation conditions with the monetary policy environment.",
-
-        indicators:
-            "Consumer Price Index · BoC Policy Rate",
-
-        grain:
-            "Monthly alignment",
-
-        use:
-            "Inflation and monetary policy analysis",
-
-        output:
-            "Economic Overview · Affordability Analysis"
-    },
-
-
-    labour: {
-        title: "Labour Market",
-
-        description:
-            "Employment and unemployment indicators provide national and provincial views of labour-market conditions across Canada.",
-
-        indicators:
-            "Employment · Unemployment · Provincial Labour Data",
-
-        grain:
-            "Monthly",
-
-        use:
-            "Labour-market and regional comparison",
-
-        output:
-            "Economic Overview · Regional Analysis"
-    },
-
-
-    housing: {
-        title: "Housing & Population",
-
-        description:
-            "Housing starts and population estimates provide complementary views of housing supply and demographic demand.",
-
-        indicators:
-            "Housing Starts · Population Estimates",
-
-        grain:
-            "Monthly and quarterly alignment",
-
-        use:
-            "Housing supply and demographic analysis",
-
-        output:
-            "Regional Analysis · Affordability Analysis"
-    },
-
-
-    external: {
-        title: "External Conditions & Productivity",
-
-        description:
-            "USD/CAD exchange rates capture external currency conditions, while labour productivity measures changes in productive performance.",
-
-        indicators:
-            "USD/CAD Exchange Rate · Labour Productivity",
-
-        grain:
-            "Monthly and annual alignment",
-
-        use:
-            "Currency and productivity analysis",
-
-        output:
-            "Economic Overview · Industry Analysis"
-    }
-};
-
-
-/* =========================================================
-   PAGE: Analytics
-   SECTION: Update selected economic theme
-   PURPOSE:
-   Update the explorer panel when a visitor selects a
-   different economic theme.
-   ========================================================= */
-
-function updateEconomicTheme(themeButton) {
-    const themeKey = themeButton.dataset.economicTheme;
-    const themeDetails = economicThemeDetails[themeKey];
-
-    // Stop safely if the selected theme has no configured content.
-    if (!themeDetails) {
+    // Stop safely if the interactive Analytics explorer is not on the page.
+    if (
+        !tabs.length ||
+        !title ||
+        !description ||
+        !indicators ||
+        !purpose ||
+        !mart ||
+        !output
+    ) {
         return;
     }
 
-    // Reset all explorer tabs before activating the selected theme.
-    economicThemeTabs.forEach((tab) => {
-        tab.classList.remove("active");
-        tab.setAttribute("aria-pressed", "false");
-    });
+    // Analytical outputs align with the five Gold marts
+    // and the five Power BI dashboard pages.
+    const outputs = {
+        overview: {
+            title: "Integrated Economic Conditions",
+            description:
+                "Brings together retail sales, inflation, unemployment, GDP growth, USD/CAD, and the policy rate to monitor changes in Canadian economic conditions.",
+            indicators:
+                "Retail Sales · CPI · Labour · GDP · USD/CAD · Policy Rate",
+            purpose:
+                "Integrated economic conditions",
+            mart:
+                "Economic Overview",
+            output:
+                "Power BI Overview"
+        },
 
-    // Mark the selected tab as active for styling and accessibility.
-    themeButton.classList.add("active");
-    themeButton.setAttribute("aria-pressed", "true");
+        regional: {
+            title: "Regional Comparison",
+            description:
+                "Compares retail growth, inflation, unemployment, and employment conditions across provinces and examines regional trends against national conditions.",
+            indicators:
+                "Retail Sales · CPI · Employment · Unemployment",
+            purpose:
+                "Cross-province and national comparison",
+            mart:
+                "Regional Analysis",
+            output:
+                "Power BI Regional"
+        },
 
-    // Populate the explorer panel with the selected theme's content.
-    economicThemeTitle.textContent =
-        themeDetails.title;
+        industry: {
+            title: "Industry Performance",
+            description:
+                "Analyzes GDP growth, retail performance, and labour productivity across industries and over time.",
+            indicators:
+                "GDP by Industry · Retail Sales · Labour Productivity",
+            purpose:
+                "Industry performance and trend analysis",
+            mart:
+                "Industry Analysis",
+            output:
+                "Power BI Industry"
+        },
 
-    economicThemeDescription.textContent =
-        themeDetails.description;
+        fiscal: {
+            title: "Fiscal & Affordability",
+            description:
+                "Connects inflation, housing, and fiscal indicators to examine affordability conditions alongside federal and Ontario fiscal trends.",
+            indicators:
+                "CPI · Housing Starts · Federal Fiscal · Ontario Fiscal",
+            purpose:
+                "Affordability and fiscal-condition analysis",
+            mart:
+                "Fiscal & Affordability",
+            output:
+                "Power BI Fiscal & Affordability"
+        },
 
-    economicThemeIndicators.textContent =
-        themeDetails.indicators;
+        forecasting: {
+            title: "Retail Sales Forecasting",
+            description:
+                "Evaluates alternative forecasting approaches to estimate Canadian retail sales for the next reporting month and assess forecast performance.",
+            indicators:
+                "Retail Sales · Lagged and engineered forecasting features",
+            purpose:
+                "One-month retail sales forecasting",
+            mart:
+                "Forecasting Features",
+            output:
+                "Power BI Forecasting"
+        }
+    };
 
-    economicThemeGrain.textContent =
-        themeDetails.grain;
+    // Update the explorer when a visitor selects an analytical output.
+    tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+            const selected = outputs[tab.dataset.economicTheme];
 
-    economicThemeUse.textContent =
-        themeDetails.use;
+            if (!selected) {
+                return;
+            }
 
-    economicThemeOutput.textContent =
-        themeDetails.output;
-}
+            // Reset all tabs before activating the selected one.
+            tabs.forEach((item) => {
+                item.classList.remove("active");
+                item.setAttribute("aria-pressed", "false");
+            });
 
+            tab.classList.add("active");
+            tab.setAttribute("aria-pressed", "true");
 
-/* =========================================================
-   PAGE: Analytics
-   SECTION: Economic explorer interaction events
-   PURPOSE:
-   Attach click events to each explorer tab.
-   ========================================================= */
-
-economicThemeTabs.forEach((themeButton) => {
-    themeButton.addEventListener("click", () => {
-        updateEconomicTheme(themeButton);
+            // Update the analytical-output detail panel.
+            title.textContent = selected.title;
+            description.textContent = selected.description;
+            indicators.textContent = selected.indicators;
+            purpose.textContent = selected.purpose;
+            mart.textContent = selected.mart;
+            output.textContent = selected.output;
+        });
     });
 });
