@@ -8,7 +8,8 @@
 
 @media (max-width: 1050px) {
 
-    .nav-container {
+    .nav-container,
+    .header-container {
         gap: 20px;
     }
 
@@ -119,34 +120,7 @@
     .powerbi-principle:nth-child(-n + 2) {
         border-bottom: 1px solid var(--color-border);
     }
-        /* =========================================================
-       PAGE: Live Demo
-       RESPONSIVE: Large tablet
-       ========================================================= */
 
-    .demo-economic-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .demo-principles {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .demo-principle:nth-child(2) {
-        border-right: 0;
-    }
-
-    .demo-principle:nth-child(-n + 2) {
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .demo-pipeline-flow {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
-
-    .demo-pipeline-arrow {
-        display: none;
-    }
 
         /* =========================================================
        PAGE: About
@@ -267,7 +241,8 @@
         width: 100%;
     }
 
-    .project-cta-actions .btn {
+    .project-cta-actions .btn,
+    .project-cta-actions .button {
         width: 100%;
         justify-content: center;
     }
@@ -298,6 +273,54 @@
         display: none;
     }
 
+
+    /* =========================================================
+       PAGE: Architecture
+       RESPONSIVE: Tablet
+       ========================================================= */
+
+    .architecture-summary-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .architecture-summary-item:nth-child(2) {
+        border-right: 0;
+    }
+
+    .architecture-summary-item:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .architecture-system,
+    .medallion-flow,
+    .serving-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .architecture-system-arrow,
+    .medallion-arrow,
+    .serving-connector {
+        min-height: 24px;
+        transform: rotate(90deg);
+    }
+
+    .architecture-detail-panel,
+    .analytical-architecture-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .architecture-principles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .architecture-principle:nth-child(2) {
+        border-right: 0;
+    }
+
+    .architecture-principle:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--color-border);
+    }
 
     /* =========================================================
        PAGE: Pipeline
@@ -409,42 +432,6 @@
         transform: rotate(90deg);
     }
 
-        /* =========================================================
-       PAGE: Live Demo
-       RESPONSIVE: Tablet
-       ========================================================= */
-
-    .live-demo-summary-strip {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .live-demo-summary-item:nth-child(2) {
-        border-right: 0;
-    }
-
-    .live-demo-summary-item:nth-child(-n + 2) {
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .live-demo-overview-layout,
-    .demo-forecast-layout,
-    .demo-quality-layout,
-    .demo-ai-panel {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .demo-pipeline-flow {
-        grid-template-columns: 1fr;
-    }
-
-    .demo-pipeline-stage {
-        min-height: auto;
-    }
-
-    .demo-ai-panel {
-        align-items: start;
-    }
 
         /* =========================================================
        PAGE: About
@@ -523,6 +510,15 @@
         border-bottom: 0;
     }
 
+    .main-nav a.active::after {
+        display: none;
+    }
+
+    .main-nav.is-open {
+        max-height: calc(100vh - 76px);
+        overflow-y: auto;
+    }
+
     .mobile-menu-toggle.is-open span:nth-child(1) {
         transform: translateY(7px) rotate(45deg);
     }
@@ -550,11 +546,13 @@
         width: min(var(--container-width), calc(100% - 28px));
     }
 
-    .nav-container {
+    .nav-container,
+    .header-container {
         min-height: 68px;
     }
 
-    .brand {
+    .brand,
+    .site-brand {
         font-size: 0.9rem;
     }
 
@@ -580,7 +578,8 @@
         align-items: stretch;
     }
 
-    .btn {
+    .btn,
+    .button {
         width: 100%;
     }
 
@@ -865,65 +864,6 @@
         border-bottom: 0;
     }
 
-        /* =========================================================
-       PAGE: Live Demo
-       RESPONSIVE: Mobile
-       ========================================================= */
-
-    .live-demo-summary-strip {
-        grid-template-columns: 1fr;
-    }
-
-    .live-demo-summary-item {
-        border-right: 0;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .live-demo-summary-item:last-child {
-        border-bottom: 0;
-    }
-
-    .streamlit-demo-frame {
-        min-height: 430px;
-    }
-
-    .streamlit-demo-placeholder {
-        padding: 28px 22px;
-    }
-
-    .demo-economic-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .demo-forecast-secondary {
-        grid-template-columns: 1fr;
-    }
-
-    .demo-forecast-secondary div {
-        border-right: 0;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .demo-forecast-secondary div:nth-last-child(-n + 2) {
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .demo-forecast-secondary div:last-child {
-        border-bottom: 0;
-    }
-
-    .demo-principles {
-        grid-template-columns: 1fr;
-    }
-
-    .demo-principle {
-        border-right: 0;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .demo-principle:last-child {
-        border-bottom: 0;
-    }
 
         /* =========================================================
        PAGE: About
@@ -972,7 +912,8 @@
 
 @media (max-width: 380px) {
 
-    .brand {
+    .brand,
+    .site-brand {
         max-width: 220px;
         white-space: normal;
         line-height: 1.25;
@@ -1068,7 +1009,8 @@
         flex-direction: column;
     }
 
-    .hero-actions .btn {
+    .hero-actions .btn,
+    .hero-actions .button {
         width: 100%;
     }
 }
