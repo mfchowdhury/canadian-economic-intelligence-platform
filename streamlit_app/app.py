@@ -1349,10 +1349,6 @@ if "adf_trigger_message" not in st.session_state:
 if "assistant_result" not in st.session_state:
     st.session_state.assistant_result = None
 
-if "assistant_question" not in st.session_state:
-    st.session_state.assistant_question = ""
-
-
 # Load the latest real ADF execution when a new Streamlit session starts.
 # ADF remains the source of truth, so the latest result survives browser
 # refreshes and remains visible until a newer pipeline run exists.
@@ -2044,8 +2040,7 @@ elif page == "Economic Intelligence Assistant":
     )
 
     question = st.text_area(
-        "Economic question",
-        value=st.session_state.assistant_question,
+        "Economic question",        
         placeholder=(
             "Example: How is Canada's economy performing?"
         ),
@@ -2066,8 +2061,6 @@ elif page == "Economic Intelligence Assistant":
             )
 
         else:
-            st.session_state.assistant_question = question.strip()
-
             try:
                 with st.spinner(
                     "Retrieving validated evidence and preparing a grounded answer..."
