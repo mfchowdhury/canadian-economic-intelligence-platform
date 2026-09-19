@@ -536,9 +536,11 @@
                     </h2>
 
                     <p class="section-description">
-                        The implemented workflow provides visible evidence of
-                        ingestion, Databricks execution, dependency paths,
-                        Gold processing, and failure handling.
+                        The implemented master pipeline coordinates two ingestion
+                        workflows, Silver validation, Gold analytical processing,
+                        dependency-based execution, and explicit failure paths.
+                        The successful run shown below demonstrates all six workflow
+                        activities completing through Gold processing.
                     </p>
 
                 </div>
@@ -638,12 +640,12 @@
                         <span>03</span>
 
                         <h3>
-                            Control Invalid Records
+                            Enforce Validation Rules
                         </h3>
 
                         <p>
-                            Records that fail required validation rules are
-                            handled separately from trusted analytical data.
+                            Required validation rules are applied before data
+                            proceeds into trusted analytical outputs.
                         </p>
 
                     </article>
@@ -699,8 +701,8 @@
                             The master workflow uses dependency-based execution
                             so required ingestion and Silver activities complete
                             before Gold processing begins. Explicit failure paths
-                            surface unsuccessful execution rather than allowing
-                            the workflow to continue silently.
+                            surface unsuccessful activities and prevent dependent
+                            success-path activities from continuing.
                         </p>
 
                     </div>
@@ -874,10 +876,10 @@
 
         <!-- =========================================================
              PAGE: Pipeline
-             SECTION: Live automation demo
+             SECTION: Live automation demo and next page
              PURPOSE:
-             Connect the static engineering explanation to the real
-             Streamlit automation interface.
+             Connect the engineering workflow to the live application
+             and provide a compact transition to Analytics.
              ========================================================= -->
 
         <section class="next-page-section">
@@ -897,65 +899,32 @@
                         </h2>
 
                         <p>
-                            The Automation Demo exposes the latest master
-                            pipeline run, activity execution, and controlled
-                            pipeline triggering through the live Streamlit
-                            application.
+                            Inspect the latest master pipeline run and activity execution
+                            and controlled pipeline triggering through the live
+                            Streamlit application.
                         </p>
 
                     </div>
 
-                    <a
-                        href="https://canadian-economic-intelligence-platform.streamlit.app/"
-                        class="button button-primary"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Open Interactive App ↗
-                    </a>
+                    <div class="next-page-actions">
 
-                </div>
+                        <a
+                            href="https://canadian-economic-intelligence-platform.streamlit.app/"
+                            class="button button-primary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Open Interactive App ↗
+                        </a>
 
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             PAGE: Pipeline
-             SECTION: Next page
-             ========================================================= -->
-
-        <section class="next-page-section">
-
-            <div class="container">
-
-                <div class="next-page-inner">
-
-                    <div>
-
-                        <p class="eyebrow">
-                            NEXT
-                        </p>
-
-                        <h2>
-                            Explore the analytics built on the validated pipeline.
-                        </h2>
-
-                        <p>
-                            Continue to Analytics to see how integrated economic
-                            indicators, Analytical Marts, and forecasting models
-                            turn processed data into economic intelligence.
-                        </p>
+                        <a
+                            href="analytics.html"
+                            class="button button-secondary"
+                        >
+                            Explore Analytics →
+                        </a>
 
                     </div>
-
-                    <a
-                        href="analytics.html"
-                        class="button button-primary"
-                    >
-                        Explore Analytics →
-                    </a>
 
                 </div>
 
