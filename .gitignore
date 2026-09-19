@@ -1,0 +1,3 @@
+# Local Azure SQL export utility
+export_sql_tables.py
+.vscode/
