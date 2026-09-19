@@ -1,0 +1,346 @@
+﻿ref_date,industry,labour_productivity_dollars,labour_productivity_yoy_percent
+2011-01-01,Accommodation and food services [72],23.0,
+2012-01-01,Accommodation and food services [72],22.7,-1.3043
+2013-01-01,Accommodation and food services [72],23.3,2.6432
+2014-01-01,Accommodation and food services [72],24.2,3.8627
+2015-01-01,Accommodation and food services [72],23.9,-1.2397
+2016-01-01,Accommodation and food services [72],23.6,-1.2552
+2017-01-01,Accommodation and food services [72],23.5,-0.4237
+2018-01-01,Accommodation and food services [72],23.4,-0.4255
+2019-01-01,Accommodation and food services [72],23.6,0.8547
+2020-01-01,Accommodation and food services [72],24.1,2.1186
+2021-01-01,Accommodation and food services [72],24.9,3.3195
+2022-01-01,Accommodation and food services [72],26.9,8.0321
+2023-01-01,Accommodation and food services [72],26.6,-1.1152
+2024-01-01,Accommodation and food services [72],27.1,1.8797
+2025-01-01,Accommodation and food services [72],27.7,2.214
+2011-01-01,"Administrative and support, waste management and remediation services [56]",35.6,
+2012-01-01,"Administrative and support, waste management and remediation services [56]",36.6,2.809
+2013-01-01,"Administrative and support, waste management and remediation services [56]",36.0,-1.6393
+2014-01-01,"Administrative and support, waste management and remediation services [56]",36.6,1.6667
+2015-01-01,"Administrative and support, waste management and remediation services [56]",37.0,1.0929
+2016-01-01,"Administrative and support, waste management and remediation services [56]",36.8,-0.5405
+2017-01-01,"Administrative and support, waste management and remediation services [56]",36.4,-1.087
+2018-01-01,"Administrative and support, waste management and remediation services [56]",37.3,2.4725
+2019-01-01,"Administrative and support, waste management and remediation services [56]",37.7,1.0724
+2020-01-01,"Administrative and support, waste management and remediation services [56]",37.4,-0.7958
+2021-01-01,"Administrative and support, waste management and remediation services [56]",37.6,0.5348
+2022-01-01,"Administrative and support, waste management and remediation services [56]",38.1,1.3298
+2023-01-01,"Administrative and support, waste management and remediation services [56]",38.1,0.0
+2024-01-01,"Administrative and support, waste management and remediation services [56]",37.7,-1.0499
+2025-01-01,"Administrative and support, waste management and remediation services [56]",37.5,-0.5305
+2011-01-01,"Agriculture, forestry, fishing and hunting [11]",41.8,
+2012-01-01,"Agriculture, forestry, fishing and hunting [11]",42.5,1.6746
+2013-01-01,"Agriculture, forestry, fishing and hunting [11]",47.4,11.5294
+2014-01-01,"Agriculture, forestry, fishing and hunting [11]",47.3,-0.211
+2015-01-01,"Agriculture, forestry, fishing and hunting [11]",49.5,4.6512
+2016-01-01,"Agriculture, forestry, fishing and hunting [11]",51.0,3.0303
+2017-01-01,"Agriculture, forestry, fishing and hunting [11]",52.7,3.3333
+2018-01-01,"Agriculture, forestry, fishing and hunting [11]",54.1,2.6565
+2019-01-01,"Agriculture, forestry, fishing and hunting [11]",53.7,-0.7394
+2020-01-01,"Agriculture, forestry, fishing and hunting [11]",57.5,7.0764
+2021-01-01,"Agriculture, forestry, fishing and hunting [11]",47.5,-17.3913
+2022-01-01,"Agriculture, forestry, fishing and hunting [11]",60.6,27.5789
+2023-01-01,"Agriculture, forestry, fishing and hunting [11]",57.4,-5.2805
+2024-01-01,"Agriculture, forestry, fishing and hunting [11]",61.4,6.9686
+2025-01-01,"Agriculture, forestry, fishing and hunting [11]",66.3,7.9805
+2011-01-01,"Arts, entertainment and recreation [71]",31.7,
+2012-01-01,"Arts, entertainment and recreation [71]",32.4,2.2082
+2013-01-01,"Arts, entertainment and recreation [71]",30.8,-4.9383
+2014-01-01,"Arts, entertainment and recreation [71]",32.8,6.4935
+2015-01-01,"Arts, entertainment and recreation [71]",31.8,-3.0488
+2016-01-01,"Arts, entertainment and recreation [71]",30.6,-3.7736
+2017-01-01,"Arts, entertainment and recreation [71]",32.9,7.5163
+2018-01-01,"Arts, entertainment and recreation [71]",31.7,-3.6474
+2019-01-01,"Arts, entertainment and recreation [71]",33.0,4.1009
+2020-01-01,"Arts, entertainment and recreation [71]",31.5,-4.5455
+2021-01-01,"Arts, entertainment and recreation [71]",34.1,8.254
+2022-01-01,"Arts, entertainment and recreation [71]",36.0,5.5718
+2023-01-01,"Arts, entertainment and recreation [71]",37.1,3.0556
+2024-01-01,"Arts, entertainment and recreation [71]",37.6,1.3477
+2025-01-01,"Arts, entertainment and recreation [71]",37.7,0.266
+2011-01-01,Construction [23],52.7,
+2012-01-01,Construction [23],52.7,0.0
+2013-01-01,Construction [23],54.0,2.4668
+2014-01-01,Construction [23],54.7,1.2963
+2015-01-01,Construction [23],53.7,-1.8282
+2016-01-01,Construction [23],54.0,0.5587
+2017-01-01,Construction [23],53.8,-0.3704
+2018-01-01,Construction [23],54.2,0.7435
+2019-01-01,Construction [23],53.4,-1.476
+2020-01-01,Construction [23],59.9,12.1723
+2021-01-01,Construction [23],54.2,-9.5159
+2022-01-01,Construction [23],52.3,-3.5055
+2023-01-01,Construction [23],48.8,-6.6922
+2024-01-01,Construction [23],49.3,1.0246
+2025-01-01,Construction [23],50.5,2.4341
+2011-01-01,Educational services [61],52.8,
+2012-01-01,Educational services [61],52.7,-0.1894
+2013-01-01,Educational services [61],53.8,2.0873
+2014-01-01,Educational services [61],54.8,1.8587
+2015-01-01,Educational services [61],54.2,-1.0949
+2016-01-01,Educational services [61],54.0,-0.369
+2017-01-01,Educational services [61],55.1,2.037
+2018-01-01,Educational services [61],55.0,-0.1815
+2019-01-01,Educational services [61],55.7,1.2727
+2020-01-01,Educational services [61],57.7,3.5907
+2021-01-01,Educational services [61],55.3,-4.1594
+2022-01-01,Educational services [61],55.4,0.1808
+2023-01-01,Educational services [61],54.7,-1.2635
+2024-01-01,Educational services [61],52.5,-4.0219
+2025-01-01,Educational services [61],52.3,-0.381
+2011-01-01,Finance and insurance [52],67.3,
+2012-01-01,Finance and insurance [52],69.1,2.6746
+2013-01-01,Finance and insurance [52],70.7,2.3155
+2014-01-01,Finance and insurance [52],71.4,0.9901
+2015-01-01,Finance and insurance [52],75.8,6.1625
+2016-01-01,Finance and insurance [52],76.8,1.3193
+2017-01-01,Finance and insurance [52],83.1,8.2031
+2018-01-01,Finance and insurance [52],86.9,4.5728
+2019-01-01,Finance and insurance [52],85.9,-1.1507
+2020-01-01,Finance and insurance [52],91.5,6.5192
+2021-01-01,Finance and insurance [52],91.2,-0.3279
+2022-01-01,Finance and insurance [52],91.8,0.6579
+2023-01-01,Finance and insurance [52],94.5,2.9412
+2024-01-01,Finance and insurance [52],90.5,-4.2328
+2025-01-01,Finance and insurance [52],93.5,3.3149
+2011-01-01,Goods-producing industries [T002],68.1,
+2012-01-01,Goods-producing industries [T002],67.4,-1.0279
+2013-01-01,Goods-producing industries [T002],69.1,2.5223
+2014-01-01,Goods-producing industries [T002],72.2,4.4863
+2015-01-01,Goods-producing industries [T002],72.4,0.277
+2016-01-01,Goods-producing industries [T002],73.6,1.6575
+2017-01-01,Goods-producing industries [T002],74.2,0.8152
+2018-01-01,Goods-producing industries [T002],74.7,0.6739
+2019-01-01,Goods-producing industries [T002],74.2,-0.6693
+2020-01-01,Goods-producing industries [T002],79.5,7.1429
+2021-01-01,Goods-producing industries [T002],74.2,-6.6667
+2022-01-01,Goods-producing industries [T002],74.1,-0.1348
+2023-01-01,Goods-producing industries [T002],72.0,-2.834
+2024-01-01,Goods-producing industries [T002],72.0,0.0
+2025-01-01,Goods-producing industries [T002],73.3,1.8056
+2011-01-01,Health care and social assistance [62],45.9,
+2012-01-01,Health care and social assistance [62],45.9,0.0
+2013-01-01,Health care and social assistance [62],44.7,-2.6144
+2014-01-01,Health care and social assistance [62],44.9,0.4474
+2015-01-01,Health care and social assistance [62],44.1,-1.7817
+2016-01-01,Health care and social assistance [62],44.2,0.2268
+2017-01-01,Health care and social assistance [62],43.9,-0.6787
+2018-01-01,Health care and social assistance [62],43.9,0.0
+2019-01-01,Health care and social assistance [62],44.1,0.4556
+2020-01-01,Health care and social assistance [62],45.0,2.0408
+2021-01-01,Health care and social assistance [62],43.2,-4.0
+2022-01-01,Health care and social assistance [62],43.2,0.0
+2023-01-01,Health care and social assistance [62],42.7,-1.1574
+2024-01-01,Health care and social assistance [62],42.6,-0.2342
+2025-01-01,Health care and social assistance [62],42.9,0.7042
+2011-01-01,Information and cultural industries [51],89.3,
+2012-01-01,Information and cultural industries [51],88.7,-0.6719
+2013-01-01,Information and cultural industries [51],91.1,2.7057
+2014-01-01,Information and cultural industries [51],95.9,5.2689
+2015-01-01,Information and cultural industries [51],95.1,-0.8342
+2016-01-01,Information and cultural industries [51],93.0,-2.2082
+2017-01-01,Information and cultural industries [51],93.7,0.7527
+2018-01-01,Information and cultural industries [51],94.6,0.9605
+2019-01-01,Information and cultural industries [51],96.7,2.2199
+2020-01-01,Information and cultural industries [51],103.6,7.1355
+2021-01-01,Information and cultural industries [51],98.0,-5.4054
+2022-01-01,Information and cultural industries [51],99.4,1.4286
+2023-01-01,Information and cultural industries [51],104.1,4.7284
+2024-01-01,Information and cultural industries [51],108.1,3.8425
+2025-01-01,Information and cultural industries [51],112.8,4.3478
+2011-01-01,Management of companies and enterprises [55],40.2,
+2012-01-01,Management of companies and enterprises [55],39.0,-2.9851
+2013-01-01,Management of companies and enterprises [55],41.6,6.6667
+2014-01-01,Management of companies and enterprises [55],42.2,1.4423
+2015-01-01,Management of companies and enterprises [55],43.4,2.8436
+2016-01-01,Management of companies and enterprises [55],43.4,0.0
+2017-01-01,Management of companies and enterprises [55],50.7,16.8203
+2018-01-01,Management of companies and enterprises [55],51.7,1.9724
+2019-01-01,Management of companies and enterprises [55],51.2,-0.9671
+2020-01-01,Management of companies and enterprises [55],51.0,-0.3906
+2021-01-01,Management of companies and enterprises [55],48.6,-4.7059
+2022-01-01,Management of companies and enterprises [55],33.9,-30.2469
+2023-01-01,Management of companies and enterprises [55],31.0,-8.5546
+2024-01-01,Management of companies and enterprises [55],22.4,-27.7419
+2025-01-01,Management of companies and enterprises [55],18.0,-19.6429
+2011-01-01,Manufacturing [31-33],63.1,
+2012-01-01,Manufacturing [31-33],64.0,1.4263
+2013-01-01,Manufacturing [31-33],64.8,1.25
+2014-01-01,Manufacturing [31-33],67.1,3.5494
+2015-01-01,Manufacturing [31-33],67.0,-0.149
+2016-01-01,Manufacturing [31-33],66.9,-0.1493
+2017-01-01,Manufacturing [31-33],67.2,0.4484
+2018-01-01,Manufacturing [31-33],67.3,0.1488
+2019-01-01,Manufacturing [31-33],67.5,0.2972
+2020-01-01,Manufacturing [31-33],69.9,3.5556
+2021-01-01,Manufacturing [31-33],69.0,-1.2876
+2022-01-01,Manufacturing [31-33],68.0,-1.4493
+2023-01-01,Manufacturing [31-33],68.5,0.7353
+2024-01-01,Manufacturing [31-33],65.5,-4.3796
+2025-01-01,Manufacturing [31-33],64.7,-1.2214
+2011-01-01,"Mining, quarrying, and oil and gas extraction [21]",158.0,
+2012-01-01,"Mining, quarrying, and oil and gas extraction [21]",146.1,-7.5316
+2013-01-01,"Mining, quarrying, and oil and gas extraction [21]",147.3,0.8214
+2014-01-01,"Mining, quarrying, and oil and gas extraction [21]",164.5,11.6768
+2015-01-01,"Mining, quarrying, and oil and gas extraction [21]",188.9,14.8328
+2016-01-01,"Mining, quarrying, and oil and gas extraction [21]",210.1,11.2229
+2017-01-01,"Mining, quarrying, and oil and gas extraction [21]",205.5,-2.1894
+2018-01-01,"Mining, quarrying, and oil and gas extraction [21]",198.9,-3.2117
+2019-01-01,"Mining, quarrying, and oil and gas extraction [21]",198.5,-0.2011
+2020-01-01,"Mining, quarrying, and oil and gas extraction [21]",215.6,8.6146
+2021-01-01,"Mining, quarrying, and oil and gas extraction [21]",205.4,-4.731
+2022-01-01,"Mining, quarrying, and oil and gas extraction [21]",191.1,-6.962
+2023-01-01,"Mining, quarrying, and oil and gas extraction [21]",195.4,2.2501
+2024-01-01,"Mining, quarrying, and oil and gas extraction [21]",194.2,-0.6141
+2025-01-01,"Mining, quarrying, and oil and gas extraction [21]",194.4,0.103
+2011-01-01,Other services (except public administration) [81],25.6,
+2012-01-01,Other services (except public administration) [81],25.3,-1.1719
+2013-01-01,Other services (except public administration) [81],25.8,1.9763
+2014-01-01,Other services (except public administration) [81],26.8,3.876
+2015-01-01,Other services (except public administration) [81],26.9,0.3731
+2016-01-01,Other services (except public administration) [81],26.7,-0.7435
+2017-01-01,Other services (except public administration) [81],27.4,2.6217
+2018-01-01,Other services (except public administration) [81],27.5,0.365
+2019-01-01,Other services (except public administration) [81],28.0,1.8182
+2020-01-01,Other services (except public administration) [81],31.2,11.4286
+2021-01-01,Other services (except public administration) [81],31.6,1.2821
+2022-01-01,Other services (except public administration) [81],31.2,-1.2658
+2023-01-01,Other services (except public administration) [81],30.1,-3.5256
+2024-01-01,Other services (except public administration) [81],29.7,-1.3289
+2025-01-01,Other services (except public administration) [81],28.9,-2.6936
+2011-01-01,"Professional, scientific and technical services [54]",53.6,
+2012-01-01,"Professional, scientific and technical services [54]",54.6,1.8657
+2013-01-01,"Professional, scientific and technical services [54]",54.9,0.5495
+2014-01-01,"Professional, scientific and technical services [54]",57.6,4.918
+2015-01-01,"Professional, scientific and technical services [54]",56.0,-2.7778
+2016-01-01,"Professional, scientific and technical services [54]",56.5,0.8929
+2017-01-01,"Professional, scientific and technical services [54]",56.7,0.354
+2018-01-01,"Professional, scientific and technical services [54]",57.0,0.5291
+2019-01-01,"Professional, scientific and technical services [54]",57.7,1.2281
+2020-01-01,"Professional, scientific and technical services [54]",61.0,5.7192
+2021-01-01,"Professional, scientific and technical services [54]",57.5,-5.7377
+2022-01-01,"Professional, scientific and technical services [54]",59.0,2.6087
+2023-01-01,"Professional, scientific and technical services [54]",58.5,-0.8475
+2024-01-01,"Professional, scientific and technical services [54]",59.5,1.7094
+2025-01-01,"Professional, scientific and technical services [54]",59.6,0.1681
+2011-01-01,Public administration [91],71.9,
+2012-01-01,Public administration [91],73.2,1.8081
+2013-01-01,Public administration [91],73.6,0.5464
+2014-01-01,Public administration [91],73.3,-0.4076
+2015-01-01,Public administration [91],73.4,0.1364
+2016-01-01,Public administration [91],73.2,-0.2725
+2017-01-01,Public administration [91],73.7,0.6831
+2018-01-01,Public administration [91],73.8,0.1357
+2019-01-01,Public administration [91],73.4,-0.542
+2020-01-01,Public administration [91],74.8,1.9074
+2021-01-01,Public administration [91],74.6,-0.2674
+2022-01-01,Public administration [91],73.8,-1.0724
+2023-01-01,Public administration [91],72.5,-1.7615
+2024-01-01,Public administration [91],71.5,-1.3793
+2025-01-01,Public administration [91],75.6,5.7343
+2011-01-01,Real estate and rental and leasing [53],360.0,
+2012-01-01,Real estate and rental and leasing [53],350.6,-2.6111
+2013-01-01,Real estate and rental and leasing [53],369.4,5.3622
+2014-01-01,Real estate and rental and leasing [53],390.4,5.6849
+2015-01-01,Real estate and rental and leasing [53],382.0,-2.1516
+2016-01-01,Real estate and rental and leasing [53],389.5,1.9634
+2017-01-01,Real estate and rental and leasing [53],387.8,-0.4365
+2018-01-01,Real estate and rental and leasing [53],390.4,0.6704
+2019-01-01,Real estate and rental and leasing [53],379.0,-2.9201
+2020-01-01,Real estate and rental and leasing [53],468.2,23.5356
+2021-01-01,Real estate and rental and leasing [53],427.0,-8.7997
+2022-01-01,Real estate and rental and leasing [53],408.5,-4.3326
+2023-01-01,Real estate and rental and leasing [53],408.8,0.0734
+2024-01-01,Real estate and rental and leasing [53],416.7,1.9325
+2025-01-01,Real estate and rental and leasing [53],425.5,2.1118
+2011-01-01,Retail trade (except cannabis) [4AA],29.3,
+2012-01-01,Retail trade (except cannabis) [4AA],29.1,-0.6826
+2013-01-01,Retail trade (except cannabis) [4AA],30.0,3.0928
+2014-01-01,Retail trade (except cannabis) [4AA],30.5,1.6667
+2015-01-01,Retail trade (except cannabis) [4AA],30.3,-0.6557
+2016-01-01,Retail trade (except cannabis) [4AA],30.9,1.9802
+2017-01-01,Retail trade (except cannabis) [4AA],31.3,1.2945
+2018-01-01,Retail trade (except cannabis) [4AA],32.2,2.8754
+2019-01-01,Retail trade (except cannabis) [4AA],32.7,1.5528
+2020-01-01,Retail trade (except cannabis) [4AA],35.4,8.2569
+2021-01-01,Retail trade (except cannabis) [4AA],35.0,-1.1299
+2022-01-01,Retail trade (except cannabis) [4AA],35.4,1.1429
+2023-01-01,Retail trade (except cannabis) [4AA],36.2,2.2599
+2024-01-01,Retail trade (except cannabis) [4AA],36.4,0.5525
+2025-01-01,Retail trade (except cannabis) [4AA],37.9,4.1209
+2011-01-01,Retail trade [44-45],28.9,
+2012-01-01,Retail trade [44-45],28.8,-0.346
+2013-01-01,Retail trade [44-45],29.6,2.7778
+2014-01-01,Retail trade [44-45],30.1,1.6892
+2015-01-01,Retail trade [44-45],29.9,-0.6645
+2016-01-01,Retail trade [44-45],30.5,2.0067
+2017-01-01,Retail trade [44-45],30.8,0.9836
+2018-01-01,Retail trade [44-45],31.7,2.9221
+2019-01-01,Retail trade [44-45],32.1,1.2618
+2020-01-01,Retail trade [44-45],34.7,8.0997
+2021-01-01,Retail trade [44-45],34.2,-1.4409
+2022-01-01,Retail trade [44-45],34.7,1.462
+2023-01-01,Retail trade [44-45],35.6,2.5937
+2024-01-01,Retail trade [44-45],35.7,0.2809
+2025-01-01,Retail trade [44-45],37.1,3.9216
+2011-01-01,Services-producing industries [T003],55.3,
+2012-01-01,Services-producing industries [T003],55.6,0.5425
+2013-01-01,Services-producing industries [T003],56.2,1.0791
+2014-01-01,Services-producing industries [T003],57.5,2.3132
+2015-01-01,Services-producing industries [T003],57.5,0.0
+2016-01-01,Services-producing industries [T003],57.7,0.3478
+2017-01-01,Services-producing industries [T003],58.7,1.7331
+2018-01-01,Services-producing industries [T003],58.8,0.1704
+2019-01-01,Services-producing industries [T003],59.4,1.0204
+2020-01-01,Services-producing industries [T003],64.2,8.0808
+2021-01-01,Services-producing industries [T003],62.2,-3.1153
+2022-01-01,Services-producing industries [T003],62.1,-0.1608
+2023-01-01,Services-producing industries [T003],61.8,-0.4831
+2024-01-01,Services-producing industries [T003],61.8,0.0
+2025-01-01,Services-producing industries [T003],62.8,1.6181
+2011-01-01,Transportation and warehousing [48-49],49.1,
+2012-01-01,Transportation and warehousing [48-49],48.6,-1.0183
+2013-01-01,Transportation and warehousing [48-49],49.6,2.0576
+2014-01-01,Transportation and warehousing [48-49],51.6,4.0323
+2015-01-01,Transportation and warehousing [48-49],51.7,0.1938
+2016-01-01,Transportation and warehousing [48-49],52.7,1.9342
+2017-01-01,Transportation and warehousing [48-49],53.7,1.8975
+2018-01-01,Transportation and warehousing [48-49],50.5,-5.959
+2019-01-01,Transportation and warehousing [48-49],50.0,-0.9901
+2020-01-01,Transportation and warehousing [48-49],45.5,-9.0
+2021-01-01,Transportation and warehousing [48-49],44.4,-2.4176
+2022-01-01,Transportation and warehousing [48-49],50.0,12.6126
+2023-01-01,Transportation and warehousing [48-49],50.8,1.6
+2024-01-01,Transportation and warehousing [48-49],51.8,1.9685
+2025-01-01,Transportation and warehousing [48-49],52.1,0.5792
+2011-01-01,Utilities [22],172.0,
+2012-01-01,Utilities [22],184.2,7.093
+2013-01-01,Utilities [22],192.0,4.2345
+2014-01-01,Utilities [22],205.1,6.8229
+2015-01-01,Utilities [22],198.9,-3.0229
+2016-01-01,Utilities [22],206.6,3.8713
+2017-01-01,Utilities [22],206.2,-0.1936
+2018-01-01,Utilities [22],208.8,1.2609
+2019-01-01,Utilities [22],211.0,1.0536
+2020-01-01,Utilities [22],222.6,5.4976
+2021-01-01,Utilities [22],209.8,-5.7502
+2022-01-01,Utilities [22],213.8,1.9066
+2023-01-01,Utilities [22],186.6,-12.7222
+2024-01-01,Utilities [22],180.9,-3.0547
+2025-01-01,Utilities [22],183.1,1.2161
+2011-01-01,Wholesale trade [41],63.2,
+2012-01-01,Wholesale trade [41],63.7,0.7911
+2013-01-01,Wholesale trade [41],66.6,4.5526
+2014-01-01,Wholesale trade [41],68.2,2.4024
+2015-01-01,Wholesale trade [41],67.1,-1.6129
+2016-01-01,Wholesale trade [41],67.1,0.0
+2017-01-01,Wholesale trade [41],67.5,0.5961
+2018-01-01,Wholesale trade [41],66.3,-1.7778
+2019-01-01,Wholesale trade [41],68.3,3.0166
+2020-01-01,Wholesale trade [41],76.1,11.4202
+2021-01-01,Wholesale trade [41],73.7,-3.1537
+2022-01-01,Wholesale trade [41],75.5,2.4423
+2023-01-01,Wholesale trade [41],72.1,-4.5033
+2024-01-01,Wholesale trade [41],72.2,0.1387
+2025-01-01,Wholesale trade [41],73.8,2.2161

@@ -1,0 +1,2 @@
+﻿forecast_horizon_months,holdout_mae,holdout_rmse,selected_model,selection_metric,target,validation_mae,validation_rmse
+1,804813240.0834898,928375472.8636055,SARIMA,RMSE,target_retail_sales_dollars,738611863.3576703,973306166.7939365

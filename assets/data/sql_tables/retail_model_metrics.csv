@@ -1,0 +1,5 @@
+﻿model,mae,rmse,target,forecast_horizon_months,evaluation_period
+SARIMA,738611863.3576703,973306166.7939365,target_retail_sales_dollars,1,validation
+Ridge Regression,1146418503.695835,1392434467.8930132,target_retail_sales_dollars,1,validation
+ETS,1546390855.038386,1973928549.9964874,target_retail_sales_dollars,1,validation
+Seasonal Naive,2288656055.5555553,2548943875.254863,target_retail_sales_dollars,1,validation
