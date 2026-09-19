@@ -490,42 +490,6 @@ The assistant retrieves project evidence through controlled API
 endpoints before generating an answer. This keeps the language-model
 layer separate from direct database access.
 
-## Repository Structure
-
-``` text
-canadian-economic-intelligence-platform/
-|
-|-- assets/
-|   |-- css/
-|   |-- data/
-|   |-- icons/
-|   |-- images/
-|   `-- js/
-|
-|-- azure_function_api/
-|   |-- function_app.py
-|   |-- host.json
-|   `-- requirements.txt
-|
-|-- pages/
-|   |-- about.html
-|   |-- analytics.html
-|   |-- architecture.html
-|   |-- pipeline.html
-|   `-- powerbi.html
-|
-|-- streamlit_app/
-|   |-- app.py
-|   `-- requirements.txt
-|
-|-- index.html
-`-- README.md
-```
-
-Local development files, virtual environments, secrets, and Azure
-Function local settings are intentionally excluded from the public
-repository.
-
 ## Project Scope and Limitations
 
 This is a portfolio implementation rather than a production government
