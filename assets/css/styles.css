@@ -2116,6 +2116,10 @@ button:focus-visible {
     margin-bottom: var(--space-large);
 }
 
+.pipeline-evidence-heading .section-description {
+    max-width: 760px;
+}
+
 .pipeline-evidence-figure {
     margin: 0;
 }
